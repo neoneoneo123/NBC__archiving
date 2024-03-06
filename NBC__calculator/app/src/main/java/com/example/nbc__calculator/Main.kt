@@ -1,6 +1,6 @@
 package com.example.mycalculator
 
-fun main() { //
+fun main() {
 //    var left: Double = 0.0
 //    var right: Double = 0.0
     var input: Int = 0

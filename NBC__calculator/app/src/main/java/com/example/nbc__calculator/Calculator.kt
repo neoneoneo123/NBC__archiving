@@ -6,7 +6,6 @@ class Calculator {
 
     init {
         //println("계산기 생성자 실행")
-        //
     }
 
     fun addition () {
