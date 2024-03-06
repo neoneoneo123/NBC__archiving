@@ -2,11 +2,11 @@ package com.example.nbc__calculator
 
 fun main() {
     var input: Int = 0
-    var cal1 = Calculator()
     var addition = AddOperation()
     var substraction = SubstractOperation()
     var multiplication = MultiplyOperation()
     var division = DivideOperation()
+    var modulo = ModuloOperation()
 
     // 계산기 소개
     println("계산기 app을 실행합니다.")
@@ -36,7 +36,7 @@ fun main() {
                 division.operation()
             }
             5 -> {
-                cal1.mod()
+                modulo.operation()
             }
             -1 -> {
                 println("계산기를 종료합니다.")
@@ -55,4 +55,5 @@ fun displayMenu() {
     println("[5] 나머지")
     println("[-1] 계산기 종료")
     println("원하는 메뉴를 입력해주세요.")
+    print(">")
 }
