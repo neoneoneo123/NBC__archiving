@@ -1,10 +1,12 @@
-package com.example.mycalculator
+package com.example.nbc__calculator
 
 fun main() {
-//    var left: Double = 0.0
-//    var right: Double = 0.0
     var input: Int = 0
     var cal1 = Calculator()
+    var addition = AddOperation()
+    var substraction = SubstractOperation()
+    var multiplication = MultiplyOperation()
+    var division = DivideOperation()
 
     // 계산기 소개
     println("계산기 app을 실행합니다.")
@@ -15,7 +17,6 @@ fun main() {
     println("================================")
     println("")
 
-
     while (input != -1) {
         //메뉴 안내 및 선택
         displayMenu()
@@ -23,16 +24,16 @@ fun main() {
 
         when (input) {
             1 -> {
-                cal1.addition()
+                addition.operation()
             }
             2 -> {
-                cal1.subtraction()
+                substraction.operation()
             }
             3 -> {
-                cal1.multiplication()
+                multiplication.operation()
             }
             4 -> {
-                cal1.division()
+                division.operation()
             }
             5 -> {
                 cal1.mod()
@@ -43,7 +44,6 @@ fun main() {
             }
         }
     }
-
 }
 
 fun displayMenu() {
