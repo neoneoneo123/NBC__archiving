@@ -7,6 +7,7 @@ fun main() {
     var multiplication = MultiplyOperation()
     var division = DivideOperation()
     var modulo = ModuloOperation()
+    var free = FreeOperation()
 
     // 계산기 소개
     println("계산기 app을 실행합니다.")
@@ -38,6 +39,9 @@ fun main() {
             5 -> {
                 modulo.operation()
             }
+            9 -> {
+                free.operation()
+            }
             -1 -> {
                 println("계산기를 종료합니다.")
                 break
@@ -53,6 +57,7 @@ fun displayMenu() {
     println("[3] 곱하기")
     println("[4] 나누기")
     println("[5] 나머지")
+    println("[9] 자유 계산 모드")
     println("[-1] 계산기 종료")
     println("원하는 메뉴를 입력해주세요.")
     print(">")
