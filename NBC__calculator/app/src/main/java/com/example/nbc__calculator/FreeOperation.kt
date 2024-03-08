@@ -118,7 +118,6 @@ class FreeOperation: AbstractOperation() {
     override fun operation() {
         println("자유 연산 모드를 선택하셨습니다.")
         println("숫자, 연산자를 동시에 입력할 수 있습니다.")
-        println("숫자는 한 자리 수만을 지원합니다.")
         println("나머지(mod) 연산은 지원하지 않습니다.")
         println("입력되는 숫자는 정수여야 합니다..")
         println("예시 1) 2+4*3.")
@@ -126,7 +125,7 @@ class FreeOperation: AbstractOperation() {
         println("계산식을 입력해주세요.")
         print(">")
         this.freeText = readLine()!!.toString()
-        
+
         println("=========== 계산 결과 ============")
         println(exchangePostFix(freeText))
         println("")
