@@ -46,6 +46,9 @@ fun main() {
                 println("계산기를 종료합니다.")
                 break
             }
+            else -> {
+                println("메뉴를 다시 선택해주세요.")
+            }
         }
     }
 }

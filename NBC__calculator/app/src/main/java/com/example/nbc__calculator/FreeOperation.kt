@@ -4,7 +4,6 @@ import java.util.Stack
 import kotlin.text.StringBuilder
 
 class FreeOperation: AbstractOperation() {
-
     fun getPriority(operator: Char): Int {
         return when (operator) {
             '+', '-' -> 1
@@ -17,27 +16,29 @@ class FreeOperation: AbstractOperation() {
         var result = 0.0
         var stack = Stack<Double>()
 
-        postfixText.forEach {
+        //공백을 기준으로 데이터를 배열에 저장해두기
+        var splitPostFix = postfixText.split(' ')
+
+        splitPostFix.forEach {
             when {
-                it.isDigit() -> stack.push(it.toString().toDouble())
-                it == '+' -> stack.push(stack.pop() + stack.pop())
-                it == '-' -> {
+                it == "+" -> stack.push(stack.pop() + stack.pop())
+                it == "-" -> {
                     val op2 = stack.pop()
                     val op1 = stack.pop()
                     stack.push(op1 - op2)
                 }
-                it == '*' -> stack.push(stack.pop() * stack.pop())
-                it == '/' -> {
+                it == "*" -> stack.push(stack.pop() * stack.pop())
+                it == "/" -> {
                     val op2 = stack.pop()
                     val op1 = stack.pop()
                     stack.push(op1 / op2)
                 }
+                else -> {
+                    stack.push(it.toString().toDouble())
+                }
             }
         }
-
-        result = stack.pop()
-        println(result)
-
+        result = stack.pop() //후위계산식 결과
         return result
     }
 
@@ -49,102 +50,69 @@ class FreeOperation: AbstractOperation() {
 
         if (infixText.isNotEmpty()) {
 
-//            for (i in 0 .. infixText.length - 1) {
-//                when {
-//                    //피연산자 저장 파트
-//                    infixText[i].isLetterOrDigit() -> {
-//
-//                        //두 자리 수 이상의 연속된 숫자 처리를 위한 임시 변수
-//                        var numberBuilder = StringBuilder()
-//
-//                        if (infixText[i].isDigit()) {
-//                            numberBuilder.append(infixText[i])
-//
-//                            //다음 문자가 숫자인 경우도 처리함
-//                            var nextIndex = infixText.indexOf(infixText[i]) + 1
-//                            while (nextIndex < infixText.length && infixText[nextIndex].isDigit()) {
-//                                numberBuilder.append(infixText[nextIndex])
-//                                numberBuilder.append(' ')
-//                                nextIndex++
-//                            }
-//                            if (numberBuilder.isNotEmpty()) {
-//                                output.append(numberBuilder.toString())
-//                            } else {
-//                                output.append(infixText[i])
-//                            }
-//                        }
-//                    }
-//
-//                    //연산자 저장 파트
-//                    infixText[i] == '(' -> operators.push(infixText[i])
-//                    infixText[i] == ')' -> {
-//
-//                    }
-//                }
-//            }
-
-            infixText.forEach {
+            var i = 0
+            while (i < infixText.length) {
+                var accCount = 0
                 when {
-                    //피연산자 저장
-                    it.isLetterOrDigit() -> output.append(it)
+                    //숫자 저장 파트
+                    infixText[i].isLetterOrDigit() -> {
+                        var numberBuiler = StringBuilder()
+                        var nextIndex = i + 1
+                        if (nextIndex < infixText.length && infixText[nextIndex].isDigit()) { //다음이 숫자면
+                            accCount = nextIndex - 1
+                            while (accCount < infixText.length && infixText[accCount].isDigit()) { //다음이 숫자가 아닐 때까지
+                                numberBuiler.append(infixText[accCount])
+                                accCount++
+                            }
+                            if (numberBuiler.isNotEmpty()) {
+                                numberBuiler.append(' ')
+                                output.append(numberBuiler.toString())
+                            }
+                            i += (accCount - i)
+                            continue
+                        } else { //다음이 숫자가 아니면
+                            numberBuiler.append(infixText[i])
 
-//                    it.isLetterOrDigit() -> {
-//
-//                        //두 자리 수 이상의 연속된 숫자들을 하나의 피연산자로 처리하기 위한 스트링빌더
-//                        var numberBuilder = StringBuilder()
-//
-//                        if (it.isDigit()) {
-//                            numberBuilder.append(it)
-//
-//                            //다음 문자가 숫자인 경우도 처리함
-//                            var nextIndex = infixText.indexOf(it) + 1
-//                            while (nextIndex < infixText.length && infixText[nextIndex].isDigit()) {
-//                                numberBuilder.append(infixText[nextIndex])
-//                                numberBuilder.append(' ')
-//                                nextIndex++
-//                            }
-//
-//                            if (numberBuilder.isNotEmpty()) {
-//                                output.append(numberBuilder.toString())
-//                            } else {
-//                                output.append(it)
-//                            }
-//
-//                            if ((nextIndex-1) < infixText.length && infixText[nextIndex-1].isDigit()) {
-//                                return@forEach
-//                            }
-//                        }
-//                    }
+                            if (numberBuiler.isNotEmpty()) {
+                                numberBuiler.append(' ')
+                                output.append(numberBuiler.toString())
+                            }
+                        }
+                    }
 
-                    //() 괄호 저장해뒀다가 제거
-                    it == '(' -> operators.push(it)
-                    it == ')' -> {
+                    //연산자 저장 파트
+                    //괄호 처리
+                    infixText[i] == '(' -> operators.push(infixText[i])
+                    infixText[i] == ')' -> {
                         while (operators.isNotEmpty() && operators.peek() != '(') {
                             output.append(operators.pop())
+                            output.append(' ')
                         }
-                        operators.pop() // '(' 제거
+                        operators.pop() //'(' 제거
                     }
-                    //연산자인 경우
+                    //괄호 외 연산자 처리
                     else -> {
-                        //스택에서 우선순위가 높거나 같은 연산자들을 pop하여 output에 저장 후, 현재 연산자를 스택에 push
-                        while (operators.isNotEmpty() && getPriority(operators.peek()) >= getPriority(it)) {
+                        //스택에서 우선순위가 높거나 같은 연산자들을 pop하여 저장 후, 현재 연산자를 스택에 push
+                        while (operators.isNotEmpty() && getPriority(operators.peek()) >= getPriority(infixText[i])) {
                             output.append(operators.pop())
+                            output.append(' ')
                         }
-                        operators.push(it)
+                        operators.push(infixText[i])
                     }
                 }
+                i++
             }
-            //스택에 남아있는 연산자가 있을 경우 모두 output에 저장
 
+            //스택에 남아있는 연산자가 있을 경우 모두 output에 저장
             while (operators.isNotEmpty()) {
                 output.append(operators.pop())
+                output.append(' ')
             }
 
-            println(output)
-            operationPostfix(output.toString())
+            output.deleteAt(output.lastIndex) //후위계산식의 맨 마지막 공백 제거
+            postFixText = (output.toString())
         }
-
-        return postFixText
+        return operationPostfix(postFixText).toString()
     }
 
     override fun operation() {
@@ -154,20 +122,14 @@ class FreeOperation: AbstractOperation() {
         println("나머지(mod) 연산은 지원하지 않습니다.")
         println("입력되는 숫자는 정수여야 합니다..")
         println("예시 1) 2+4*3.")
-        println("예시 2) 10/(2+3).")
-//        println("예시 3) (5-1)/2.")
+        println("예시 2) 80*(200+300).")
         println("계산식을 입력해주세요.")
         print(">")
         this.freeText = readLine()!!.toString()
-
-        var tempText = freeText
-//        var tempText = "2*(2+3)"
-
-        //후위계산식으로 변환하여 계산
-
-
+        
         println("=========== 계산 결과 ============")
-        println(exchangePostFix(tempText))
+        println(exchangePostFix(freeText))
         println("")
+
     }
 }
