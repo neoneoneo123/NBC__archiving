@@ -1,19 +1,19 @@
 package com.example.studykotlin
 
 class Archer : Characters {
-    var name:String = ""
-    var age:Int = 0
-    var gender:String = ""
-    var money:Int = 0
-    var hp:Int = 0
+    var name:String //="" 로 초기화 하지 않음. 생성자가 있어서 객체가 만들어질 때 초기화 되기 때문임
+    var age:Int
+    var gender:String
+    var money:Int
+    var hp:Int
 
     constructor(_name:String, _age:Int, _gender:String, _money:Int, _hp:Int) {
-        println("${name}궁수 생성")
         name = _name
         age = _age
         gender = _gender
         money = _money
         hp = _hp
+        println("${name}궁수 생성")
     }
 
     override fun attack() {

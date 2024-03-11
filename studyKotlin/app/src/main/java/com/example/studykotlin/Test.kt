@@ -7,7 +7,7 @@ fun main() {
     magicanOne.fireBall()
 }
 
-class Character {
+open class Character {
     var name:String = ""
     var hairColor:String = ""
     var height:Double = 0.0
@@ -24,7 +24,7 @@ class Character {
         height = _height
     }
 
-    fun fireBall() {
+    open fun fireBall() {
         println("파이어볼!")
     }
 
