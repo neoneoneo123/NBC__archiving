@@ -1,9 +1,10 @@
 package com.example.nbc__kiosk
 
 import com.example.nbc__kiosk_rev2.DessertMenu
+import com.example.nbc__kiosk_rev2.MainMenu
 import com.example.nbc__kiosk_rev2.RecommendMenu
 
-var input: Int = 0
+var mainMenu = MainMenu()
 var recommend = RecommendMenu()
 var dessert = DessertMenu()
 
@@ -14,8 +15,9 @@ fun main() {
     println("안녕하세요! 롯데리아 입니다.")
     println("================================")
 
+    var input: Int = 0
     while (input != -1) {
-        when (displayMenu()) {
+        when (mainMenu.displayMenu()) {
             1 -> {
                 recommend.displaySubMenuRecommend()
             }
@@ -33,16 +35,7 @@ fun main() {
     }
 }
 
-fun displayMenu(): Int {
-    println("============= 메뉴 ==============")
-    println("[1] 추천 메뉴")
-    println("[2] 디저트")
-    println("[-1] 키오스크 종료")
-    println("원하는 메뉴를 입력해주세요.")
-    print(">")
 
-    return readLine()!!.toInt()
-}
 
 
 
