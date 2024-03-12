@@ -1,5 +1,7 @@
 package com.example.studykotlin
 
+
+
 fun main() {
     val worldName = "스코월드"
 
@@ -19,7 +21,7 @@ fun main() {
     var isAgePass = true
     var isJobPass = true
 
-    var names = arrayOf("참새", "꿩", "비둘기")
+    var names = mutableListOf("참새", "꿩", "비둘기")
     for(name in names) {
         if(myName == name) {
             println("중복된 이름이 존재합니다.")
@@ -39,6 +41,7 @@ fun main() {
 
     // 모든 조건을 통과한 경우에만 환영
     if(isNamePass && isAgePass && isJobPass) {
+        names.add(myName)
         displayInfo(worldName, myName, myAge, myJob)
 
         if(myJob == "마법사") {
@@ -46,19 +49,56 @@ fun main() {
             var myMp = inputMyInfo("mp").toString().toInt()
             var myCharacter = Wizard(myName, myAge, myGender, myMoney, myHp, myMp)
 
-            println("던전을 선택해주세요")
-            println("[1] 슬라임동굴, [2] 좀비마을")
-            var selectWorld = inputMyInfo("selectWorld").toString().toInt()
-            selectWorldByWizard(selectWorld, myCharacter)
+            while(true) {
+                println("[1] 슬라임동굴, [2] 좀비마을, [3] 캐쉬샵, [4] 종료")
+                var selectNumber = inputMyInfo("selectNumber").toString().toInt()
 
+                when(selectNumber) {
+                    1 -> {
+                        selectWorld(1, myCharacter)
+                    }
+                    2 -> {
+                        selectWorld(2, myCharacter)
+                    }
+                    3 -> {
+                        openCashShop(myCharacter)
+                    }
+                    4 -> {
+                        println("게임 종료")
+                        break
+                    }
+                    else -> {
+                        break
+                    }
+                }
+            }
         } else if(myJob == "궁수") {
             println("궁수를 선택했군요")
             var myCharacter = Archer(myName, myAge, myGender, myMoney, myHp)
 
-            println("던전을 선택해주세요")
-            println("[1] 슬라임동굴, [2] 좀비마을")
-            var selectWorld = inputMyInfo("selectWorld").toString().toInt()
-            selectWorldByArcher(selectWorld, myCharacter)
+            while(true) {
+                println("[1] 슬라임동굴, [2] 좀비마을, [3] 캐쉬샵, [4] 종료")
+                var selectNumber = inputMyInfo("selectNumber").toString().toInt()
+
+                when (selectNumber) {
+                    1 -> {
+                        selectWorld(1, myCharacter)
+                    }
+                    2 -> {
+                        selectWorld(2, myCharacter)
+                    }
+                    3 -> {
+                        openCashShop(myCharacter)
+                    }
+                    4 -> {
+                        println("게임 종료")
+                        break
+                    }
+                    else -> {
+                        break
+                    }
+                }
+            }
         }
     }
 }
@@ -72,33 +112,29 @@ fun displayInfo(worldName:String, myName:String, myAge:Int, myJob:String) {
     println("모험을 떠나 볼까요?")
 }
 
-fun selectWorldByArcher(selectWorld:Int, myCharacter: Archer) {
+fun selectWorld(selectWorld: Int, myCharacter: Characters) {
     if(selectWorld == 1) { // 슬라임 던전
-        var slime1 = Slime("초록슬라임", "초록", 30.2, 200, 10)
-        slime1.attack()
-        myCharacter.windArrow()
-
-        slime1.poison()
-
+        if(myCharacter is Archer) {
+            var slime1 = Slime("초록슬라임", "초록", 30.2, 200, 10)
+            slime1.attack()
+            myCharacter.windArrow()
+            slime1.poison()
+        } else if(myCharacter is Wizard) {
+            var slime1 = Slime("파랑슬라임", "파랑", 30.2, 200, 10)
+            slime1.attack()
+            myCharacter.fireBall()
+            slime1.poison()
+        }
     } else if(selectWorld == 2) { // 좀비 던전
-        var zombie1 = Zombie("파랑좀비", "파랑", 142.2, 500, 25)
-        zombie1.virus()
-        myCharacter.windJump("건물1")
-    }
-}
-
-fun selectWorldByWizard(selectWorld:Int, myCharacter: Wizard) {
-    if(selectWorld == 1) { // 슬라임 던전
-        var slime1 = Slime("파랑슬라임", "파랑", 30.2, 200, 10)
-        slime1.attack()
-        myCharacter.attack()
-
-        slime1.poison()
-
-    } else if(selectWorld == 2) { // 좀비 던전
-        var zombie1 = Zombie("파랑좀비", "파랑", 142.2, 500, 25)
-        zombie1.virus()
-        myCharacter.fireBall()
+        if(myCharacter is Archer) {
+            var zombie1 = Zombie("파랑좀비", "파랑", 142.2, 500, 25)
+            zombie1.virus()
+            myCharacter.windJump("건물1")
+        } else if(myCharacter is Wizard) {
+            var zombie1 = Zombie("파랑좀비", "파랑", 142.2, 500, 25)
+            zombie1.virus()
+            myCharacter.teleport(10, 20)
+        }
     }
 }
 
@@ -204,8 +240,33 @@ fun inputMyInfo(type:String): Any? { //잘못 입력해도 잘 돌아갈 수 있
                 }
             }
         }
+        "selectNumber" -> {
+            println("번호를 선택해주세요")
+            while(true) {
+                try {
+                    var selectNumber:String? = readLine()
+                    return selectNumber?.toInt() ?: -1
+                } catch (e:Exception) {
+                    println("번호를 다시 선택해주세요")
+                }
+            }
+        }
         else -> {
             return "no"
         }
+    }
+}
+
+fun openCashShop(characters: Characters) {
+    var cashShop = CashShop.getInstance()
+
+    if(characters is Archer) {
+        println("구매전 무기: ${characters.weapons}")
+        cashShop.purchaseWeapon(characters)
+        println("구매후 무기: ${characters.weapons}")
+    } else if(characters is Wizard) {
+        println("구매전 무기: ${characters.weapons}")
+        cashShop.purchaseWeapon(characters)
+        println("구매후 무기: ${characters.weapons}")
     }
 }

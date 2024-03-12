@@ -1,0 +1,6 @@
+com.example.nbc__kiosk.test.app-core-1.5.0-0 /Users/neo/.gradle/caches/transforms-3/0bc9484f8859b102c4e5d3c1034fcf97/transformed/core-1.5.0/res
+com.example.nbc__kiosk.test.app-annotation-experimental-1.3.0-1 /Users/neo/.gradle/caches/transforms-3/a15eea6a37123494e2e3aee9c81b0d2d/transformed/annotation-experimental-1.3.0/res
+com.example.nbc__kiosk.test.app-androidTest-2 /Users/neo/NBC/NBC__kiosk/app/build/generated/res/resValues/androidTest/debug
+com.example.nbc__kiosk.test.app-mergeDebugAndroidTestResources-3 /Users/neo/NBC/NBC__kiosk/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.example.nbc__kiosk.test.app-mergeDebugAndroidTestResources-4 /Users/neo/NBC/NBC__kiosk/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.example.nbc__kiosk.test.app-debugAndroidTest-5 /Users/neo/NBC/NBC__kiosk/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources
