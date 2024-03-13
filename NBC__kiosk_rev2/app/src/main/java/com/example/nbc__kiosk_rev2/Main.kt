@@ -13,126 +13,148 @@ fun main() {
 
     while(input != -1) {
         displayMenu()
-        input = readLine()!!.toInt()
+        try {
+            input = readLine()!!.toInt()
+            when(input) {
+                1 -> {
+                    burgersList[0].displayInfo()
+                    try {
+                        input2 = readLine()!!.toInt()
+                        println(input2)
+                        when (input2) {
+                            1 -> {
+                                burgersList[input2].displayInfo()
+                            }
+                            2 -> {
+                                burgersList[input2].displayInfo()
+                            }
+                            3 -> {
+                                burgersList[input2].displayInfo()
+                            }
+                            4 -> {
+                                burgersList[input2].displayInfo()
+                            }
+                            5 -> {
+                                burgersList[input2].displayInfo()
+                            }
+                            0 -> {
 
-        when(input) {
-            1 -> {
-                burgersList[0].displayInfo()
-                input2 = readLine()!!.toInt()
-                println(input2)
-                when (input2) {
-                    1 -> {
-                        burgersList[input2].displayInfo()
+                            }
+                            else -> {
+                                println("메뉴를 다시 입력해주세요.")
+                            }
+                        }
+                    } catch (e:java.lang.NumberFormatException) {
+                        println("숫자를 입력해주세요.")
                     }
-                    2 -> {
-                        burgersList[input2].displayInfo()
-                    }
-                    3 -> {
-                        burgersList[input2].displayInfo()
-                    }
-                    4 -> {
-                        burgersList[input2].displayInfo()
-                    }
-                    5 -> {
-                        burgersList[input2].displayInfo()
-                    }
-                    0 -> {
 
-                    }
-                    else -> {
-                        println("메뉴를 다시 입력해주세요.")
+                }
+                2 -> {
+                    custardsList[0].displayInfo()
+                    try {
+                        input2 = readLine()!!.toInt()
+                        println(input2)
+                        when (input2) {
+                            1 -> {
+                                custardsList[input2].displayInfo()
+                            }
+                            2 -> {
+                                custardsList[input2].displayInfo()
+                            }
+                            3 -> {
+                                custardsList[input2].displayInfo()
+                            }
+                            0 -> {
+
+                            }
+                            else -> {
+                                println("메뉴를 다시 입력해주세요.")
+                            }
+                        }
+                    } catch(e:java.lang.NumberFormatException) {
+                        println("숫자를 입력하세요")
                     }
                 }
-            }
-            2 -> {
-                custardsList[0].displayInfo()
-                input2 = readLine()!!.toInt()
-                println(input2)
-                when (input2) {
-                    1 -> {
-                        custardsList[input2].displayInfo()
-                    }
-                    2 -> {
-                        custardsList[input2].displayInfo()
-                    }
-                    3 -> {
-                        custardsList[input2].displayInfo()
-                    }
-                    0 -> {
+                3 -> {
+                    drinksList[0].displayInfo()
+                    try {
+                        input2 = readLine()!!.toInt()
+                        println(input2)
+                        when (input2) {
+                            1 -> {
+                                drinksList[input2].displayInfo()
+                            }
+                            2 -> {
+                                drinksList[input2].displayInfo()
+                            }
+                            3 -> {
+                                drinksList[input2].displayInfo()
+                            }
+                            4 -> {
+                                drinksList[input2].displayInfo()
+                            }
+                            5 -> {
+                                drinksList[input2].displayInfo()
+                            }
+                            6 -> {
+                                drinksList[input2].displayInfo()
+                            }
+                            0 -> {
 
-                    }
-                    else -> {
-                        println("메뉴를 다시 입력해주세요.")
+                            }
+                            else -> {
+                                println("메뉴를 다시 입력해주세요.")
+                            }
+                        }
+                    } catch (e:java.lang.NumberFormatException) {
+                        println("숫자를 입력하세요")
                     }
                 }
-            }
-            3 -> {
-                drinksList[0].displayInfo()
-                input2 = readLine()!!.toInt()
-                println(input2)
-                when (input2) {
-                    1 -> {
-                        drinksList[input2].displayInfo()
-                    }
-                    2 -> {
-                        drinksList[input2].displayInfo()
-                    }
-                    3 -> {
-                        drinksList[input2].displayInfo()
-                    }
-                    4 -> {
-                        drinksList[input2].displayInfo()
-                    }
-                    5 -> {
-                        drinksList[input2].displayInfo()
-                    }
-                    6 -> {
-                        drinksList[input2].displayInfo()
-                    }
-                    0 -> {
+                4 -> {
+                    beersList[0].displayInfo()
+                    try {
+                        input2 = readLine()!!.toInt()
+                        println(input2)
+                        when (input2) {
+                            1 -> {
+                                beersList[input2].displayInfo()
+                            }
+                            2 -> {
+                                beersList[input2].displayInfo()
+                            }
+                            3 -> {
+                                beersList[input2].displayInfo()
+                            }
+                            4 -> {
+                                beersList[input2].displayInfo()
+                            }
+                            5 -> {
+                                beersList[input2].displayInfo()
+                            }
+                            6 -> {
+                                beersList[input2].displayInfo()
+                            }
+                            0 -> {
 
-                    }
-                    else -> {
-                        println("메뉴를 다시 입력해주세요.")
+                            }
+                            else -> {
+                                println("메뉴를 다시 입력해주세요.")
+                            }
+                        }
+                    } catch (e:java.lang.NumberFormatException) {
+                        println("숫자를 입력하세요")
                     }
                 }
-            }
-            4 -> {
-                beersList[0].displayInfo()
-                input2 = readLine()!!.toInt()
-                println(input2)
-                when (input2) {
-                    1 -> {
-                        beersList[input2].displayInfo()
-                    }
-                    2 -> {
-                        beersList[input2].displayInfo()
-                    }
-                    3 -> {
-                        beersList[input2].displayInfo()
-                    }
-                    4 -> {
-                        beersList[input2].displayInfo()
-                    }
-                    5 -> {
-                        beersList[input2].displayInfo()
-                    }
-                    6 -> {
-                        beersList[input2].displayInfo()
-                    }
-                    0 -> {
-
-                    }
-                    else -> {
-                        println("메뉴를 다시 입력해주세요.")
-                    }
+                0 -> {
+                    println("프로그램을 종료합니다.")
+                    return
                 }
             }
-            0 -> {
-                println("프로그램을 종료합니다.")
-                return
-            }
+        } catch (e:java.lang.NumberFormatException) {
+            println("숫자를 입력해주세요.")
         }
+
+
     }
 }
 
