@@ -4,7 +4,11 @@ var input = 0
 var input2 = 0
 
 fun main() {
-    var burgersList = burgerDataInsert()
+    val burgersList = burgerDataInsert()
+    val custardsList = custardDataInsert()
+    val drinksList = drinkDataInsert()
+    val beersList = beerDataInsert()
+
     println("SHAKESHACK BURGER 에 오신걸 환영합니다.")
 
     while(input != -1) {
@@ -18,22 +22,111 @@ fun main() {
                 println(input2)
                 when (input2) {
                     1 -> {
-                        println("init")
-                        burgersList[1].displayInfo()
+                        burgersList[input2].displayInfo()
                     }
                     2 -> {
+                        burgersList[input2].displayInfo()
+                    }
+                    3 -> {
+                        burgersList[input2].displayInfo()
+                    }
+                    4 -> {
+                        burgersList[input2].displayInfo()
+                    }
+                    5 -> {
+                        burgersList[input2].displayInfo()
+                    }
+                    0 -> {
 
+                    }
+                    else -> {
+                        println("메뉴를 다시 입력해주세요.")
                     }
                 }
             }
             2 -> {
+                custardsList[0].displayInfo()
+                input2 = readLine()!!.toInt()
+                println(input2)
+                when (input2) {
+                    1 -> {
+                        custardsList[input2].displayInfo()
+                    }
+                    2 -> {
+                        custardsList[input2].displayInfo()
+                    }
+                    3 -> {
+                        custardsList[input2].displayInfo()
+                    }
+                    0 -> {
 
+                    }
+                    else -> {
+                        println("메뉴를 다시 입력해주세요.")
+                    }
+                }
             }
             3 -> {
+                drinksList[0].displayInfo()
+                input2 = readLine()!!.toInt()
+                println(input2)
+                when (input2) {
+                    1 -> {
+                        drinksList[input2].displayInfo()
+                    }
+                    2 -> {
+                        drinksList[input2].displayInfo()
+                    }
+                    3 -> {
+                        drinksList[input2].displayInfo()
+                    }
+                    4 -> {
+                        drinksList[input2].displayInfo()
+                    }
+                    5 -> {
+                        drinksList[input2].displayInfo()
+                    }
+                    6 -> {
+                        drinksList[input2].displayInfo()
+                    }
+                    0 -> {
 
+                    }
+                    else -> {
+                        println("메뉴를 다시 입력해주세요.")
+                    }
+                }
             }
             4 -> {
+                beersList[0].displayInfo()
+                input2 = readLine()!!.toInt()
+                println(input2)
+                when (input2) {
+                    1 -> {
+                        beersList[input2].displayInfo()
+                    }
+                    2 -> {
+                        beersList[input2].displayInfo()
+                    }
+                    3 -> {
+                        beersList[input2].displayInfo()
+                    }
+                    4 -> {
+                        beersList[input2].displayInfo()
+                    }
+                    5 -> {
+                        beersList[input2].displayInfo()
+                    }
+                    6 -> {
+                        beersList[input2].displayInfo()
+                    }
+                    0 -> {
 
+                    }
+                    else -> {
+                        println("메뉴를 다시 입력해주세요.")
+                    }
+                }
             }
             0 -> {
                 println("프로그램을 종료합니다.")
@@ -49,7 +142,7 @@ fun displayMenu() {
     println("1. Burgers         | 앵거스 비프 통살을 다져만든 버거")
     println("2. Forzen Custard  | 매장에서 신선하게 만드는 아이스크림")
     println("3. Drinks          | 매장에서 직접 만드는 음료")
-    println("4. Beer            | 뉴욕 브루클린 브루어리에서 양조한 맥주")
+    println("4. Beer            | 뉴욕 브루클린 브루어리에서 양조한 맥주와 다양한 맥주")
     println("0. 종료             | 프로그램 종료")
 }
 
@@ -62,6 +155,41 @@ fun burgerDataInsert(): List<Kiosk> {
     val b5 = Hamburger(5, "Ham Burger", 6.9, "비프패티를 기반으로 야채가 들어간 기본버거")
 
     val burgers = listOf(b0, b1, b2, b3, b4, b5)
-
     return burgers
+}
+
+fun custardDataInsert(): List<Kiosk> {
+    val c0 = CustardAll(9998, "all", 0.0, "all")
+    val c1 = ClassicHandSpunShakes(1, "Classic Hand-Spun Shakes", 6.5, "쫀득하고 진한 커스터드가 들어간 클래식 쉐이크")
+    val c2 = Floats(2, "Floats", 6.5, "부드러운 바닐라 커스터드와 톡톡 터지는 탄산이 만나 탄생한 색다른 음료")
+    val c3 = CupAndCones(3, "Cup & Cones", 5.4, "매일 점포에서 신선하게 제조하는 쫀득하고 진한 아이스크림")
+
+    val custards = listOf(c0, c1, c2, c3)
+    return custards
+}
+
+fun drinkDataInsert(): List<Kiosk> {
+    val d0 = DrinkAll(9997, "all", 0.0, "all")
+    val d1 = Lemonade(1, "Lemonade", 4.3, "매장에서 직접 만드는 상큼한 레몬에이드")
+    val d2 = FreshBrewedIcedTea(2, "Fresh Brewed Iced Tea", 3.5, "직접 유기농 홍차를 우려낸 아이스 티")
+    val d3 = Fifty(3, "Fifty", 3.8, "레몬에이드와 유기농 홍차를 우려낸 아이스 티가 만나 탄생한 쉐이크쉑의 시그니처 음료")
+    val d4 = FountainSoda(4, "Fountain Soda", 2.9, "코카콜라, 코카콜라 제로, 스프라이트, 환타 오렌지, 환타 그레이프, 환타 파인애플")
+    val d5 = AbitaRootBeer(5, "Abita Root Beer", 5.4, "청량감 있는 독특한 미국식 무알콜 탄산음료")
+    val d6 = HotTea(5, "Hot Tea", 3.4, "보성 유기농 찻잎을 우려낸 녹차, 홍차, 페퍼민트 & 레몬그라스")
+
+    val drinks = listOf(d0, d1, d2, d3, d4, d5, d6)
+    return drinks
+}
+
+fun beerDataInsert(): List<Kiosk> {
+    val be0 = BeerAll(9996, "all", 0.0, "all")
+    val be1 = ShackMeisterAle(1, "ShackMeister Ale", 9.8, "쉐이스쉑 버거를 위해 뉴욕 브루클린 브루어리에서 특별히 양조한 예일 맥주")
+    val be2 = PaleAle(2, "Pale Ale, Draft", 6.8, "Magpie Brewing Co.")
+    val be3 = Porter(3, "Porter, Draft", 6.8, "Magpie Brewing Co.")
+    val be4 = Wheat(4, "Wheat, Draft", 6.8, "Magpie Brewing Co.")
+    val be5 = IPA(5, "IPA, Can", 6.8, "The Hand and Malt")
+    val be6 = MochaStout(5, "Mocha Stout, Can", 6.8, "The Hand and Malt")
+
+    val beers = listOf(be0, be1, be2, be3, be4, be5, be6)
+    return beers
 }
