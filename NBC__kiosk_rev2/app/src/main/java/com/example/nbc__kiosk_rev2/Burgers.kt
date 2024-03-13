@@ -1,5 +1,11 @@
 package com.example.nbc__kiosk_rev2
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlin.concurrent.thread
+
 class BurgerAll(
     override var id: Int,
     override var name: String,
@@ -54,6 +60,20 @@ class BurgerAll(
                         println("현재 잔액은 ${String.format("%.1f", cash)}W으로 ${String.format("%.1f", insufficientCash)}W이 부족해서 주문할 수 없습니다.")
                     } else {
                         var balanceCash = cash - tempTotalPrice
+
+
+                        //thread 넣어보기
+                        println()
+                        println("주문 접수 중입니다.")
+                        var job = GlobalScope.launch {
+                            delay(3000)
+                            //println("처리 중...")
+                        }
+                        runBlocking {
+                            job.join()
+                        }
+                        println("주문이 완료되었습니다.")
+
                         println()
                         println("현재 잔액은 ${String.format("%.1f", balanceCash)}W 입니다.")
                         cash -= tempTotalPrice
