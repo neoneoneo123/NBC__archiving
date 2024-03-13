@@ -4,6 +4,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Timer
+import java.util.TimerTask
+import java.util.logging.SimpleFormatter
 import kotlin.concurrent.thread
 
 class BurgerAll(
@@ -52,47 +57,75 @@ class BurgerAll(
         try {
             input4 = readLine()!!.toInt()
 
-            when (input4) {
-                1 -> {
-                    if (cash - tempTotalPrice < 0) {
-                        var insufficientCash = -(cash - tempTotalPrice)
+            val timer = Timer()
+            val task = object : TimerTask() {
+                override fun run() {
+                    val currentTime = Date()
+                    val sdf = SimpleDateFormat("HH:mm:ss")
+                    val sdfPrint = SimpleDateFormat("a hh:mm")
+                    val sdfPrintAll = SimpleDateFormat("yyyy-MM-DD HH:mm:ss")
+                    val formattedTime = sdf.format(currentTime)
+                    val formattedTimePrint = sdfPrint.format(currentTime)
+                    val formattedTimePrintAll = sdfPrintAll.format(currentTime)
+
+                    if (formattedTime in "23:10:00".."23:20:00") {
                         println()
-                        println("현재 잔액은 ${String.format("%.1f", cash)}W으로 ${String.format("%.1f", insufficientCash)}W이 부족해서 주문할 수 없습니다.")
+                        println(
+                            "현재는 ${formattedTimePrint} 입니다. \n" +
+                                    "은행 점검 시간은 오후 11:10 ~ 오후 11:20 이므로 결제할 수 없습니다."
+                        )
                     } else {
-                        var balanceCash = cash - tempTotalPrice
+                        when (input4) {
+                            1 -> {
+                                if (cash - tempTotalPrice < 0) {
+                                    var insufficientCash = -(cash - tempTotalPrice)
+                                    println()
+                                    println(
+                                        "현재 잔액은 ${
+                                            String.format(
+                                                "%.1f",
+                                                cash
+                                            )
+                                        }W으로 ${
+                                            String.format(
+                                                "%.1f",
+                                                insufficientCash
+                                            )
+                                        }W이 부족해서 주문할 수 없습니다."
+                                    )
+                                } else {
+                                    var balanceCash = cash - tempTotalPrice
 
+                                    println()
+                                    println("결제가 완료되었습니다.  ${formattedTimePrintAll}")
 
-                        //thread 넣어보기
-                        println()
-                        println("주문 접수 중입니다.")
-                        var job = GlobalScope.launch {
-                            delay(3000)
-                            //println("처리 중...")
+                                    println()
+                                    println("현재 잔액은 ${String.format("%.1f", balanceCash)}W 입니다.")
+                                    cash -= tempTotalPrice
+
+                                    cartList.clear()
+                                }
+                            }
+
+                            2 -> {
+                                println()
+                                println("메뉴판으로 돌아갑니다.")
+                                return
+                            }
+
+                            else -> {
+                                println("메뉴를 다시 입력해주세요.")
+                                print(">")
+                            }
                         }
-                        runBlocking {
-                            job.join()
-                        }
-                        println("주문이 완료되었습니다.")
-
-                        println()
-                        println("현재 잔액은 ${String.format("%.1f", balanceCash)}W 입니다.")
-                        cash -= tempTotalPrice
-
-                        cartList.clear()
                     }
                 }
-
-                2 -> {
-                    println()
-                    println("메뉴판으로 돌아갑니다.")
-                    return
-                }
-
-                else -> {
-                    println("메뉴를 다시 입력해주세요.")
-                    print(">")
-                }
             }
+
+            timer.scheduleAtFixedRate(task, 0, 1000)
+
+            Thread.sleep(10)
+            timer.cancel()
         } catch (e: java.lang.NumberFormatException) {
             println("숫자를 입력해주세요.")
         }
@@ -133,8 +166,19 @@ class BurgerAll(
                         print(">")
                     } else {
                         cartList.removeAt(input5 - 1)
+
                         println()
-                        println("선택하신 메뉴을 장바구니에서 삭제하였습니다.")
+                        println("주문 취소 중입니다.")
+                        var job = GlobalScope.launch {
+                            delay(3000)
+                            //println("처리 중...")
+                        }
+                        runBlocking {
+                            job.join()
+                        }
+
+                        println()
+                        println("선택하신 메뉴을 주문 취소하였습니다.")
                     }
                 }
             }
