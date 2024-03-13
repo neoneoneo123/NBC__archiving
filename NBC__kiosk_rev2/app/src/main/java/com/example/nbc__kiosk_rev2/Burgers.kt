@@ -8,8 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Timer
 import java.util.TimerTask
-import java.util.logging.SimpleFormatter
-import kotlin.concurrent.thread
+
 
 class BurgerAll(
     override var id: Int,
@@ -35,8 +34,8 @@ class BurgerAll(
         var tempTotalPrice = 0.0
 
         println(
-            "\n아래와 같이 주문 하시겠습니까?\n" +
-                    "\n" +
+            "\n아래와 같이 주문 하시겠습니까?  (현재 주문 대기수: ${restWating})" +
+                    "\n\n" +
                     "[ Orders ]"
         )
 
@@ -61,12 +60,9 @@ class BurgerAll(
             val task = object : TimerTask() {
                 override fun run() {
                     val currentTime = Date()
-                    val sdf = SimpleDateFormat("HH:mm:ss")
-                    val sdfPrint = SimpleDateFormat("a hh:mm")
-                    val sdfPrintAll = SimpleDateFormat("yyyy-MM-DD HH:mm:ss")
-                    val formattedTime = sdf.format(currentTime)
-                    val formattedTimePrint = sdfPrint.format(currentTime)
-                    val formattedTimePrintAll = sdfPrintAll.format(currentTime)
+                    val formattedTime = SimpleDateFormat("HH:mm:ss").format(currentTime)
+                    val formattedTimePrint = SimpleDateFormat("a hh:mm").format(currentTime)
+                    val formattedTimePrintAll = SimpleDateFormat("yyyy-MM-DD HH:mm:ss").format(currentTime)
 
                     if (formattedTime in "23:10:00".."23:20:00") {
                         println()

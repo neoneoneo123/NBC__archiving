@@ -1,19 +1,26 @@
 package com.example.nbc__kiosk_rev2
 import java.util.Timer
 import java.util.TimerTask
-import java.util.Date
-import java.text.SimpleDateFormat
+import kotlin.random.Random
 
 var input = 0
 var input2 = 0
 var cartList: MutableList<Kiosk> = mutableListOf()
 var cash = 10.0
+var restWating = 0
 
 fun main() {
     val burgersList = burgerDataInsert()
     val custardsList = custardDataInsert()
     val drinksList = drinkDataInsert()
     val beersList = beerDataInsert()
+
+    val timerWating = Timer()
+    timerWating.scheduleAtFixedRate(object : TimerTask() {
+        override fun run() {
+            restWating = Random.nextInt(11)
+        }
+    }, 0, 5000)
 
     println("SHAKESHACK BURGER 에 오신걸 환영합니다.")
 
