@@ -7,19 +7,118 @@ class BurgerAll(
     override var des: String
 ) : Kiosk() {
     override fun displayInfo() {
-        println("[ Burgers MENU ]\n" +
-                "1. ShackBurger   | W 6.9 | 토마토, 양상추, 쉑소스가 토핑된 치즈버거\n" +
-                "2. SmokeShack    | W 8.9 | 베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거\n" +
-                "3. Shroom Burger | W 9.4 | 몬스터 치즈와 체다 치즈로 속을 채운 베지테리안 버거\n" +
-                "4. Cheeseburger  | W 6.9 | 포테이토 번과 비프패티, 치즈가 토핑된 치즈버거\n" +
-                "5. Hamburger     | W 5.4 | 비프패티를 기반으로 야채가 들어간 기본버거\n" +
-                "0. 뒤로가기        | 뒤로가기"
+        println(
+            "\n[ Burgers MENU ]\n" +
+                    "1. ShackBurger   | W 6.9 | 토마토, 양상추, 쉑소스가 토핑된 치즈버거\n" +
+                    "2. SmokeShack    | W 8.9 | 베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거\n" +
+                    "3. Shroom Burger | W 9.4 | 몬스터 치즈와 체다 치즈로 속을 채운 베지테리안 버거\n" +
+                    "4. Cheeseburger  | W 6.9 | 포테이토 번과 비프패티, 치즈가 토핑된 치즈버거\n" +
+                    "5. Hamburger     | W 5.4 | 비프패티를 기반으로 야채가 들어간 기본버거\n" +
+                    "0. 뒤로가기        | 뒤로가기"
         )
         print(">")
     }
 
     override fun order() {
-        TODO("Not yet implemented")
+        var input4 = 0
+        var tempTotalPrice = 0.0
+
+        println(
+            "\n아래와 같이 주문 하시겠습니까?\n" +
+                    "\n" +
+                    "[ Orders ]"
+        )
+
+        if (cartList.isNotEmpty()) {
+            cartList.forEach {
+                tempTotalPrice += it.price
+                println("${it.name} - ${it.price} - ${it.des}")
+            }
+        }
+
+        println()
+        println("[ Total ]")
+        println("W $tempTotalPrice")
+        println()
+        println("1. 주문      2. 메뉴판")
+        print(">")
+
+        try {
+            input4 = readLine()!!.toInt()
+
+            when (input4) {
+                1 -> {
+                    if (cash - tempTotalPrice < 0) {
+                        println()
+                        println("현재 잔액은 ${cash}W으로 ${-(cash - tempTotalPrice)}W이 부족해서 주문할 수 없습니다.")
+                    } else {
+                        println()
+                        println("현재 잔액은 ${cash - tempTotalPrice}W 입니다.")
+                        cash -= tempTotalPrice
+
+                        cartList.clear()
+                    }
+                }
+
+                2 -> {
+                    println()
+                    println("메뉴판으로 돌아갑니다.")
+                    return
+                }
+
+                else -> {
+                    println("메뉴를 다시 입력해주세요.")
+                    print(">")
+                }
+            }
+        } catch (e: java.lang.NumberFormatException) {
+            println("숫자를 입력해주세요.")
+        }
+    }
+
+    override fun cancel() {
+        var input5 = 0
+
+        println(
+            "\n어떤 주문을 취소 하시겠습니까?\n" +
+                    "\n" +
+                    "[ Orders ]"
+        )
+
+        if (cartList.isNotEmpty()) {
+            var i = 1
+            cartList.forEach {
+                println("${i}. ${it.name} - ${it.price} - ${it.des}")
+                i++
+            }
+        }
+        println("0. 돌아가기")
+        print(">")
+
+        try {
+            input5 = readLine()!!.toInt()
+
+            when (input5) {
+                0 -> {
+                    println()
+                    println("메뉴판으로 돌아갑니다.")
+                    return
+                }
+
+                else -> {
+                    if (input5 > cartList.size) {
+                        println("메뉴를 다시 입력해주세요.")
+                        print(">")
+                    } else {
+                        cartList.removeAt(input5 - 1)
+                        println()
+                        println("선택하신 메뉴을 장바구니에서 삭제하였습니다.")
+                    }
+                }
+            }
+        } catch (e: java.lang.NumberFormatException) {
+            println("숫자를 입력해주세요.")
+        }
     }
 
 }
@@ -33,25 +132,49 @@ class ShackBurger(
     override fun displayInfo() {
         var input3 = 0
 
+        println()
         println("${name} - ${price} - ${des}")
-        println("위 메뉴를 장바구니에 추가하시겠습니까?")
-        println("1. 확인        2. 취소")
-        input3 = readLine()!!.toInt()
+        println()
+        println(
+            "위 메뉴를 장바구니에 추가하시겠습니까?\n" +
+                    "1. 확인        2. 취소"
+        )
+        print(">")
 
-        when (input3) {
-            1 -> {
-                println("메뉴를 장바구니에 추가합니다.")
+        try {
+            input3 = readLine()!!.toInt()
+
+            when (input3) {
+                1 -> {
+                    println()
+                    println("메뉴를 장바구니에 추가합니다.")
+                    cartList.add(this)
+                }
+
+                2 -> {
+                    println()
+                    println("메뉴 담기를 취소합니다.")
+                }
+
+                else -> {
+                    println()
+                    println(
+                        "메뉴를 다시 입력해주세요.\n" +
+                                ">"
+                    )
+                    print(">")
+                }
             }
-            2 -> {
-                println("메뉴 담기를 취소합니다.")
-            }
-            else -> {
-                println("메뉴를 다시 입력해주세요.")
-            }
+        } catch (e: java.lang.NumberFormatException) {
+            println("숫자를 입력해주세요.")
         }
     }
 
     override fun order() {
+
+    }
+
+    override fun cancel() {
         TODO("Not yet implemented")
     }
 }
@@ -65,25 +188,49 @@ class SmokeShack(
     override fun displayInfo() {
         var input3 = 0
 
+        println()
         println("${name} - ${price} - ${des}")
-        println("위 메뉴를 장바구니에 추가하시겠습니까?")
-        println("1. 확인        2. 취소")
-        input3 = readLine()!!.toInt()
+        println()
+        println(
+            "위 메뉴를 장바구니에 추가하시겠습니까?\n" +
+                    "1. 확인        2. 취소"
+        )
+        print(">")
 
-        when (input3) {
-            1 -> {
-                println("메뉴를 장바구니에 추가합니다.")
+        try {
+            input3 = readLine()!!.toInt()
+
+            when (input3) {
+                1 -> {
+                    println()
+                    println("메뉴를 장바구니에 추가합니다.")
+                    cartList.add(this)
+                }
+
+                2 -> {
+                    println()
+                    println("메뉴 담기를 취소합니다.")
+                }
+
+                else -> {
+                    println()
+                    println(
+                        "메뉴를 다시 입력해주세요.\n" +
+                                ">"
+                    )
+                    print(">")
+                }
             }
-            2 -> {
-                println("메뉴 담기를 취소합니다.")
-            }
-            else -> {
-                println("메뉴를 다시 입력해주세요.")
-            }
+        } catch (e: java.lang.NumberFormatException) {
+            println("숫자를 입력해주세요.")
         }
     }
 
     override fun order() {
+        TODO("Not yet implemented")
+    }
+
+    override fun cancel() {
         TODO("Not yet implemented")
     }
 }
@@ -97,25 +244,49 @@ class ShroomBurger(
     override fun displayInfo() {
         var input3 = 0
 
+        println()
         println("${name} - ${price} - ${des}")
-        println("위 메뉴를 장바구니에 추가하시겠습니까?")
-        println("1. 확인        2. 취소")
-        input3 = readLine()!!.toInt()
+        println()
+        println(
+            "위 메뉴를 장바구니에 추가하시겠습니까?\n" +
+                    "1. 확인        2. 취소"
+        )
+        print(">")
 
-        when (input3) {
-            1 -> {
-                println("메뉴를 장바구니에 추가합니다.")
+        try {
+            input3 = readLine()!!.toInt()
+
+            when (input3) {
+                1 -> {
+                    println()
+                    println("메뉴를 장바구니에 추가합니다.")
+                    cartList.add(this)
+                }
+
+                2 -> {
+                    println()
+                    println("메뉴 담기를 취소합니다.")
+                }
+
+                else -> {
+                    println()
+                    println(
+                        "메뉴를 다시 입력해주세요.\n" +
+                                ">"
+                    )
+                    print(">")
+                }
             }
-            2 -> {
-                println("메뉴 담기를 취소합니다.")
-            }
-            else -> {
-                println("메뉴를 다시 입력해주세요.")
-            }
+        } catch (e: java.lang.NumberFormatException) {
+            println("숫자를 입력해주세요.")
         }
     }
 
     override fun order() {
+        TODO("Not yet implemented")
+    }
+
+    override fun cancel() {
         TODO("Not yet implemented")
     }
 }
@@ -129,25 +300,49 @@ class Cheeseburger(
     override fun displayInfo() {
         var input3 = 0
 
+        println()
         println("${name} - ${price} - ${des}")
-        println("위 메뉴를 장바구니에 추가하시겠습니까?")
-        println("1. 확인        2. 취소")
-        input3 = readLine()!!.toInt()
+        println()
+        println(
+            "위 메뉴를 장바구니에 추가하시겠습니까?\n" +
+                    "1. 확인        2. 취소"
+        )
+        print(">")
 
-        when (input3) {
-            1 -> {
-                println("메뉴를 장바구니에 추가합니다.")
+        try {
+            input3 = readLine()!!.toInt()
+
+            when (input3) {
+                1 -> {
+                    println()
+                    println("메뉴를 장바구니에 추가합니다.")
+                    cartList.add(this)
+                }
+
+                2 -> {
+                    println()
+                    println("메뉴 담기를 취소합니다.")
+                }
+
+                else -> {
+                    println()
+                    println(
+                        "메뉴를 다시 입력해주세요.\n" +
+                                ">"
+                    )
+                    print(">")
+                }
             }
-            2 -> {
-                println("메뉴 담기를 취소합니다.")
-            }
-            else -> {
-                println("메뉴를 다시 입력해주세요.")
-            }
+        } catch (e: java.lang.NumberFormatException) {
+            println("숫자를 입력해주세요.")
         }
     }
 
     override fun order() {
+        TODO("Not yet implemented")
+    }
+
+    override fun cancel() {
         TODO("Not yet implemented")
     }
 }
@@ -161,25 +356,49 @@ class Hamburger(
     override fun displayInfo() {
         var input3 = 0
 
+        println()
         println("${name} - ${price} - ${des}")
-        println("위 메뉴를 장바구니에 추가하시겠습니까?")
-        println("1. 확인        2. 취소")
-        input3 = readLine()!!.toInt()
+        println()
+        println(
+            "위 메뉴를 장바구니에 추가하시겠습니까?\n" +
+                    "1. 확인        2. 취소"
+        )
+        print(">")
 
-        when (input3) {
-            1 -> {
-                println("메뉴를 장바구니에 추가합니다.")
+        try {
+            input3 = readLine()!!.toInt()
+
+            when (input3) {
+                1 -> {
+                    println()
+                    println("메뉴를 장바구니에 추가합니다.")
+                    cartList.add(this)
+                }
+
+                2 -> {
+                    println()
+                    println("메뉴 담기를 취소합니다.")
+                }
+
+                else -> {
+                    println()
+                    println(
+                        "메뉴를 다시 입력해주세요.\n" +
+                                ">"
+                    )
+                    print(">")
+                }
             }
-            2 -> {
-                println("메뉴 담기를 취소합니다.")
-            }
-            else -> {
-                println("메뉴를 다시 입력해주세요.")
-            }
+        } catch (e: java.lang.NumberFormatException) {
+            println("숫자를 입력해주세요.")
         }
     }
 
     override fun order() {
+        TODO("Not yet implemented")
+    }
+
+    override fun cancel() {
         TODO("Not yet implemented")
     }
 }

@@ -2,6 +2,8 @@ package com.example.nbc__kiosk_rev2
 
 var input = 0
 var input2 = 0
+var cartList: MutableList<Kiosk> = mutableListOf()
+var cash = 100.0
 
 fun main() {
     val burgersList = burgerDataInsert()
@@ -11,44 +13,50 @@ fun main() {
 
     println("SHAKESHACK BURGER 에 오신걸 환영합니다.")
 
-    while(input != -1) {
+    while (input != -1) {
         displayMenu()
         try {
             input = readLine()!!.toInt()
-            when(input) {
+            when (input) {
                 1 -> {
                     burgersList[0].displayInfo()
                     try {
                         input2 = readLine()!!.toInt()
-                        println(input2)
                         when (input2) {
                             1 -> {
                                 burgersList[input2].displayInfo()
                             }
+
                             2 -> {
                                 burgersList[input2].displayInfo()
                             }
+
                             3 -> {
                                 burgersList[input2].displayInfo()
                             }
+
                             4 -> {
                                 burgersList[input2].displayInfo()
                             }
+
                             5 -> {
                                 burgersList[input2].displayInfo()
                             }
+
                             0 -> {
 
                             }
+
                             else -> {
                                 println("메뉴를 다시 입력해주세요.")
                             }
                         }
-                    } catch (e:java.lang.NumberFormatException) {
+                    } catch (e: java.lang.NumberFormatException) {
                         println("숫자를 입력해주세요.")
                     }
 
                 }
+
                 2 -> {
                     custardsList[0].displayInfo()
                     try {
@@ -58,23 +66,28 @@ fun main() {
                             1 -> {
                                 custardsList[input2].displayInfo()
                             }
+
                             2 -> {
                                 custardsList[input2].displayInfo()
                             }
+
                             3 -> {
                                 custardsList[input2].displayInfo()
                             }
+
                             0 -> {
 
                             }
+
                             else -> {
                                 println("메뉴를 다시 입력해주세요.")
                             }
                         }
-                    } catch(e:java.lang.NumberFormatException) {
+                    } catch (e: java.lang.NumberFormatException) {
                         println("숫자를 입력하세요")
                     }
                 }
+
                 3 -> {
                     drinksList[0].displayInfo()
                     try {
@@ -84,32 +97,40 @@ fun main() {
                             1 -> {
                                 drinksList[input2].displayInfo()
                             }
+
                             2 -> {
                                 drinksList[input2].displayInfo()
                             }
+
                             3 -> {
                                 drinksList[input2].displayInfo()
                             }
+
                             4 -> {
                                 drinksList[input2].displayInfo()
                             }
+
                             5 -> {
                                 drinksList[input2].displayInfo()
                             }
+
                             6 -> {
                                 drinksList[input2].displayInfo()
                             }
+
                             0 -> {
 
                             }
+
                             else -> {
                                 println("메뉴를 다시 입력해주세요.")
                             }
                         }
-                    } catch (e:java.lang.NumberFormatException) {
+                    } catch (e: java.lang.NumberFormatException) {
                         println("숫자를 입력하세요")
                     }
                 }
+
                 4 -> {
                     beersList[0].displayInfo()
                     try {
@@ -119,38 +140,60 @@ fun main() {
                             1 -> {
                                 beersList[input2].displayInfo()
                             }
+
                             2 -> {
                                 beersList[input2].displayInfo()
                             }
+
                             3 -> {
                                 beersList[input2].displayInfo()
                             }
+
                             4 -> {
                                 beersList[input2].displayInfo()
                             }
+
                             5 -> {
                                 beersList[input2].displayInfo()
                             }
+
                             6 -> {
                                 beersList[input2].displayInfo()
                             }
+
                             0 -> {
 
                             }
+
                             else -> {
                                 println("메뉴를 다시 입력해주세요.")
                             }
                         }
-                    } catch (e:java.lang.NumberFormatException) {
+                    } catch (e: java.lang.NumberFormatException) {
                         println("숫자를 입력하세요")
                     }
                 }
+
+                //주문하기
+                5 -> {
+                    if (cartList.isNotEmpty()) {
+                       burgersList[0].order()
+                    }
+                }
+
+                //취소하기
+                6 -> {
+                    if (cartList.isNotEmpty()) {
+                        burgersList[0].cancel()
+                    }
+                }
+
                 0 -> {
                     println("프로그램을 종료합니다.")
                     return
                 }
             }
-        } catch (e:java.lang.NumberFormatException) {
+        } catch (e: java.lang.NumberFormatException) {
             println("숫자를 입력해주세요.")
         }
 
@@ -159,13 +202,28 @@ fun main() {
 }
 
 fun displayMenu() {
-    println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.")
-    println("[ SHAKESHACK MENU ]")
-    println("1. Burgers         | 앵거스 비프 통살을 다져만든 버거")
-    println("2. Forzen Custard  | 매장에서 신선하게 만드는 아이스크림")
-    println("3. Drinks          | 매장에서 직접 만드는 음료")
-    println("4. Beer            | 뉴욕 브루클린 브루어리에서 양조한 맥주와 다양한 맥주")
-    println("0. 종료             | 프로그램 종료")
+    println(
+        "\n아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n" +
+                "\n" +
+                "[ SHAKESHACK MENU ]\n" +
+                "1. Burgers         | 앵거스 비프 통살을 다져만든 버거\n" +
+                "2. Forzen Custard  | 매장에서 신선하게 만드는 아이스크림\n" +
+                "3. Drinks          | 매장에서 직접 만드는 음료\n" +
+                "4. Beer            | 뉴욕 브루클린 브루어리에서 양조한 맥주\n" +
+                "0. 키오스크 종료하기"
+    )
+    if (cartList.isEmpty()) {
+        print(">")
+    }
+
+    if (cartList.isNotEmpty()) {
+        println(
+            "\n [ ORDER MENU ]\n" +
+                    "5. Order       | 장바구니를 확인 후 주문합니다.\n" +
+                    "6. Cancel      | 진행중인 주문을 취소합니다.\n"
+        )
+        print(">")
+    }
 }
 
 fun burgerDataInsert(): List<Kiosk> {
@@ -205,7 +263,8 @@ fun drinkDataInsert(): List<Kiosk> {
 
 fun beerDataInsert(): List<Kiosk> {
     val be0 = BeerAll(9996, "all", 0.0, "all")
-    val be1 = ShackMeisterAle(1, "ShackMeister Ale", 9.8, "쉐이스쉑 버거를 위해 뉴욕 브루클린 브루어리에서 특별히 양조한 예일 맥주")
+    val be1 =
+        ShackMeisterAle(1, "ShackMeister Ale", 9.8, "쉐이스쉑 버거를 위해 뉴욕 브루클린 브루어리에서 특별히 양조한 예일 맥주")
     val be2 = PaleAle(2, "Pale Ale, Draft", 6.8, "Magpie Brewing Co.")
     val be3 = Porter(3, "Porter, Draft", 6.8, "Magpie Brewing Co.")
     val be4 = Wheat(4, "Wheat, Draft", 6.8, "Magpie Brewing Co.")

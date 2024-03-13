@@ -8,4 +8,5 @@ abstract class Kiosk {
 
     abstract fun displayInfo()
     abstract fun order()
+    abstract fun cancel()
 }
