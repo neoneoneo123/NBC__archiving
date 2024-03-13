@@ -3,7 +3,7 @@ package com.example.nbc__kiosk_rev2
 var input = 0
 var input2 = 0
 var cartList: MutableList<Kiosk> = mutableListOf()
-var cash = 100.0
+var cash = 10.0
 
 fun main() {
     val burgersList = burgerDataInsert()

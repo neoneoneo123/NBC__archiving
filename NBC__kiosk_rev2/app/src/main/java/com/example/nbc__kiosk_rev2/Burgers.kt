@@ -49,11 +49,13 @@ class BurgerAll(
             when (input4) {
                 1 -> {
                     if (cash - tempTotalPrice < 0) {
+                        var insufficientCash = -(cash - tempTotalPrice)
                         println()
-                        println("현재 잔액은 ${cash}W으로 ${-(cash - tempTotalPrice)}W이 부족해서 주문할 수 없습니다.")
+                        println("현재 잔액은 ${String.format("%.1f", cash)}W으로 ${String.format("%.1f", insufficientCash)}W이 부족해서 주문할 수 없습니다.")
                     } else {
+                        var balanceCash = cash - tempTotalPrice
                         println()
-                        println("현재 잔액은 ${cash - tempTotalPrice}W 입니다.")
+                        println("현재 잔액은 ${String.format("%.1f", balanceCash)}W 입니다.")
                         cash -= tempTotalPrice
 
                         cartList.clear()
