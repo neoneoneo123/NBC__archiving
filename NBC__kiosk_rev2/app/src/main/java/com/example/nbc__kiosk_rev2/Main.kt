@@ -1,41 +1,67 @@
-package com.example.nbc__kiosk
+package com.example.nbc__kiosk_rev2
 
-import com.example.nbc__kiosk_rev2.DessertMenu
-import com.example.nbc__kiosk_rev2.MainMenu
-import com.example.nbc__kiosk_rev2.RecommendMenu
-
-var mainMenu = MainMenu()
-var recommend = RecommendMenu()
-var dessert = DessertMenu()
+var input = 0
+var input2 = 0
 
 fun main() {
-    //가게 입장 : 첫 실행 시 점원이 반겨주는 화면
-    println("키오스크 app을 실행합니다.")
-    println("================================")
-    println("안녕하세요! 롯데리아 입니다.")
-    println("================================")
+    var burgersList = burgerDataInsert()
+    println("SHAKESHACK BURGER 에 오신걸 환영합니다.")
 
-    var input: Int = 0
-    while (input != -1) {
-        when (mainMenu.displayMenu()) {
+    while(input != -1) {
+        displayMenu()
+        input = readLine()!!.toInt()
+
+        when(input) {
             1 -> {
-                recommend.displaySubMenuRecommend()
+                burgersList[0].displayInfo()
+                input2 = readLine()!!.toInt()
+                println(input2)
+                when (input2) {
+                    1 -> {
+                        println("init")
+                        burgersList[1].displayInfo()
+                    }
+                    2 -> {
+
+                    }
+                }
             }
             2 -> {
-                dessert.displaySubMenuDessert()
+
             }
-            -1 -> {
-                println("키오스크를 종료합니다.")
-                break
+            3 -> {
+
             }
-            else -> {
-                println("메뉴를 다시 선택해주세요.")
+            4 -> {
+
+            }
+            0 -> {
+                println("프로그램을 종료합니다.")
+                return
             }
         }
     }
 }
 
+fun displayMenu() {
+    println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.")
+    println("[ SHAKESHACK MENU ]")
+    println("1. Burgers         | 앵거스 비프 통살을 다져만든 버거")
+    println("2. Forzen Custard  | 매장에서 신선하게 만드는 아이스크림")
+    println("3. Drinks          | 매장에서 직접 만드는 음료")
+    println("4. Beer            | 뉴욕 브루클린 브루어리에서 양조한 맥주")
+    println("0. 종료             | 프로그램 종료")
+}
 
+fun burgerDataInsert(): List<Kiosk> {
+    val b0 = BurgerAll(9999, "all", 0.0, "all")
+    val b1 = ShackBurger(1, "Shack Burger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거")
+    val b2 = SmokeShack(2, "Smoke Burger", 8.9, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거")
+    val b3 = ShroomBurger(3, "Shroom Burger", 9.4, "몬스터 치즈와 체다 치즈로 속을 채운 베지테리안 버거")
+    val b4 = Cheeseburger(4, "Cheese Burger", 6.9, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거")
+    val b5 = Hamburger(5, "Ham Burger", 6.9, "비프패티를 기반으로 야채가 들어간 기본버거")
 
+    val burgers = listOf(b0, b1, b2, b3, b4, b5)
 
-
+    return burgers
+}
