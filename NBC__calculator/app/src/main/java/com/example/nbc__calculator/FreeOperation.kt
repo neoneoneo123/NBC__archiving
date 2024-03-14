@@ -3,7 +3,7 @@ package com.example.nbc__calculator
 import java.util.Stack
 import kotlin.text.StringBuilder
 
-class FreeOperation: AbstractOperation() {
+class FreeOperation: Operation() {
     fun getPriority(operator: Char): Int {
         return when (operator) {
             '+', '-' -> 1
@@ -115,17 +115,7 @@ class FreeOperation: AbstractOperation() {
         return operationPostfix(postFixText).toString()
     }
 
-    override fun operation() {
-        println("자유 연산 모드를 선택하셨습니다.")
-        println("숫자, 연산자를 동시에 입력할 수 있습니다.")
-        println("나머지(mod) 연산은 지원하지 않습니다.")
-        println("입력되는 숫자는 정수여야 합니다..")
-        println("예시 1) 2+4*3.")
-        println("예시 2) 80*(200+300).")
-        println("계산식을 입력해주세요.")
-        print(">")
-        this.freeText = readLine()!!.toString()
-
+    fun freeOperation(freeText: String) {
         println("=========== 계산 결과 ============")
         println(exchangePostFix(freeText))
         println("")
