@@ -3,8 +3,6 @@ import java.util.Timer
 import java.util.TimerTask
 import kotlin.random.Random
 
-var input = 0
-var input2 = 0
 var cartList: MutableList<Kiosk> = mutableListOf()
 var cash = 10.0
 var restWating = 0
@@ -14,6 +12,8 @@ fun main() {
     val custardsList = custardDataInsert()
     val drinksList = drinkDataInsert()
     val beersList = beerDataInsert()
+    var input = 0
+    var input2 = 0
 
     val timerWating = Timer()
     timerWating.scheduleAtFixedRate(object : TimerTask() {

@@ -52,76 +52,60 @@ class BurgerAll(
         println()
         println("1. 주문      2. 메뉴판")
         print(">")
-
         try {
             input4 = readLine()!!.toInt()
 
-            val timer = Timer()
-            val task = object : TimerTask() {
-                override fun run() {
-                    val currentTime = Date()
-                    val formattedTime = SimpleDateFormat("HH:mm:ss").format(currentTime)
-                    val formattedTimePrint = SimpleDateFormat("a hh:mm").format(currentTime)
-                    val formattedTimePrintAll = SimpleDateFormat("yyyy-MM-DD HH:mm:ss").format(currentTime)
-
-                    if (formattedTime in "23:10:00".."23:20:00") {
-                        println()
-                        println(
-                            "현재는 ${formattedTimePrint} 입니다. \n" +
-                                    "은행 점검 시간은 오후 11:10 ~ 오후 11:20 이므로 결제할 수 없습니다."
-                        )
-                    } else {
-                        when (input4) {
-                            1 -> {
-                                if (cash - tempTotalPrice < 0) {
-                                    var insufficientCash = -(cash - tempTotalPrice)
-                                    println()
-                                    println(
-                                        "현재 잔액은 ${
-                                            String.format(
-                                                "%.1f",
-                                                cash
-                                            )
-                                        }W으로 ${
-                                            String.format(
-                                                "%.1f",
-                                                insufficientCash
-                                            )
-                                        }W이 부족해서 주문할 수 없습니다."
+            if (timeSearch()[0] in "23:10:00".."23:20:00") {
+                println()
+                println(
+                    "현재는 ${timeSearch()[1]} 입니다. \n" +
+                            "은행 점검 시간은 오후 11:10 ~ 오후 11:20 이므로 결제할 수 없습니다."
+                )
+            } else {
+                when (input4) {
+                    1 -> {
+                        if (cash - tempTotalPrice < 0) {
+                            var insufficientCash = -(cash - tempTotalPrice)
+                            println()
+                            println(
+                                "현재 잔액은 ${
+                                    String.format(
+                                        "%.1f",
+                                        cash
                                     )
-                                } else {
-                                    var balanceCash = cash - tempTotalPrice
+                                }W으로 ${
+                                    String.format(
+                                        "%.1f",
+                                        insufficientCash
+                                    )
+                                }W이 부족해서 주문할 수 없습니다."
+                            )
+                        } else {
+                            var balanceCash = cash - tempTotalPrice
 
-                                    println()
-                                    println("결제가 완료되었습니다.  ${formattedTimePrintAll}")
+                            println()
+                            println("결제가 완료되었습니다.  ${timeSearch()[2]}")
 
-                                    println()
-                                    println("현재 잔액은 ${String.format("%.1f", balanceCash)}W 입니다.")
-                                    cash -= tempTotalPrice
+                            println()
+                            println("현재 잔액은 ${String.format("%.1f", balanceCash)}W 입니다.")
+                            cash -= tempTotalPrice
 
-                                    cartList.clear()
-                                }
-                            }
-
-                            2 -> {
-                                println()
-                                println("메뉴판으로 돌아갑니다.")
-                                return
-                            }
-
-                            else -> {
-                                println("메뉴를 다시 입력해주세요.")
-                                print(">")
-                            }
+                            cartList.clear()
                         }
+                    }
+
+                    2 -> {
+                        println()
+                        println("메뉴판으로 돌아갑니다.")
+                        return
+                    }
+
+                    else -> {
+                        println("메뉴를 다시 입력해주세요.")
+                        print(">")
                     }
                 }
             }
-
-            timer.scheduleAtFixedRate(task, 0, 1000)
-
-            Thread.sleep(10)
-            timer.cancel()
         } catch (e: java.lang.NumberFormatException) {
             println("숫자를 입력해주세요.")
         }
@@ -183,6 +167,30 @@ class BurgerAll(
         }
     }
 
+    fun timeSearch(): MutableList<String> {
+        var timeList = mutableListOf<String>()
+        val timer = Timer() //타이머가 따로 돌아야할 것 같은데..
+        val task = object : TimerTask() {
+            override fun run() {
+                val currentTime = Date()
+                val formattedTime = SimpleDateFormat("HH:mm:ss").format(currentTime)
+                val formattedTimePrint = SimpleDateFormat("a hh:mm").format(currentTime)
+                val formattedTimePrintAll =
+                    SimpleDateFormat("yyyy-MM-DD HH:mm:ss").format(currentTime)
+
+                timeList.add(formattedTime)
+                timeList.add(formattedTimePrint)
+                timeList.add(formattedTimePrintAll)
+            }
+        }
+
+        timer.scheduleAtFixedRate(task, 0, 10)
+
+        Thread.sleep(50)
+        timer.cancel()
+
+        return timeList
+    }
 }
 
 class ShackBurger(
