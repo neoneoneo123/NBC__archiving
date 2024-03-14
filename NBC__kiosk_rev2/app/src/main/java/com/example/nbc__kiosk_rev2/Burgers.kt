@@ -31,6 +31,7 @@ class BurgerAll(
 
     override fun order() {
         var input4 = 0
+        var input5 = 0
         var tempTotalPrice = 0.0
 
         println(
@@ -48,7 +49,7 @@ class BurgerAll(
 
         println()
         println("[ Total ]")
-        println("W $tempTotalPrice")
+        println("W ${String.format("%.1f", tempTotalPrice)}")
         println()
         println("1. 주문      2. 메뉴판")
         print(">")
@@ -64,7 +65,7 @@ class BurgerAll(
             } else {
                 when (input4) {
                     1 -> {
-                        if (cash - tempTotalPrice < 0) {
+                        if (cash - tempTotalPrice < 0) { // 결제 잔액 부족 시
                             var insufficientCash = -(cash - tempTotalPrice)
                             println()
                             println(
@@ -80,17 +81,130 @@ class BurgerAll(
                                     )
                                 }W이 부족해서 주문할 수 없습니다."
                             )
-                        } else {
-                            var balanceCash = cash - tempTotalPrice
+                        } else { // 결제 정상 진입
+                            var couponReject = true
 
-                            println()
-                            println("결제가 완료되었습니다.  ${timeSearch()[2]}")
+                            while (couponReject) {
+                                println()
+                                println("1. 쿠폰 입력하고 할인 받기      2. 그냥 결제하기      3. 돌아가기")
+                                print(">")
 
-                            println()
-                            println("현재 잔액은 ${String.format("%.1f", balanceCash)}W 입니다.")
-                            cash -= tempTotalPrice
+                                try {
+                                    input5 = readLine()!!.toInt()
 
-                            cartList.clear()
+                                    when (input5) {
+                                        1 -> {
+                                            println()
+                                            println("할인 쿠폰을 입력해주세요.")
+                                            print(">")
+                                            var inputCoupon = readLine()!!.toString()
+
+                                            if (inputCoupon == "sparta") {
+                                                println()
+                                                println("스파르타 회원은 10% 할인 됩니다.")
+                                                tempTotalPrice = tempTotalPrice * 0.9
+
+                                                println("[ Total ]")
+                                                println(
+                                                    "W ${
+                                                        String.format(
+                                                            "%.1f",
+                                                            tempTotalPrice
+                                                        )
+                                                    }"
+                                                )
+                                                println()
+
+                                                var balanceCash = cash - tempTotalPrice
+
+                                                println()
+                                                println("결제가 완료되었습니다.  ${timeSearch()[2]}")
+
+                                                println()
+                                                println(
+                                                    "현재 잔액은 ${
+                                                        String.format(
+                                                            "%.1f",
+                                                            balanceCash
+                                                        )
+                                                    }W 입니다."
+                                                )
+                                                cash -= tempTotalPrice
+
+                                                cartList.clear()
+
+                                                couponReject = false
+
+                                            } else {
+                                                println("존재하지 않는 쿠폰입니다.")
+                                                println("메뉴를 다시 선택해주세요")
+                                            }
+                                        }
+
+                                        2 -> {
+                                            var balanceCash = cash - tempTotalPrice
+                                            var temp = 10.0
+
+                                            println("결제가 완료되었습니다.  ${timeSearch()[2]}")
+
+                                            print("+-------------------------------------+\n" +
+                                                    "|                                     |\n" +
+                                                    "|          SHAKESHACK BURGER          |\n" +
+                                                    "|                                     |\n" +
+                                                    "|  [매장명] 쉐이크쉑버거 우리집점            |\n" +
+                                                    "|  [주 소] 서울 우리집구 우리집동 우리집      |\n" +
+                                                    "|  [대표자] 정지연                       |\n" +
+                                                    "|  [매출일] ${timeSearch()[2]}         |\n" +
+                                                    "| =================================== |\n" +
+                                                    "|  제품명                       금액     |\n"
+                                            )
+
+                                            //이 부분에 제품명을 받아와야함...
+                                            //cardList크기만큼 print문을 해줘야함...
+
+                                            cartList.forEach {
+                                                var tempName = ""
+                                                if(it.name.length > 15) tempName = it.name.substring(0, 14) + "~"
+                                                else tempName = it.name
+
+                                                println("|  ${tempName.padEnd(15)}     ${"%.1f".format(it.price).padStart(10)}     |")
+                                            }
+
+
+                                            println("|                                     |\n" +
+                                                    "|  총매출액               ${"%.1f".format(tempTotalPrice).padStart(10)}    |\n" +
+                                                    "|                                     |\n" +
+                                                    "|             THANK YOU!         neo  |\n" +
+                                                    "+-------------------------------------+\n"
+                                            )
+
+                                            println(
+                                                "현재 잔액은 ${
+                                                    String.format(
+                                                        "%.1f",
+                                                        balanceCash
+                                                    )
+                                                }W 입니다."
+                                            )
+                                            cash -= tempTotalPrice
+
+                                            cartList.clear()
+
+                                            couponReject = false
+                                        }
+
+                                        3 -> {
+                                            println()
+                                            println("메인 화면으로 돌아갑니다.")
+                                            couponReject = false
+                                            return
+                                        }
+                                    }
+
+                                } catch (e: java.lang.NumberFormatException) {
+                                    println("숫자를 입력해주세요.")
+                                }
+                            }
                         }
                     }
 
@@ -98,6 +212,10 @@ class BurgerAll(
                         println()
                         println("메뉴판으로 돌아갑니다.")
                         return
+                    }
+
+                    3 -> { //결제 쿠폰
+
                     }
 
                     else -> {

@@ -4,7 +4,7 @@ import java.util.TimerTask
 import kotlin.random.Random
 
 var cartList: MutableList<Kiosk> = mutableListOf()
-var cash = 10.0
+var cash = 10000.0
 var restWating = 0
 
 fun main() {
@@ -243,7 +243,7 @@ fun displayMenu() {
         println(
             "\n [ ORDER MENU ]\n" +
                     "5. Order       | 장바구니를 확인 후 주문합니다.\n" +
-                    "6. Cancel      | 진행중인 주문을 취소합니다.\n"
+                    "6. Cancel      | 진행 중인 주문을 취소합니다.\n"
         )
         print(">")
     }
