@@ -9,6 +9,7 @@ import java.util.Date
 import java.util.Timer
 import java.util.TimerTask
 
+val drinksList = drinkDataInsert()
 
 class BurgerAll(
     override var id: Int,
@@ -408,8 +409,71 @@ class ShackBurger(
             when (input3) {
                 1 -> {
                     println()
-                    println("메뉴를 장바구니에 추가합니다.")
-                    cartList.add(this)
+                    println("버거와 음료를 세트로 구매하시겠습니까?")
+                    println("1. 세트 구매하기      2. 단품 구매하기")
+                    print(">")
+
+                    var input5 = 0
+                    input5 = readLine()!!.toInt()
+
+                    when (input5) {
+                        1 -> {
+                            println()
+                            println("음료를 선택해주세요.")
+                            print(">")
+                            drinksList[0].displayInfo()
+
+                            var input6 = 0
+                            try {
+                                input6 = readLine()!!.toInt()
+                                println(input6)
+                                when (input6) {
+                                    1 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    2 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    3 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    4 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    5 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    6 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    0 -> {
+
+                                    }
+
+                                    else -> {
+                                        println("메뉴를 다시 입력해주세요.")
+                                    }
+                                }
+                            } catch (e: java.lang.NumberFormatException) {
+                                println("숫자를 입력하세요")
+                            }
+
+                            println()
+                            println("세트 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
+                        2 -> {
+                            println()
+                            println("단품 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
+                    }
                 }
 
                 2 -> {
@@ -449,49 +513,105 @@ class SmokeShack(
     override fun displayInfo() {
         var input3 = 0
 
-        if (smokeQuantity > 0) {
-            println()
-            println("${name} - ${price} - ${des}")
-            println()
-            println(
-                "위 메뉴를 장바구니에 추가하시겠습니까?\n" +
-                        "1. 확인        2. 취소"
-            )
-            print(">")
+        println()
+        println("${name} - ${price} - ${des}")
+        println()
+        println(
+            "위 메뉴를 장바구니에 추가하시겠습니까?\n" +
+                    "1. 확인        2. 취소"
+        )
+        print(">")
 
-            try {
-                input3 = readLine()!!.toInt()
+        try {
+            input3 = readLine()!!.toInt()
 
-                when (input3) {
-                    1 -> {
-                        println()
-                        println("메뉴를 장바구니에 추가합니다.")
-                        cartList.add(this)
-                    }
+            when (input3) {
+                1 -> {
+                    println()
+                    println("버거와 음료를 세트로 구매하시겠습니까?")
+                    println("1. 세트 구매하기      2. 단품 구매하기")
+                    print(">")
 
-                    2 -> {
-                        println()
-                        println("메뉴 담기를 취소합니다.")
-                    }
+                    var input5 = 0
+                    input5 = readLine()!!.toInt()
 
-                    else -> {
-                        println()
-                        println(
-                            "메뉴를 다시 입력해주세요.\n" +
-                                    ">"
-                        )
-                        print(">")
+                    when (input5) {
+                        1 -> {
+                            println()
+                            println("음료를 선택해주세요.")
+                            print(">")
+                            drinksList[0].displayInfo()
+
+                            var input6 = 0
+                            try {
+                                input6 = readLine()!!.toInt()
+                                println(input6)
+                                when (input6) {
+                                    1 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    2 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    3 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    4 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    5 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    6 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    0 -> {
+
+                                    }
+
+                                    else -> {
+                                        println("메뉴를 다시 입력해주세요.")
+                                    }
+                                }
+                            } catch (e: java.lang.NumberFormatException) {
+                                println("숫자를 입력하세요")
+                            }
+
+                            println()
+                            println("세트 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
+                        2 -> {
+                            println()
+                            println("단품 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
                     }
                 }
-            } catch (e: java.lang.NumberFormatException) {
-                println("숫자를 입력해주세요.")
-            }
-        } else {
-            println()
-            println("금일 준비한 수량이 모두 소진되었습니다.")
-            println("다른 메뉴를 선택해주세요.")
-        }
 
+                2 -> {
+                    println()
+                    println("메뉴 담기를 취소합니다.")
+                }
+
+                else -> {
+                    println()
+                    println(
+                        "메뉴를 다시 입력해주세요.\n" +
+                                ">"
+                    )
+                    print(">")
+                }
+            }
+        } catch (e: java.lang.NumberFormatException) {
+            println("숫자를 입력해주세요.")
+        }
     }
 
     override fun order() {
@@ -527,8 +647,71 @@ class ShroomBurger(
             when (input3) {
                 1 -> {
                     println()
-                    println("메뉴를 장바구니에 추가합니다.")
-                    cartList.add(this)
+                    println("버거와 음료를 세트로 구매하시겠습니까?")
+                    println("1. 세트 구매하기      2. 단품 구매하기")
+                    print(">")
+
+                    var input5 = 0
+                    input5 = readLine()!!.toInt()
+
+                    when (input5) {
+                        1 -> {
+                            println()
+                            println("음료를 선택해주세요.")
+                            print(">")
+                            drinksList[0].displayInfo()
+
+                            var input6 = 0
+                            try {
+                                input6 = readLine()!!.toInt()
+                                println(input6)
+                                when (input6) {
+                                    1 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    2 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    3 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    4 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    5 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    6 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    0 -> {
+
+                                    }
+
+                                    else -> {
+                                        println("메뉴를 다시 입력해주세요.")
+                                    }
+                                }
+                            } catch (e: java.lang.NumberFormatException) {
+                                println("숫자를 입력하세요")
+                            }
+
+                            println()
+                            println("세트 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
+                        2 -> {
+                            println()
+                            println("단품 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
+                    }
                 }
 
                 2 -> {
@@ -583,8 +766,71 @@ class Cheeseburger(
             when (input3) {
                 1 -> {
                     println()
-                    println("메뉴를 장바구니에 추가합니다.")
-                    cartList.add(this)
+                    println("버거와 음료를 세트로 구매하시겠습니까?")
+                    println("1. 세트 구매하기      2. 단품 구매하기")
+                    print(">")
+
+                    var input5 = 0
+                    input5 = readLine()!!.toInt()
+
+                    when (input5) {
+                        1 -> {
+                            println()
+                            println("음료를 선택해주세요.")
+                            print(">")
+                            drinksList[0].displayInfo()
+
+                            var input6 = 0
+                            try {
+                                input6 = readLine()!!.toInt()
+                                println(input6)
+                                when (input6) {
+                                    1 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    2 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    3 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    4 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    5 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    6 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    0 -> {
+
+                                    }
+
+                                    else -> {
+                                        println("메뉴를 다시 입력해주세요.")
+                                    }
+                                }
+                            } catch (e: java.lang.NumberFormatException) {
+                                println("숫자를 입력하세요")
+                            }
+
+                            println()
+                            println("세트 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
+                        2 -> {
+                            println()
+                            println("단품 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
+                    }
                 }
 
                 2 -> {
@@ -639,8 +885,71 @@ class Hamburger(
             when (input3) {
                 1 -> {
                     println()
-                    println("메뉴를 장바구니에 추가합니다.")
-                    cartList.add(this)
+                    println("버거와 음료를 세트로 구매하시겠습니까?")
+                    println("1. 세트 구매하기      2. 단품 구매하기")
+                    print(">")
+
+                    var input5 = 0
+                    input5 = readLine()!!.toInt()
+
+                    when (input5) {
+                        1 -> {
+                            println()
+                            println("음료를 선택해주세요.")
+                            print(">")
+                            drinksList[0].displayInfo()
+
+                            var input6 = 0
+                            try {
+                                input6 = readLine()!!.toInt()
+                                println(input6)
+                                when (input6) {
+                                    1 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    2 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    3 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    4 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    5 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    6 -> {
+                                        drinksList[input6].displayInfo()
+                                    }
+
+                                    0 -> {
+
+                                    }
+
+                                    else -> {
+                                        println("메뉴를 다시 입력해주세요.")
+                                    }
+                                }
+                            } catch (e: java.lang.NumberFormatException) {
+                                println("숫자를 입력하세요")
+                            }
+
+                            println()
+                            println("세트 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
+                        2 -> {
+                            println()
+                            println("단품 메뉴를 장바구니에 추가합니다.")
+                            cartList.add(this)
+                        }
+                    }
                 }
 
                 2 -> {
