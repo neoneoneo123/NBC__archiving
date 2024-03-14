@@ -6,6 +6,7 @@ import kotlin.random.Random
 var cartList: MutableList<Kiosk> = mutableListOf()
 var cash = 10000.0
 var restWating = 0
+var smokeQuantity = 2
 
 fun main() {
     val burgersList = burgerDataInsert()

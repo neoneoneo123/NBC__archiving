@@ -19,12 +19,12 @@ class BurgerAll(
     override fun displayInfo() {
         println(
             "\n[ Burgers MENU ]\n" +
-                    "1. ShackBurger   | W 6.9 | 토마토, 양상추, 쉑소스가 토핑된 치즈버거\n" +
-                    "2. SmokeShack    | W 8.9 | 베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거\n" +
-                    "3. Shroom Burger | W 9.4 | 몬스터 치즈와 체다 치즈로 속을 채운 베지테리안 버거\n" +
-                    "4. Cheeseburger  | W 6.9 | 포테이토 번과 비프패티, 치즈가 토핑된 치즈버거\n" +
-                    "5. Hamburger     | W 5.4 | 비프패티를 기반으로 야채가 들어간 기본버거\n" +
-                    "0. 뒤로가기        | 뒤로가기"
+                    "1. ShackBurger          | W 6.9 | 토마토, 양상추, 쉑소스가 토핑된 치즈버거\n" +
+                    "2. [한정판]SmokeShack     | W 8.9 | 베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거 (잔여 수량 : ${smokeQuantity})\n" +
+                    "3. Shroom Burger        | W 9.4 | 몬스터 치즈와 체다 치즈로 속을 채운 베지테리안 버거\n" +
+                    "4. Cheeseburger         | W 6.9 | 포테이토 번과 비프패티, 치즈가 토핑된 치즈버거\n" +
+                    "5. Hamburger            | W 5.4 | 비프패티를 기반으로 야채가 들어간 기본버거\n" +
+                    "0. 뒤로 가기              | 뒤로 가기"
         )
         print(">")
     }
@@ -94,6 +94,8 @@ class BurgerAll(
 
                                     when (input5) {
                                         1 -> {
+                                            var discountCheck = false
+
                                             println()
                                             println("할인 쿠폰을 입력해주세요.")
                                             print(">")
@@ -117,10 +119,66 @@ class BurgerAll(
 
                                                 var balanceCash = cash - tempTotalPrice
 
-                                                println()
                                                 println("결제가 완료되었습니다.  ${timeSearch()[2]}")
+                                                discountCheck = true
 
-                                                println()
+                                                print(
+                                                    "+-------------------------------------+\n" +
+                                                            "|                                     |\n" +
+                                                            "|          SHAKESHACK BURGER          |\n" +
+                                                            "|                                     |\n" +
+                                                            "|  [매장명] 쉐이크쉑버거 우리집점            |\n" +
+                                                            "|  [주 소] 서울 우리집구 우리집동 우리집      |\n" +
+                                                            "|  [대표자] 정지연                       |\n" +
+                                                            "|  [매출일] ${timeSearch()[2]}         |\n" +
+                                                            "| =================================== |\n" +
+                                                            "|  제품명                       금액     |\n"
+                                                )
+
+                                                cartList.forEach {
+                                                    var tempName = ""
+                                                    if (it.name.length > 15) tempName =
+                                                        it.name.substring(0, 14) + "~"
+                                                    else tempName = it.name
+
+                                                    println(
+                                                        "|  ${tempName.padEnd(15)}     ${
+                                                            "%.1f".format(
+                                                                it.price
+                                                            ).padStart(10)
+                                                        }     |"
+                                                    )
+
+                                                    //수량 제한 메뉴 수량 빼기
+                                                    if(it.name == "Smoke Burger") {
+                                                        smokeQuantity--
+                                                    }
+                                                }
+
+
+                                                println(
+                                                    "|                                     |"
+                                                )
+
+                                                //만약에 할인을 받았으면, 할인 여부를 표시
+                                                if (discountCheck) {
+                                                    println(
+                                                        "|  10% 할인 적용                        |"
+                                                    )
+                                                }
+
+
+                                                println(
+                                                            "|  총매출액              ${
+                                                                "%.1f".format(
+                                                                    tempTotalPrice
+                                                                ).padStart(10)
+                                                            }     |\n" +
+                                                            "|                                     |\n" +
+                                                            "|             THANK YOU!         neo  |\n" +
+                                                            "+-------------------------------------+\n"
+                                                )
+
                                                 println(
                                                     "현재 잔액은 ${
                                                         String.format(
@@ -147,35 +205,50 @@ class BurgerAll(
 
                                             println("결제가 완료되었습니다.  ${timeSearch()[2]}")
 
-                                            print("+-------------------------------------+\n" +
-                                                    "|                                     |\n" +
-                                                    "|          SHAKESHACK BURGER          |\n" +
-                                                    "|                                     |\n" +
-                                                    "|  [매장명] 쉐이크쉑버거 우리집점            |\n" +
-                                                    "|  [주 소] 서울 우리집구 우리집동 우리집      |\n" +
-                                                    "|  [대표자] 정지연                       |\n" +
-                                                    "|  [매출일] ${timeSearch()[2]}         |\n" +
-                                                    "| =================================== |\n" +
-                                                    "|  제품명                       금액     |\n"
+                                            print(
+                                                "+-------------------------------------+\n" +
+                                                        "|                                     |\n" +
+                                                        "|          SHAKESHACK BURGER          |\n" +
+                                                        "|                                     |\n" +
+                                                        "|  [매장명] 쉐이크쉑버거 우리집점            |\n" +
+                                                        "|  [주 소] 서울 우리집구 우리집동 우리집      |\n" +
+                                                        "|  [대표자] 정지연                       |\n" +
+                                                        "|  [매출일] ${timeSearch()[2]}         |\n" +
+                                                        "| =================================== |\n" +
+                                                        "|  제품명                       금액     |\n"
                                             )
-
-                                            //이 부분에 제품명을 받아와야함...
-                                            //cardList크기만큼 print문을 해줘야함...
 
                                             cartList.forEach {
                                                 var tempName = ""
-                                                if(it.name.length > 15) tempName = it.name.substring(0, 14) + "~"
+                                                if (it.name.length > 15) tempName =
+                                                    it.name.substring(0, 14) + "~"
                                                 else tempName = it.name
 
-                                                println("|  ${tempName.padEnd(15)}     ${"%.1f".format(it.price).padStart(10)}     |")
+                                                println(
+                                                    "|  ${tempName.padEnd(15)}     ${
+                                                        "%.1f".format(
+                                                            it.price
+                                                        ).padStart(10)
+                                                    }     |"
+                                                )
+
+                                                //수량 제한 메뉴 수량 빼기
+                                                if(it.name == "Smoke Burger") {
+                                                    smokeQuantity--
+                                                }
                                             }
 
 
-                                            println("|                                     |\n" +
-                                                    "|  총매출액               ${"%.1f".format(tempTotalPrice).padStart(10)}    |\n" +
-                                                    "|                                     |\n" +
-                                                    "|             THANK YOU!         neo  |\n" +
-                                                    "+-------------------------------------+\n"
+                                            println(
+                                                "|                                     |\n" +
+                                                        "|  총매출액               ${
+                                                            "%.1f".format(
+                                                                tempTotalPrice
+                                                            ).padStart(10)
+                                                        }    |\n" +
+                                                        "|                                     |\n" +
+                                                        "|             THANK YOU!         neo  |\n" +
+                                                        "+-------------------------------------+\n"
                                             )
 
                                             println(
@@ -376,42 +449,49 @@ class SmokeShack(
     override fun displayInfo() {
         var input3 = 0
 
-        println()
-        println("${name} - ${price} - ${des}")
-        println()
-        println(
-            "위 메뉴를 장바구니에 추가하시겠습니까?\n" +
-                    "1. 확인        2. 취소"
-        )
-        print(">")
+        if (smokeQuantity > 0) {
+            println()
+            println("${name} - ${price} - ${des}")
+            println()
+            println(
+                "위 메뉴를 장바구니에 추가하시겠습니까?\n" +
+                        "1. 확인        2. 취소"
+            )
+            print(">")
 
-        try {
-            input3 = readLine()!!.toInt()
+            try {
+                input3 = readLine()!!.toInt()
 
-            when (input3) {
-                1 -> {
-                    println()
-                    println("메뉴를 장바구니에 추가합니다.")
-                    cartList.add(this)
+                when (input3) {
+                    1 -> {
+                        println()
+                        println("메뉴를 장바구니에 추가합니다.")
+                        cartList.add(this)
+                    }
+
+                    2 -> {
+                        println()
+                        println("메뉴 담기를 취소합니다.")
+                    }
+
+                    else -> {
+                        println()
+                        println(
+                            "메뉴를 다시 입력해주세요.\n" +
+                                    ">"
+                        )
+                        print(">")
+                    }
                 }
-
-                2 -> {
-                    println()
-                    println("메뉴 담기를 취소합니다.")
-                }
-
-                else -> {
-                    println()
-                    println(
-                        "메뉴를 다시 입력해주세요.\n" +
-                                ">"
-                    )
-                    print(">")
-                }
+            } catch (e: java.lang.NumberFormatException) {
+                println("숫자를 입력해주세요.")
             }
-        } catch (e: java.lang.NumberFormatException) {
-            println("숫자를 입력해주세요.")
+        } else {
+            println()
+            println("금일 준비한 수량이 모두 소진되었습니다.")
+            println("다른 메뉴를 선택해주세요.")
         }
+
     }
 
     override fun order() {
