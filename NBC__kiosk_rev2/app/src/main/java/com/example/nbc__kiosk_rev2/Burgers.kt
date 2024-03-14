@@ -343,7 +343,6 @@ class BurgerAll(
                         println("주문 취소 중입니다.")
                         var job = GlobalScope.launch {
                             delay(3000)
-                            //println("처리 중...")
                         }
                         runBlocking {
                             job.join()
@@ -361,14 +360,14 @@ class BurgerAll(
 
     fun timeSearch(): MutableList<String> {
         var timeList = mutableListOf<String>()
-        val timer = Timer() //타이머가 따로 돌아야할 것 같은데..
+        val timer = Timer()
         val task = object : TimerTask() {
             override fun run() {
                 val currentTime = Date()
                 val formattedTime = SimpleDateFormat("HH:mm:ss").format(currentTime)
                 val formattedTimePrint = SimpleDateFormat("a hh:mm").format(currentTime)
                 val formattedTimePrintAll =
-                    SimpleDateFormat("yyyy-MM-DD HH:mm:ss").format(currentTime)
+                    SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentTime)
 
                 timeList.add(formattedTime)
                 timeList.add(formattedTimePrint)
