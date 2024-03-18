@@ -23,5 +23,6 @@ class MainActivity : AppCompatActivity() {
     fun onButton2Clicked(v: View) {
         val myIntent2 = Intent(Intent.ACTION_VIEW, Uri.parse("tel:010-1234-5678"))
         startActivity(myIntent2)
+        //TODO: 여기 작성
     }
 }
