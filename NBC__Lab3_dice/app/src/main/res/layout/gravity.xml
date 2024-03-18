@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        style="@style/RedTextView"
+        android:text="L | T"
+        android:gravity="left|top"
+        android:layout_gravity="left"/>
+
+    <Button
+        style="@style/RedTextView"
+        android:text="C_H | T"
+        android:gravity="center_horizontal|top"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        style="@style/RedTextView"
+        android:text="R | T"
+        android:gravity="right|top"
+        android:layout_gravity="right"/>
+
+    <Button
+        style="@style/RedTextView"
+        android:text="L | C_V"
+        android:gravity="left|center_vertical"
+        android:layout_gravity="center_vertical"/>
+
+    <Button
+        style="@style/RedTextView"
+        android:text="CENTER"
+        android:layout_gravity="center"/>
+
+    <Button
+        style="@style/RedTextView"
+        android:text="R | C_V"
+        android:gravity="right|center_vertical"
+        android:layout_gravity="center_vertical|right"/>
+
+    <Button
+        style="@style/RedTextView"
+        android:text="L | B"
+        android:gravity="left|bottom"
+        android:layout_gravity="bottom|left"/>
+
+    <Button
+        style="@style/RedTextView"
+        android:text="C_H | B"
+        android:gravity="center_horizontal|bottom"
+        android:layout_gravity="center_horizontal|bottom"/>
+
+    <Button
+        style="@style/RedTextView"
+        android:text="R | B"
+        android:gravity="right|bottom"
+        android:layout_gravity="bottom|right"/>
+
+
+</FrameLayout>
