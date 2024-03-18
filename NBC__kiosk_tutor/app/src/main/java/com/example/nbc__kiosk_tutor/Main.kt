@@ -39,6 +39,7 @@ suspend fun main() { //!!
 
 }
 
+
 fun init() {
     money = 100.0
 
