@@ -14,9 +14,6 @@ class SignInActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_sign_in)
 
-
-
-
         val btnLogin = findViewById<Button>(R.id.btn_login)
         btnLogin.setOnClickListener {
             val editTextId = findViewById<EditText>(R.id.et_id)
