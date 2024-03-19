@@ -7,6 +7,10 @@ android {
     namespace = "com.example.nbc__appstarttask"
     compileSdk = 34
 
+    viewBinding {
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.example.nbc__appstarttask"
         minSdk = 31
