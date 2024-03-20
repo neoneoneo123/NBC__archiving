@@ -9,17 +9,19 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import com.example.nbc__appstarttask.databinding.ActivityHomeBinding
+import kotlin.random.Random
 
 
 class HomeActivity : AppCompatActivity() {
 
+    //바인딩 변수 선언
     private var homeBinding: ActivityHomeBinding? = null
     private val binding get() = homeBinding!!
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +34,26 @@ class HomeActivity : AppCompatActivity() {
         val textId = findViewById<TextView>(R.id.tv_id_data)
         textId.text = "아이디 : " + strIdData
 
+        //자기소개 이미지 변경
+        homeBinding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        var imgMe = homeBinding?.ivMe
+        val random = Random
+        val randomNum = random.nextInt(5)
+
+        when(randomNum) {
+            0 -> imgMe?.setImageResource(R.drawable.img_me1)
+            1 -> imgMe?.setImageResource(R.drawable.img_me2)
+            2 -> imgMe?.setImageResource(R.drawable.img_me3)
+            3 -> imgMe?.setImageResource(R.drawable.img_me4)
+            4 -> imgMe?.setImageResource(R.drawable.img_me5)
+        }
+
         //로그인 성공 메세지
         Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
 
         //웹 뷰
-        homeBinding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.webViewClient = WebViewClient()
         binding.webView.webChromeClient = WebChromeClient()

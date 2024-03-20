@@ -21,10 +21,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_me" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/iv_me"
         android:layout_width="222dp"
         android:layout_height="163dp"
         android:layout_marginTop="16dp"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="이름 : 남궁민수"
+        android:text="이름 : 남궁코딩이"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,19 +89,23 @@
         android:id="@+id/sw_blog"
         android:layout_width="175dp"
         android:layout_height="54dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:gravity="center|right"
         android:text="나의 블로그 공개하기"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_mbti_data" />
 
     <CheckBox
         android:id="@+id/cb_blog"
-        android:layout_width="199dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
         android:text="개인 블로그 정보 공개 동의"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/sw_blog"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sw_blog"
         app:layout_constraintTop_toTopOf="@+id/sw_blog" />
 
