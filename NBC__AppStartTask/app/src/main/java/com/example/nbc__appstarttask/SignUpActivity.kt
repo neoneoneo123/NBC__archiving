@@ -30,7 +30,7 @@ class SignUpActivity : AppCompatActivity() {
             val editTextId = findViewById<EditText>(R.id.et_sign_id)
             val editTextPw = findViewById<EditText>(R.id.et_sign_pw)
 
-            if (editTextName.text.isNotEmpty() && editTextId.text.isNotEmpty() && editTextPw.text.isNotEmpty()) {
+            if (editTextName.text.isNotBlank() && editTextId.text.isNotBlank() && editTextPw.text.isNotBlank()) {
                 val intent = Intent(this, SignInActivity::class.java)
 
                 intent.putExtra("id", editTextName.text.toString())

@@ -28,16 +28,16 @@ class SignInActivity : AppCompatActivity() {
         //로그인 버튼
         val btnLogin = findViewById<Button>(R.id.btn_login)
         btnLogin.setOnClickListener {
-            if (editTextId.text.isEmpty() && editTextPw.text.isEmpty()) {
+            if (editTextId.text.isBlank() && editTextPw.text.isBlank()) {
                 Toast.makeText(this, "아이디/비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
-            else if (editTextId.text.isEmpty()) {
+            else if (editTextId.text.isBlank()) {
                 Toast.makeText(this, "아이디를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
-            else if (editTextPw.text.isEmpty()) {
+            else if (editTextPw.text.isBlank()) {
                 Toast.makeText(this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
-            else if (editTextId.text.isNotEmpty() && editTextPw.text.isNotEmpty()) {
+            else if (editTextId.text.isNotBlank() && editTextPw.text.isNotBlank()) {
                 //HomeActivity -> 데이터 전달
                 val strIdData = editTextId.text.toString()
                 val intent = Intent(this, HomeActivity::class.java)
