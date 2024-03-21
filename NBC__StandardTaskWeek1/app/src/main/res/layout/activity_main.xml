@@ -12,9 +12,9 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="460dp"
-        android:background="@drawable/rectangle"
-        android:elevation="10dp"
+        android:layout_height="490dp"
+        android:background="@drawable/main_rec"
+        android:elevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,9 +23,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/outfit_bold"
-        android:text="Own Dream House"
+        android:gravity="center"
+        android:text="Discover Your\nOwn Dream House"
+        android:textColor="#464444"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +38,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/outfit_light"
         android:gravity="center"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nDiam maecenas mi non sed ut odio. Non, justo, sed facilisi\net. Eget viverra urna, vestibulum egestas faucibus\negestas. Sagittis nam velit volutpat eu nunc."
@@ -46,18 +48,14 @@
 
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_width="180dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="56dp"
         android:layout_marginRight="10dp"
+        android:background="@drawable/btn_register_rec"
+        android:elevation="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-        <ImageButton
-            android:layout_width="180dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/btn_register_rec" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,21 +63,19 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:fontFamily="@font/outfit_bold"
             android:text="Register"
+            android:textColor="#545151"
             android:textSize="22sp" />
     </FrameLayout>
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_width="200dp"
+        android:layout_height="65dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/btn_sign_rec"
+        android:elevation="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-        <ImageButton
-            android:layout_width="197dp"
-            android:layout_height="80dp"
-            android:src="@drawable/btn_sign_rec" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,38 +83,9 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:fontFamily="@font/outfit_bold"
             android:text="Sign in"
+            android:textColor="@color/white"
             android:textSize="22sp" />
     </FrameLayout>
 
-    <ImageButton
-        android:layout_width="197dp"
-        android:layout_height="80dp"
-        android:src="@drawable/btn_sign_rec" />
-
-
-    <!--
-    <Button
-        android:id="@+id/imageButton2"
-        android:layout_width="361dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_register"
-        android:text="Register"
-        android:gravity="right"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <Button
-        android:id="@+id/imageButton3"
-        android:layout_width="205dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/btn_sign_in"
-        android:text="Sign in"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButton2"/>
--->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
