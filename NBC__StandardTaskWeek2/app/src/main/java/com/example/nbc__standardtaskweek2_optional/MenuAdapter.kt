@@ -1,7 +1,10 @@
 package com.example.nbc__standardtaskweek2_optional
 
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nbc__standardtaskweek2_optional.databinding.ItemMenuBinding
 
@@ -30,6 +33,7 @@ class MenuAdapter(private val menus: List<Menu>) :
             binding.tvName.text = menu.name
             binding.tvPrice.text = menu.price
             binding.imgDonut.setImageResource(menu.image)
+
         }
     }
 }
