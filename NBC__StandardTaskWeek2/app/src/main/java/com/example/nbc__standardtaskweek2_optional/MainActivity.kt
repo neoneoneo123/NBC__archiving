@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         var btn1 = findViewById<TextView>(R.id.tv_title_button)
 
+        //메인 화면 클릭 시 이동합니다.
         btn1.setOnClickListener {
             setFrag()
         }

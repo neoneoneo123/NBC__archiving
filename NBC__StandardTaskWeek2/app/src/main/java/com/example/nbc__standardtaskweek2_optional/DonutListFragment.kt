@@ -39,6 +39,8 @@ class DonutListFragment : Fragment() {
         var view = binding.root
 
         val itemBtn = view.findViewById<FrameLayout>(R.id.fl_item)
+        //TODO : 누르면 이벤트가 일어나게 하고싶은데..
+
 
         return view
     }
