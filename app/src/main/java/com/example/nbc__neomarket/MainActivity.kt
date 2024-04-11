@@ -14,6 +14,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -50,6 +51,16 @@ class MainActivity : AppCompatActivity() {
         binding.rvList.adapter = adapter
         binding.rvList.layoutManager = LinearLayoutManager(this)
 
+        //아이템 클릭
+        adapter.itemClick = object : ItemAdapter.ItemClick {
+            override fun onClick(view: View, position: Int) {
+                val title: String = data[position].title
+                val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                intent.putExtra("item", data[position])
+                intent.putExtra("title", title)
+                startActivity(intent)
+            }
+        }
 
         //알림 권한 요청
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

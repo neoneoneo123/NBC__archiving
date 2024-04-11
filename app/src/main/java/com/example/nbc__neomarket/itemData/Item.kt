@@ -1,5 +1,9 @@
 package com.example.nbc__neomarket.itemData
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Item (
     val id: String,
     val image: Int,
@@ -10,4 +14,4 @@ data class Item (
     val address: String,
     val like: Int,
     val chat: Int,
-)
+) : Parcelable
