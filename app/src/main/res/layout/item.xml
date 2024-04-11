@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="108sp"
+    android:layout_margin="10dp">
+
+
+    <ImageView
+        android:id="@+id/iv_item"
+        android:layout_width="104sp"
+        android:layout_height="104sp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/item_rec"
+        android:clipToOutline="true"
+        android:src="@drawable/sample1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/pretendard_regular"
+        android:maxLines="2"
+        android:text="제품명제품명제품명제품명제품명제품명"
+        android:textColor="#212124"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_item"
+        app:layout_constraintTop_toTopOf="@+id/iv_item" />
+
+    <TextView
+        android:id="@+id/tv_adress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:text="주소주소주소주소주소주소주소"
+        android:textColor="#868B94"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/pretendard_extra_bold"
+        android:text="가격가격가격가격가격가격가격가격"
+        android:textColor="#212124"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_adress"
+        app:layout_constraintTop_toBottomOf="@+id/tv_adress" />
+
+
+    <ImageView
+        android:id="@+id/imageview1"
+        android:layout_width="15sp"
+        android:layout_height="15sp"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/ic_chat"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_like"
+        app:layout_constraintEnd_toStartOf="@id/tv_chat"
+        app:layout_constraintTop_toTopOf="@+id/tv_like" />
+
+    <TextView
+        android:id="@+id/tv_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:text="16"
+        android:textColor="#868B94"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_like"
+        app:layout_constraintEnd_toStartOf="@+id/imageview2"
+        app:layout_constraintTop_toTopOf="@+id/tv_like" />
+
+    <ImageView
+        android:id="@+id/imageview2"
+        android:layout_width="15sp"
+        android:layout_height="15sp"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/ic_heart"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_like"
+        app:layout_constraintEnd_toStartOf="@+id/tv_like"
+        app:layout_constraintTop_toTopOf="@+id/tv_like"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <TextView
+        android:id="@+id/tv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:text="25"
+        android:textColor="#868B94"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
