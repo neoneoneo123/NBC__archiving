@@ -34,7 +34,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //알림 권한 요청
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 99)
+        }
+
+        //알림 생성
+        binding.ivBell.setOnClickListener {
+            makeNotification()
+        }
+
         //스크롤 버튼
+        scrollEvent()
+    }
+
+    private fun scrollEvent() {
         binding.rvList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -51,17 +65,6 @@ class MainActivity : AppCompatActivity() {
         })
         binding.fbScroll.setOnClickListener {
             binding.rvList.smoothScrollToPosition(0)
-        }
-
-
-        //알림 권한 요청
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 99)
-        }
-
-        //알림 생성
-        binding.ivBell.setOnClickListener {
-            makeNotification()
         }
     }
 
@@ -141,7 +144,6 @@ class MainActivity : AppCompatActivity() {
         //알람 띄우기
         notificationManger.notify(0, notificationBuilder.build())
     }
-
 
     //back 버튼 다이얼로그
     @Deprecated("Deprecated in Java")
