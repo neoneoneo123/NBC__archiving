@@ -1,29 +1,26 @@
 package com.example.nbc__neomarket
 
-import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.LinearGradient
+import android.content.Context
 import android.graphics.Paint
-import android.graphics.Shader
 import android.os.Build
 import android.os.Bundle
-import android.text.TextPaint
 import android.util.Log
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.nbc__neomarket.databinding.ActivityDetailBinding
 import com.example.nbc__neomarket.data.Item
 import com.example.nbc__neomarket.data.ItemDataSource
 import com.example.nbc__neomarket.data.User
 import com.example.nbc__neomarket.data.UserDataSource
+import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
+    private var item: Item? = null
+    private var user: User? = null
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,24 +30,18 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //상품 데이터 생성
-        val item : Item? by lazy {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra("item", Item::class.java)
-            } else {
-                intent.getParcelableExtra<Item>("item")
-            }
-        }
-
-        //사용자 데이터 생성
+        //데이터 생성
+        item = intent.getParcelableExtra("item")
         val userData = UserDataSource.getUserDataSource().getUserList()
-        val thisUser = userData.find { it.userId == item!!.seller }
+        user = userData.find { it.userId == item!!.seller }
 
         //화면에 그리기
-        initialize(item, thisUser)
+        initialize()
 
         //좋아요 처리
-        doLike(item)
+        binding.ivHeartDetail.setOnClickListener {
+            toggleLike()
+        }
 
         //백버튼
         binding.ivBack.setOnClickListener {
@@ -58,39 +49,21 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    //좋아요
-    private fun doLike(item: Item?) {
-        binding.ivHeartDetail.setOnClickListener {
-            //아이콘 변경 및 데이터 변경
-            if (item!!.isLike) {
-                ItemDataSource.getDataSource().downLike(item.id)
-                binding.ivHeartDetail.setImageResource(R.drawable.ic_heart_empty)
-            } else {
-                ItemDataSource.getDataSource().upLike(item.id)
-                binding.ivHeartDetail.setImageResource(R.drawable.ic_heart_full)
-            }
-
-            //메시지 표시
-
-
-
-        }
-    }
-
-    private fun initialize(item: Item?, thisUser: User?) {
+    //화면 요소에 데이터 적용
+    private fun initialize() {
         binding.ivItemDetail.setImageResource(item!!.image)
         binding.ivSellerDetail.setImageResource(R.drawable.ic_user)
-        binding.tvNameDetail.text = item.seller
-        binding.tvAdressDetail.text = item.address
-        binding.tvTitleDetail.text = item.title
-        binding.tvDescriptionDetail.text = item.description
-        binding.tvPriceDetail.text = DecimalFormat("#,###원").format(item.price)
+        binding.tvNameDetail.text = item!!.seller
+        binding.tvAdressDetail.text = item!!.address
+        binding.tvTitleDetail.text = item!!.title
+        binding.tvDescriptionDetail.text = item!!.description
+        binding.tvPriceDetail.text = DecimalFormat("#,###원").format(item!!.price)
         binding.tvMannerDetail.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
-        binding.tvTemperatureDetail.text = thisUser!!.userTemperature.toString()
+        binding.tvTemperatureDetail.text = user!!.userTemperature.toString()
         var temperatureFace = ""
         var temperatureColor = 0
-        when (thisUser.userTemperature) {
+        when (user!!.userTemperature) {
             in 0.0 .. 12.5 -> {
                 temperatureFace = "😠"
                 temperatureColor = R.color.manner_gray
@@ -124,10 +97,29 @@ class DetailActivity : AppCompatActivity() {
 
         binding.tvTemperatureDetail.setTextColor(this.getColor(temperatureColor))
 
-        if (item.isLike) {
+        updateLike()
+    }
+
+    //좋아요 아이콘 변경
+    private fun updateLike() {
+        if (item!!.isLike) {
             binding.ivHeartDetail.setImageResource(R.drawable.ic_heart_full)
         } else {
             binding.ivHeartDetail.setImageResource(R.drawable.ic_heart_empty)
         }
+    }
+
+    //좋아요 데이터 변경
+    private fun toggleLike() {
+        if (item!!.isLike) {
+            Log.d("여기는 디테일", item!!.isLike.toString())
+            ItemDataSource.getDataSource().downLike(item!!.id)
+        } else {
+            Log.d("여기는 디테일", item!!.isLike.toString())
+            ItemDataSource.getDataSource().upLike(item!!.id)
+            Snackbar.make(binding.root, "관심 목록에 추가되었습니다.", Snackbar.LENGTH_SHORT).show()
+        }
+        item!!.isLike = !item!!.isLike
+        updateLike()
     }
 }

@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nbc__neomarket.databinding.ItemBinding
 import com.example.nbc__neomarket.data.Item
-import com.example.nbc__neomarket.data.ItemDataSource
 import java.text.DecimalFormat
 
 class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
