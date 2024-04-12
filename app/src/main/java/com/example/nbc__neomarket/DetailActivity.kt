@@ -1,5 +1,7 @@
 package com.example.nbc__neomarket
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Shader
@@ -14,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.nbc__neomarket.databinding.ActivityDetailBinding
 import com.example.nbc__neomarket.data.Item
+import com.example.nbc__neomarket.data.ItemDataSource
+import com.example.nbc__neomarket.data.User
 import com.example.nbc__neomarket.data.UserDataSource
 import java.text.DecimalFormat
 
@@ -29,7 +33,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //상품 데이터
+        //상품 데이터 생성
         val item : Item? by lazy {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getParcelableExtra("item", Item::class.java)
@@ -38,19 +42,49 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        //사용자 데이터
+        //사용자 데이터 생성
         val userData = UserDataSource.getUserDataSource().getUserList()
         val thisUser = userData.find { it.userId == item!!.seller }
-        Log.d("여기는 디테일액티비티", thisUser.toString())
 
         //화면에 그리기
+        initialize(item, thisUser)
+
+        //좋아요 처리
+        doLike(item)
+
+        //백버튼
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    //좋아요
+    private fun doLike(item: Item?) {
+        binding.ivHeartDetail.setOnClickListener {
+            //아이콘 변경 및 데이터 변경
+            if (item!!.isLike) {
+                ItemDataSource.getDataSource().downLike(item.id)
+                binding.ivHeartDetail.setImageResource(R.drawable.ic_heart_empty)
+            } else {
+                ItemDataSource.getDataSource().upLike(item.id)
+                binding.ivHeartDetail.setImageResource(R.drawable.ic_heart_full)
+            }
+
+            //메시지 표시
+
+
+
+        }
+    }
+
+    private fun initialize(item: Item?, thisUser: User?) {
         binding.ivItemDetail.setImageResource(item!!.image)
         binding.ivSellerDetail.setImageResource(R.drawable.ic_user)
-        binding.tvNameDetail.text = item!!.seller
-        binding.tvAdressDetail.text = item!!.address
-        binding.tvTitleDetail.text = item!!.title
-        binding.tvDescriptionDetail.text = item!!.description
-        binding.tvPriceDetail.text = DecimalFormat("#,###원").format(item!!.price)
+        binding.tvNameDetail.text = item.seller
+        binding.tvAdressDetail.text = item.address
+        binding.tvTitleDetail.text = item.title
+        binding.tvDescriptionDetail.text = item.description
+        binding.tvPriceDetail.text = DecimalFormat("#,###원").format(item.price)
         binding.tvMannerDetail.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         binding.tvTemperatureDetail.text = thisUser!!.userTemperature.toString()
@@ -90,27 +124,10 @@ class DetailActivity : AppCompatActivity() {
 
         binding.tvTemperatureDetail.setTextColor(this.getColor(temperatureColor))
 
-        binding.ivBack.setOnClickListener {
-            finish()
+        if (item.isLike) {
+            binding.ivHeartDetail.setImageResource(R.drawable.ic_heart_full)
+        } else {
+            binding.ivHeartDetail.setImageResource(R.drawable.ic_heart_empty)
         }
-    }
-
-    private fun setRainbowColor(textView: TextView) {
-        val colors = intArrayOf(
-            ContextCompat.getColor(textView.context, R.color.manner_gray),
-            ContextCompat.getColor(textView.context, R.color.manner_blue),
-            ContextCompat.getColor(textView.context, R.color.manner_sky),
-            ContextCompat.getColor(textView.context, R.color.manner_green),
-            ContextCompat.getColor(textView.context, R.color.manner_yellow),
-            ContextCompat.getColor(textView.context, R.color.manner_orange),
-        )
-
-        val textPaint: TextPaint = textView.paint
-        val shader = LinearGradient(
-            0f, 0f, textView.width.toFloat(), textView.height.toFloat(), colors, null, Shader.TileMode.CLAMP
-        )
-
-        textPaint.shader = shader
-        textView.invalidate()
     }
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nbc__neomarket.databinding.ItemBinding
 import com.example.nbc__neomarket.data.Item
+import com.example.nbc__neomarket.data.ItemDataSource
 import java.text.DecimalFormat
 
 class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
@@ -55,6 +56,12 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
             binding.tvPrice.text = DecimalFormat("#,###원").format(item.price)
             binding.tvChat.text = item.chat.toString()
             binding.tvLike.text = item.like.toString()
+
+            if (item.isLike) {
+                binding.ivHeart.setImageResource(R.drawable.ic_heart_full)
+            } else {
+                binding.ivHeart.setImageResource(R.drawable.ic_heart_empty)
+            }
         }
     }
 }

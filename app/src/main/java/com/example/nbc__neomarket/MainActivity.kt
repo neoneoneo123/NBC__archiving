@@ -18,9 +18,9 @@ import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nbc__neomarket.data.Item
 import com.example.nbc__neomarket.databinding.ActivityMainBinding
 import com.example.nbc__neomarket.data.ItemDataSource
-import javax.sql.DataSource
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,29 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //recyclerView
-        val adapter = ItemAdapter(data)
-        val decoration = DividerItemDecoration(this, LinearLayout.VERTICAL)
-        binding.rvList.addItemDecoration(decoration)
-        binding.rvList.adapter = adapter
-        binding.rvList.layoutManager = LinearLayoutManager(this)
-
-        //아이템 클릭하여 디테일 페이지 이동
-        adapter.itemClick = object : ItemAdapter.ItemClick {
-            override fun onClick(view: View, position: Int) {
-                val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                intent.putExtra("item", data[position])
-                startActivity(intent)
-            }
-        }
-
-        //아이템 롱클릭
-        adapter.itemLongClick = object  : ItemAdapter.ItemLongClick {
-            override fun onLongClick(view: View, position: Int) {
-                itemDeleteCheck(position)
-            }
-        }
 
         //스크롤 버튼
         binding.rvList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
@@ -88,6 +65,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setRecyclerView(data)
+    }
+
+    private fun setRecyclerView(data: List<Item>) {
+        val adapter = ItemAdapter(data)
+        val decoration = DividerItemDecoration(this, LinearLayout.VERTICAL)
+        binding.rvList.addItemDecoration(decoration)
+        binding.rvList.adapter = adapter
+        binding.rvList.layoutManager = LinearLayoutManager(this)
+
+        //아이템 클릭하여 디테일 페이지 이동
+        adapter.itemClick = object : ItemAdapter.ItemClick {
+            override fun onClick(view: View, position: Int) {
+                val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                intent.putExtra("item", data[position])
+                startActivity(intent)
+            }
+        }
+
+        //아이템 롱클릭
+        adapter.itemLongClick = object  : ItemAdapter.ItemLongClick {
+            override fun onLongClick(view: View, position: Int) {
+                itemDeleteCheck(position)
+            }
+        }
+    }
+
     //아이템 삭제 다이얼로그
     private fun itemDeleteCheck(position: Int) {
         val builder = AlertDialog.Builder(this)
@@ -107,7 +113,6 @@ class MainActivity : AppCompatActivity() {
 
         builder.show()
     }
-
 
     //알림
     private fun makeNotification() {
@@ -156,22 +161,4 @@ class MainActivity : AppCompatActivity() {
 
         builder.show()
     }
-
-
-    //    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//
-//        if (requestCode == 99) {
-//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                //Toast.makeText(this, "승인", Toast.LENGTH_SHORT).show()
-//            }
-//            else {
-//                //Toast.makeText(this, "승인 안됨", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
 }

@@ -13,7 +13,8 @@ fun itemList() : List<Item> {
             1000,
             "서울 서대문구 창천동",
             13,
-            25
+            25,
+            false
         ),
         Item(
             "2",
@@ -24,7 +25,8 @@ fun itemList() : List<Item> {
             20000,
             "인천 계양구 귤현동",
             8,
-            28
+            28,
+            false
         ),
         Item(
             "3",
@@ -35,7 +37,8 @@ fun itemList() : List<Item> {
             10000,
             "수성구 범어동",
             23,
-            5
+            5,
+            false
         ),
         Item(
             "4",
@@ -46,7 +49,8 @@ fun itemList() : List<Item> {
             10000,
             "해운대구 우제2동",
             14,
-            17
+            17,
+            false
         ),
         Item(
             "5",
@@ -57,7 +61,8 @@ fun itemList() : List<Item> {
             150000,
             "연제구 연산제8동",
             22,
-            9
+            9,
+            false
         ),
         Item(
             "6",
@@ -68,7 +73,8 @@ fun itemList() : List<Item> {
             50000,
             "수원시 영통구 원천동",
             25,
-            16
+            16,
+            false
         ),
         Item(
             "7",
@@ -79,7 +85,8 @@ fun itemList() : List<Item> {
             150000,
             "서울 서대문구 창천동",
             142,
-            54
+            54,
+            false
         ),
         Item(
             "8",
@@ -90,7 +97,8 @@ fun itemList() : List<Item> {
             180000,
             "동래구 온천제2동",
             31,
-            7
+            7,
+            false
         ),
         Item(
             "9",
@@ -101,7 +109,8 @@ fun itemList() : List<Item> {
             30000,
             "서울 서대문구 창천동",
             7,
-            28
+            28,
+            false
         ),
         Item(
             "10",
@@ -112,7 +121,8 @@ fun itemList() : List<Item> {
             190000,
             "중구 동화동",
             40,
-            6
+            6,
+            false
         )
     )
 }

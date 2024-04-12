@@ -80,11 +80,11 @@
         android:textColor="@color/text_gray"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_like"
-        app:layout_constraintEnd_toStartOf="@+id/imageview2"
+        app:layout_constraintEnd_toStartOf="@+id/iv_heart"
         app:layout_constraintTop_toTopOf="@+id/tv_like" />
 
     <ImageView
-        android:id="@+id/imageview2"
+        android:id="@+id/iv_heart"
         android:layout_width="15sp"
         android:layout_height="15sp"
         android:layout_marginEnd="4dp"

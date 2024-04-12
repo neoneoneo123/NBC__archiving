@@ -12,6 +12,7 @@ data class Item (
     val seller: String,
     val price: Int,
     val address: String,
-    val like: Int,
+    var like: Int,
     val chat: Int,
+    var isLike: Boolean,
 ) : Parcelable

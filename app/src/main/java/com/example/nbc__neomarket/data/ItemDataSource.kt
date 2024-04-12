@@ -21,4 +21,14 @@ class ItemDataSource {
     fun removeItem(id: String) {
         itemList.removeAll { it.id == id }
     }
+
+    fun upLike(id: String) {
+        itemList.find { it.id == id }!!.like++
+        itemList.find { it.id == id }!!.isLike = true
+    }
+
+    fun downLike(id: String) {
+        itemList.find { it.id == id }!!.like--
+        itemList.find { it.id == id }!!.isLike = false
+    }
 }
