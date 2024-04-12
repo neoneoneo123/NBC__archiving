@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text_black">#212124</color>
+    <color name="text_gray">#868B94</color>
+    <color name="text_green">#029587</color>
+    <color name="text_orange">#FF6F0F</color>
+    <color name="line_gray">#D8DADE</color>
+    <color name="manner_gray">#868b94</color>
+    <color name="manner_blue">#0277b2</color>
+    <color name="manner_sky">#10a2ec</color>
+    <color name="manner_green">#2fc795</color>
+    <color name="manner_yellow">#f7be68</color>
+    <color name="manner_orange">#fe6e1d</color>
 </resources>

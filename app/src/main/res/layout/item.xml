@@ -30,7 +30,7 @@
         android:fontFamily="@font/pretendard_regular"
         android:maxLines="2"
         android:text="제품명제품명제품명제품명제품명제품명"
-        android:textColor="#212124"
+        android:textColor="@color/text_black"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/iv_item"
         app:layout_constraintTop_toTopOf="@+id/iv_item" />
@@ -42,7 +42,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/pretendard_regular"
         android:text="주소주소주소주소주소주소주소"
-        android:textColor="#868B94"
+        android:textColor="@color/text_gray"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
@@ -54,7 +54,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/pretendard_extra_bold"
         android:text="가격가격가격가격가격가격가격가격"
-        android:textColor="#212124"
+        android:textColor="@color/text_black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/tv_adress"
         app:layout_constraintTop_toBottomOf="@+id/tv_adress" />
@@ -77,7 +77,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/pretendard_regular"
         android:text="16"
-        android:textColor="#868B94"
+        android:textColor="@color/text_gray"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_like"
         app:layout_constraintEnd_toStartOf="@+id/imageview2"
@@ -101,7 +101,7 @@
         android:layout_marginBottom="2dp"
         android:fontFamily="@font/pretendard_regular"
         android:text="25"
-        android:textColor="#868B94"
+        android:textColor="@color/text_gray"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

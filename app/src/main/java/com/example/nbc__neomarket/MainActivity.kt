@@ -6,35 +6,26 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
-import android.media.AudioAttributes
-import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.nbc__neomarket.databinding.ActivityMainBinding
-import com.example.nbc__neomarket.itemData.DataSource
-import com.google.android.material.snackbar.Snackbar
+import com.example.nbc__neomarket.data.ItemDataSource
+import javax.sql.DataSource
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val data = ItemDataSource.getDataSource().getItemList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,23 +35,47 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //recyclerView
-        val data = DataSource.getDataSource().getItemList()
         val adapter = ItemAdapter(data)
         val decoration = DividerItemDecoration(this, LinearLayout.VERTICAL)
         binding.rvList.addItemDecoration(decoration)
         binding.rvList.adapter = adapter
         binding.rvList.layoutManager = LinearLayoutManager(this)
 
-        //아이템 클릭
+        //아이템 클릭하여 디테일 페이지 이동
         adapter.itemClick = object : ItemAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
-                val title: String = data[position].title
                 val intent = Intent(this@MainActivity, DetailActivity::class.java)
                 intent.putExtra("item", data[position])
-                intent.putExtra("title", title)
                 startActivity(intent)
             }
         }
+
+        //아이템 롱클릭
+        adapter.itemLongClick = object  : ItemAdapter.ItemLongClick {
+            override fun onLongClick(view: View, position: Int) {
+                itemDeleteCheck(position)
+            }
+        }
+
+        //스크롤 버튼
+        binding.rvList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val firstPosition = layoutManager.findFirstVisibleItemPosition()
+
+                if (firstPosition > 0) {
+                    binding.fbScroll.show()
+                } else {
+                    binding.fbScroll.hide()
+                }
+            }
+        })
+        binding.fbScroll.setOnClickListener {
+            binding.rvList.smoothScrollToPosition(0)
+        }
+
 
         //알림 권한 요청
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -73,23 +88,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//
-//        if (requestCode == 99) {
-//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                //Toast.makeText(this, "승인", Toast.LENGTH_SHORT).show()
-//            }
-//            else {
-//                //Toast.makeText(this, "승인 안됨", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
+    //아이템 삭제 다이얼로그
+    private fun itemDeleteCheck(position: Int) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("상품 삭제")
+        builder.setMessage("상품을 정말로 삭제하시겠습니까?")
+        builder.setIcon(R.drawable.ic_chat)
 
+        builder.setPositiveButton("확인") { dialogInterface: DialogInterface, i: Int ->
+            val thisId = data[position].id
+            ItemDataSource.getDataSource().removeItem(thisId)
+            binding.rvList.adapter?.notifyDataSetChanged()
+            Toast.makeText(this@MainActivity, "상품이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("취소") { dialogInterface: DialogInterface, i: Int ->
+            dialogInterface.dismiss()
+        }
+
+        builder.show()
+    }
+
+
+    //알림
     private fun makeNotification() {
         //채널 정의
         val CHANNEL_ID = "neo_channel_id"
@@ -98,8 +118,8 @@ class MainActivity : AppCompatActivity() {
         //notification 정의
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("제목")
-            .setContentText("내용내용")
+            .setContentTitle("키워드 알림")
+            .setContentText("설정한 키워드에 대한 알림이 도착했습니다!!")
 
         //notification 생성
         val notificationManger =
@@ -122,8 +142,8 @@ class MainActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("키워드 알림")
-        builder.setMessage("설정한 키워드에 대한 알림이 도착했습니다.")
+        builder.setTitle("종료")
+        builder.setMessage("정말 종료하시겠습니까?")
         builder.setIcon(R.drawable.ic_chat)
 
         builder.setPositiveButton("확인") { dialogInterface: DialogInterface, i: Int ->
@@ -136,4 +156,22 @@ class MainActivity : AppCompatActivity() {
 
         builder.show()
     }
+
+
+    //    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//
+//        if (requestCode == 99) {
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                //Toast.makeText(this, "승인", Toast.LENGTH_SHORT).show()
+//            }
+//            else {
+//                //Toast.makeText(this, "승인 안됨", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
 }

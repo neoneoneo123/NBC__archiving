@@ -1,4 +1,4 @@
-package com.example.nbc__neomarket.itemData
+package com.example.nbc__neomarket.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

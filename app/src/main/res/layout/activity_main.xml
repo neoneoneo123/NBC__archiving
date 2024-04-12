@@ -15,6 +15,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/pretendard_bold"
         android:text="내배캠동"
+        android:textColor="@color/text_black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +40,6 @@
         app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/item"
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -48,8 +48,27 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/item" />
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_scroll"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_arrow_to_top"
+        app:backgroundTint="@color/line_gray"
+        app:rippleColor="@color/text_orange"
+        app:borderWidth="1dp"
+        app:elevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/FabShape"
+        app:useCompatPadding="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>

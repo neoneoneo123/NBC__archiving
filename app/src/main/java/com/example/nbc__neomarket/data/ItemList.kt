@@ -1,9 +1,9 @@
-package com.example.nbc__neomarket.itemData
+package com.example.nbc__neomarket.data
 
 import com.example.nbc__neomarket.R
 
 fun itemList() : List<Item> {
-    return listOf(
+    return mutableListOf(
         Item(
             "1",
             R.drawable.sample1,
@@ -85,7 +85,7 @@ fun itemList() : List<Item> {
             "8",
             R.drawable.sample8,
             "샤넬 탑핸들 가방",
-            "샤넬 트랜디 CC 탑핸들 스몰 램스킨 블랙 금장 플랩백 !\n + \"\n\" + \"색상 : 블랙\n\" + \"사이즈 : 25.5cm * 17.5cm * 8cm\n\" + \"구성 : 본품더스트\n\" + \"\n\" + \"급하게 돈이 필요해서 팝니다 ㅠ ㅠ",
+            "샤넬 트랜디 CC 탑핸들 스몰 램스킨 블랙 금장 플랩백 !\n색상 : 블랙\n사이즈 : 25.5cm * 17.5cm * 8cm\n구성 : 본품더스트\n\n급하게 돈이 필요해서 팝니다 ㅠ ㅠ",
             "난쉽",
             180000,
             "동래구 온천제2동",
@@ -96,7 +96,7 @@ fun itemList() : List<Item> {
             "9",
             R.drawable.sample9,
             "4행정 엔진분무기 판매합니다.",
-            "3년전에 사서 한번 사용하고 그대로 둔 상태입니다. 요즘 사용은 안해봤습니다. 그래서 저렴하게 내 놓습니다. 중고라 반품은 어렵습니다.\n",
+            "3년전에 사서 한번 사용하고 그대로 둔 상태입니다. 요즘 사용은 안해봤습니다. 그래서 저렴하게 내 놓습니다. 중고라 반품은 어렵습니다.",
             "알뜰한",
             30000,
             "서울 서대문구 창천동",
@@ -107,7 +107,7 @@ fun itemList() : List<Item> {
             "10",
             R.drawable.sample10,
             "셀린느 버킷 가방",
-            "22년 신세계 대전 구매입니당\\n + \"셀린느 버킷백\\n\" + \"구매해서 몇번사용했어요\\n\" + \"까짐 스크래치 없습니다.\\n\" + \"타지역에서 보내는거라 택배로 진행합니당!\"",
+            "22년 신세계 대전 구매입니당\n셀린느 버킷백\n구매해서 몇번사용했어요\n까짐 스크래치 없습니다.\n타지역에서 보내는거라 택배로 진행합니당!",
             "똑태현",
             190000,
             "중구 동화동",
