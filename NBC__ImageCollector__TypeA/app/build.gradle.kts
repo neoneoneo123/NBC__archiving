@@ -58,4 +58,6 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
     implementation("com.github.skydoves:powerspinner:1.2.7")
+
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 }
