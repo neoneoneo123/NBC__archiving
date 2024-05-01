@@ -1,5 +1,5 @@
 package com.example.nbc__imagecollector__typea
-
+//KakaoAK 8677a42abc5b052fb04aea5a157212bc
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
