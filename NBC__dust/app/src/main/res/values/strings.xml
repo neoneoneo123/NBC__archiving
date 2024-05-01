@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">NBC__dust</string>
 
-    <string-array name="Sido">
+    <string-array name="sido">
         <item>전국</item>
         <item>서울</item>
         <item>부산</item>

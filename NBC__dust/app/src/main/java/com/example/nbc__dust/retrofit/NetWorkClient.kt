@@ -1,6 +1,8 @@
 package com.example.nbc__dust.retrofit
 
+import android.os.Build
 import android.util.Config
+import com.google.gson.internal.GsonBuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 object NetWorkClient {
 
-    private const val DUST_BASE_URL = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/"
+    private const val DUST_BASE_URL = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc"
 
     /**
      *http 통신 역할 함수
