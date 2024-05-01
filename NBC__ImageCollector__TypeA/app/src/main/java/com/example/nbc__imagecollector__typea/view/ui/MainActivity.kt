@@ -1,19 +1,15 @@
-package com.example.nbc__imagecollector__typea
+package com.example.nbc__imagecollector__typea.view.ui
 //KakaoAK 8677a42abc5b052fb04aea5a157212bc
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
-import com.example.nbc__imagecollector__typea.data.KakaoDocuments
+import com.example.nbc__imagecollector__typea.R
+import com.example.nbc__imagecollector__typea.service.model.KakaoDocuments
 import com.example.nbc__imagecollector__typea.databinding.ActivityMainBinding
-import com.example.nbc__imagecollector__typea.network.NetWorkClient
-import com.example.nbc__imagecollector__typea.presentation.ImageSearchFragment
-import com.example.nbc__imagecollector__typea.presentation.MyBoxFragment
-import com.example.nbc__imagecollector__typea.presentation.ViewPagerAdapter
+import com.example.nbc__imagecollector__typea.service.repository.NetWorkClient
+import com.example.nbc__imagecollector__typea.view.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
 

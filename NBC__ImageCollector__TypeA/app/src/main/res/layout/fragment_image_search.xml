@@ -5,7 +5,7 @@
     android:id="@+id/cl_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ImageSearchFragment">
+    tools:context=".view.ui.ImageSearchFragment">
 
     <EditText
         android:id="@+id/etv_search"

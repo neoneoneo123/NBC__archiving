@@ -1,4 +1,4 @@
-package com.example.nbc__imagecollector__typea.presentation
+package com.example.nbc__imagecollector__typea.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
