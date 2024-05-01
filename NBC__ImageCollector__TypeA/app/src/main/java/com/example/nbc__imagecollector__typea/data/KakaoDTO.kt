@@ -2,11 +2,11 @@ package com.example.nbc__imagecollector__typea.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Kakao(val response: KakaoResponse)
+data class Kakao(val response: KakaoResponse<Any?>)
 
-data class KakaoResponse(
+data class KakaoResponse<T>(
     @SerializedName("documents")
-    val kakaoDocuments: KakaoDocuments,
+    val kakaoDocuments: MutableList<T>,
     @SerializedName("meta")
     val kakaoMeta: KakaoMeta,
 )
@@ -14,16 +14,16 @@ data class KakaoResponse(
 data class KakaoDocuments(
     val collection: String,
     val datetime: String,
-    val display_sitename: String,
-    val doc_url: String,
+    val displaySitename: String,
+    val docUrl: String,
     val height: Int,
-    val image_url: String,
-    val thumbnail_url: String,
+    val imageUrl: String,
+    val thumbnailUrl: String,
     val width: Int,
 )
 
 data class KakaoMeta(
-    val isend: Boolean,
+    val isEnd: Boolean,
     val pageableCount: Int,
     val totalCount: Int,
 )

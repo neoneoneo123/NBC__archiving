@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 object NetWorkClient {
 
-    private const val KAKAO_BASE_URL = "https://dapi.kakao.com/v2/search/image"
+    private const val KAKAO_BASE_URL = "https://dapi.kakao.com/"
 
     private fun createOkHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()

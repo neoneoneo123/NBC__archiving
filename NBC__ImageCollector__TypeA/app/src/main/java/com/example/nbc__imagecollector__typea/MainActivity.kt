@@ -1,16 +1,21 @@
 package com.example.nbc__imagecollector__typea
 //KakaoAK 8677a42abc5b052fb04aea5a157212bc
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import com.example.nbc__imagecollector__typea.data.KakaoDocuments
 import com.example.nbc__imagecollector__typea.databinding.ActivityMainBinding
+import com.example.nbc__imagecollector__typea.network.NetWorkClient
 import com.example.nbc__imagecollector__typea.presentation.ImageSearchFragment
 import com.example.nbc__imagecollector__typea.presentation.MyBoxFragment
 import com.example.nbc__imagecollector__typea.presentation.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,11 +23,14 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    var items = mutableListOf<KakaoDocuments>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         initViewPager()
+        communicateNetWork()
     }
 
     private fun initViewPager() {
@@ -49,5 +57,15 @@ class MainActivity : AppCompatActivity() {
                 1 -> tab.text = (R.string.my_box).toString()
             }
         }.attach()
+    }
+
+    private fun communicateNetWork() = lifecycleScope.launch {
+        val responseData = NetWorkClient.kakaoNetWork.getImage(
+            "아이브",
+            "accuracy",
+            1,
+            10
+        )
+        Log.d("Parsing Kakao ::", responseData.toString())
     }
 }
