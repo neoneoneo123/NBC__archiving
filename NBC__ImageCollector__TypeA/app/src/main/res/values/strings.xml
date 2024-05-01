@@ -2,6 +2,7 @@
     <string name="app_name">NBC__ImageCollector__TypeA</string>
     <string name="image_search">이미지 검색</string>
     <string name="my_box">내 보관함</string>
+    <string name="search">검색</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
