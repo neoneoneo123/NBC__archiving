@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.nbc__dust"
+    namespace = "com.example.nbc__dust2"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.nbc__dust"
+        applicationId = "com.example.nbc__dust2"
         minSdk = 33
         targetSdk = 34
         versionCode = 1
@@ -50,10 +50,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.github.skydoves:powerspinner:1.2.7")
+
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+    implementation("com.github.skydoves:powerspinner:1.2.7")
 }
