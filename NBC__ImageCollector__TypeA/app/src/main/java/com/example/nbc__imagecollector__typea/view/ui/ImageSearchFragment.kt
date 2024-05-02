@@ -79,8 +79,6 @@ class ImageSearchFragment : Fragment() {
     }
 
     private fun selectImage(item: KakaoDocuments) {
-
-        //이미 DB에 들어있으면 delete
         val check = viewModel.getSearchItemCheck(item.thumbnail_url, requireContext())
 
         Log.d("fragment", check.toString())

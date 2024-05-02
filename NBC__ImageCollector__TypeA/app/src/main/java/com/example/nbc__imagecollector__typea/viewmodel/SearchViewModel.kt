@@ -16,6 +16,10 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
     private val _getSearchResult: MutableLiveData<List<KakaoDocuments>> = MutableLiveData()
     val getSearchResult: LiveData<List<KakaoDocuments>> get() = _getSearchResult
 
+    private val _getMyItemResult: MutableLiveData<List<KakaoDocuments>> = MutableLiveData()
+    val getMyItemResult: LiveData<List<KakaoDocuments>> get() = _getMyItemResult
+
+
     fun getImageList(query: String, sort: String, page: Int, size: Int) = viewModelScope.launch {
         _getSearchResult.value = searchRepositoryImpl.search(query, sort, page, size).kakaoDocuments
         Log.d("viewModel", getSearchResult.value.toString())
@@ -30,7 +34,12 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
     }
 
     fun getSearchItemCheck(thumbnail_url: String, context: Context) : Boolean {
-        return searchRepositoryImpl.Check(thumbnail_url, context)
+        return searchRepositoryImpl.check(thumbnail_url, context)
+    }
+
+    fun getMyItemList(context: Context) {
+        _getMyItemResult.value = searchRepositoryImpl.searchRoom(context)
+        Log.d("VM", "getMyItemList")
     }
 }
 

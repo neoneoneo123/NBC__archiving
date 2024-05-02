@@ -9,7 +9,7 @@ interface KakaoDAO {
     suspend fun insertItem(item: KakaoDocuments)
 
     @Query("SELECT * FROM archive_table")
-    fun getAllItems(): LiveData<List<KakaoDocuments>>
+    fun getAllItems(): List<KakaoDocuments>
 
     @Query("SELECT * FROM archive_table WHERE thumbnail_url = :sname")
     suspend fun getItemByName(sname: String) : List<KakaoDocuments>
