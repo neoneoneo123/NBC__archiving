@@ -19,7 +19,7 @@ class RecylcerViewAdapter(private val items: List<KakaoDocuments>) : RecyclerVie
     class RecyclerViewHolder(private val binding: ImageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: KakaoDocuments) {
             binding.apply {
-//                ivImage.setImageURI(item.thumbnailUrl.toUri())
+//                ivImage.setImageURL(item.thumbnail_url)
                 tvType.text = item.collection
                 tvDate.text = item.datetime
             }

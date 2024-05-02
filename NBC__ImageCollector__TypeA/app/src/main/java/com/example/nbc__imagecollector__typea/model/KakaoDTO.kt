@@ -1,6 +1,8 @@
 package com.example.nbc__imagecollector__typea.model
 
+import android.net.Uri
 import com.google.gson.annotations.SerializedName
+import java.net.URL
 
 data class Kakao(val response: KakaoResponse<Any?>)
 
@@ -14,11 +16,11 @@ data class KakaoResponse<T>(
 data class KakaoDocuments(
     val collection: String,
     val datetime: String,
-    val displaySitename: String,
-    val docUrl: String,
+    val display_sitename: String?,
+    val doc_url: URL?,
     val height: Int,
-    val imageUrl: String,
-    val thumbnailUrl: String,
+    val image_url: URL?,
+    val thumbnail_url: URL?,
     val width: Int,
 )
 
