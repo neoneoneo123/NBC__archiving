@@ -1,9 +1,8 @@
-package com.example.nbc__imagecollector__typea.service.repository
+package com.example.nbc__imagecollector__typea.service
 
 import com.example.nbc__imagecollector__typea.BuildConfig
-import com.example.nbc__imagecollector__typea.service.model.Kakao
-import com.example.nbc__imagecollector__typea.service.model.KakaoDocuments
-import com.example.nbc__imagecollector__typea.service.model.KakaoResponse
+import com.example.nbc__imagecollector__typea.model.KakaoDocuments
+import com.example.nbc__imagecollector__typea.model.KakaoResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,11 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
 import java.util.concurrent.TimeUnit
 
 object NetWorkClient {
-
     private const val KAKAO_BASE_URL = "https://dapi.kakao.com/"
 
     private fun createOkHttpClient(): OkHttpClient {

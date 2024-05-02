@@ -1,15 +1,19 @@
 package com.example.nbc__imagecollector__typea.view.ui
-//KakaoAK 8677a42abc5b052fb04aea5a157212bc
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.nbc__imagecollector__typea.R
-import com.example.nbc__imagecollector__typea.service.model.KakaoDocuments
+import com.example.nbc__imagecollector__typea.model.KakaoDocuments
 import com.example.nbc__imagecollector__typea.databinding.ActivityMainBinding
-import com.example.nbc__imagecollector__typea.service.repository.NetWorkClient
+import com.example.nbc__imagecollector__typea.repository.SearchRepository
+import com.example.nbc__imagecollector__typea.repository.SearchRepositoryImpl
+import com.example.nbc__imagecollector__typea.service.NetWorkClient
 import com.example.nbc__imagecollector__typea.view.adapter.ViewPagerAdapter
+import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModel
+import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
 
@@ -17,6 +21,10 @@ class MainActivity : AppCompatActivity() {
 
     private val binding : ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    private val viewModel by viewModels<SearchViewModel> {
+        SearchViewModelFactory()
     }
 
     var items = mutableListOf<KakaoDocuments>()
@@ -56,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun communicateNetWork() = lifecycleScope.launch {
-        val responseData = NetWorkClient.kakaoNetWork.getImage(
+        val responseData = viewModel.getImageList  (
             "아이브",
             "accuracy",
             1,

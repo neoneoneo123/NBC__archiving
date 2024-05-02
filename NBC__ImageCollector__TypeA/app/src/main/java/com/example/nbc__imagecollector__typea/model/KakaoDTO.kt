@@ -1,4 +1,4 @@
-package com.example.nbc__imagecollector__typea.service.model
+package com.example.nbc__imagecollector__typea.model
 
 import com.google.gson.annotations.SerializedName
 

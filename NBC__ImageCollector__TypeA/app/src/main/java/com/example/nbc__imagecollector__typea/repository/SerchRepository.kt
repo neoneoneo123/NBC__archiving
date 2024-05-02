@@ -1,7 +1,9 @@
-package com.example.nbc__imagecollector__typea.service.repository
+package com.example.nbc__imagecollector__typea.repository
 
-import com.example.nbc__imagecollector__typea.service.model.KakaoDocuments
-import com.example.nbc__imagecollector__typea.service.model.KakaoResponse
+import com.example.nbc__imagecollector__typea.model.KakaoDocuments
+import com.example.nbc__imagecollector__typea.model.KakaoResponse
+import com.example.nbc__imagecollector__typea.service.NetWorkClient
+import com.example.nbc__imagecollector__typea.service.NetWorkInterface
 
 /**
  * 쿼리에 들어갈 데이터를 view로부터 받아와야함
@@ -18,7 +20,8 @@ interface SearchRepository {
     ) : KakaoResponse<KakaoDocuments>
 }
 
-class SearchRepositoryImpl() : SearchRepository {
+class SearchRepositoryImpl(
+) : SearchRepository {
     override suspend fun search(
         query: String,
         sort: String,
