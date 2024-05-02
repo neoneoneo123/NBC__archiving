@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -68,5 +69,16 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
+
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-common:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    //optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
+    //optional - Test helpers
+    implementation("androidx.room:room-testing:$room_version")
+    annotationProcessor("android.arch.persistence.room:compiler:1.0.0")
+
 
 }

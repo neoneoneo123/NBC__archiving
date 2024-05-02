@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.nbc__imagecollector__typea.databinding.ImageItemBinding
 import com.example.nbc__imagecollector__typea.model.KakaoDocuments
 import com.example.nbc__imagecollector__typea.view.util.UtilityFormat.formatDate
+import com.example.nbc__imagecollector__typea.view.util.UtilityUrlConverter.fromString
 
 
 class RecylcerViewAdapter(private val items: List<KakaoDocuments>) : RecyclerView.Adapter<RecylcerViewAdapter.RecyclerViewHolder>() {
@@ -15,15 +16,16 @@ class RecylcerViewAdapter(private val items: List<KakaoDocuments>) : RecyclerVie
     var itemClick: ItemClick? = null
 
     interface ItemClick {
-        fun onClick(view: View, position: Int)
+        fun onClick(item: KakaoDocuments)
     }
 
     class RecyclerViewHolder(private val binding: ImageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: KakaoDocuments) {
             binding.apply {
-                Glide.with(itemView).load(item.thumbnail_url).into(binding.ivImage)
+                val url = fromString(item.thumbnail_url)
+                Glide.with(itemView).load(url).into(binding.ivImage)
                 tvType.text = item.display_sitename
-                tvDate.text = formatDate(item.datetime)
+                tvDate.text = formatDate(item.datetime!!)
             }
         }
     }
@@ -43,7 +45,7 @@ class RecylcerViewAdapter(private val items: List<KakaoDocuments>) : RecyclerVie
         holder.bind(items[position])
 
         holder.itemView.setOnClickListener {
-            itemClick?.onClick(it, position)
+            itemClick?.onClick(items[position])
         }
     }
 }
