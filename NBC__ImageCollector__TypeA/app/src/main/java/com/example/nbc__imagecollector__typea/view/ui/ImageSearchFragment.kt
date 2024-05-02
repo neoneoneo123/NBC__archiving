@@ -10,15 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nbc__imagecollector__typea.databinding.FragmentImageSearchBinding
-import com.example.nbc__imagecollector__typea.model.KakaoDAO
-import com.example.nbc__imagecollector__typea.model.KakaoDatabase
 import com.example.nbc__imagecollector__typea.model.KakaoDocuments
 import com.example.nbc__imagecollector__typea.view.adapter.RecylcerViewAdapter
 import com.example.nbc__imagecollector__typea.view.util.UtilityKeyboard.hideKeyboard
 import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModel
 import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ImageSearchFragment : Fragment() {
@@ -84,8 +80,15 @@ class ImageSearchFragment : Fragment() {
 
     private fun selectImage(item: KakaoDocuments) {
 
-        //뷰모델에 선택된 아이템 전달
-        viewModel.getSelectecItem(item, requireContext())
+        //이미 DB에 들어있으면 delete
+        val check = viewModel.getSearchItemCheck(item.thumbnail_url, requireContext())
 
+        Log.d("fragment", check.toString())
+        if (check) {
+
+            viewModel.getDeletedTargetItem(item, requireContext())
+        } else {
+            viewModel.getSeletedItem(item, requireContext())
+        }
     }
 }

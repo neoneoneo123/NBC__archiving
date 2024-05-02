@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.nbc__imagecollector__typea.model.KakaoDocuments
-import com.example.nbc__imagecollector__typea.repository.SearchRepository
 import com.example.nbc__imagecollector__typea.repository.SearchRepositoryImpl
 import kotlinx.coroutines.launch
 
@@ -22,8 +21,16 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
         Log.d("viewModel", getSearchResult.value.toString())
     }
 
-    fun getSelectecItem(item: KakaoDocuments, context: Context) {
+    fun getSeletedItem(item: KakaoDocuments, context: Context) {
         searchRepositoryImpl.insert(item, context)
+    }
+
+    fun getDeletedTargetItem(item: KakaoDocuments, context: Context) {
+        searchRepositoryImpl.delete(item, context)
+    }
+
+    fun getSearchItemCheck(thumbnail_url: String, context: Context) : Boolean {
+        return searchRepositoryImpl.Check(thumbnail_url, context)
     }
 }
 
