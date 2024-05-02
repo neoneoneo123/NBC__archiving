@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.nbc__imagecollector__typea.databinding.ImageItemBinding
 import com.example.nbc__imagecollector__typea.model.KakaoDocuments
 
@@ -19,7 +20,7 @@ class RecylcerViewAdapter(private val items: List<KakaoDocuments>) : RecyclerVie
     class RecyclerViewHolder(private val binding: ImageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: KakaoDocuments) {
             binding.apply {
-//                ivImage.setImageURL(item.thumbnail_url)
+                Glide.with(itemView).load(item.thumbnail_url).into(binding.ivImage)
                 tvType.text = item.collection
                 tvDate.text = item.datetime
             }
