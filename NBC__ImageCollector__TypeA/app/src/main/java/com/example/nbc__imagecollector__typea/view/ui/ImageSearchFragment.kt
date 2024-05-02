@@ -67,7 +67,7 @@ class ImageSearchFragment : Fragment() {
             targetText,
             "accuracy",
             1,
-            10
+            80
         )
     }
 
