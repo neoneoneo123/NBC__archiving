@@ -30,8 +30,6 @@ class ImageSearchFragment : Fragment() {
         SearchViewModelFactory()
     }
 
-    lateinit var kakaoDao: KakaoDAO
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,12 +83,9 @@ class ImageSearchFragment : Fragment() {
     }
 
     private fun selectImage(item: KakaoDocuments) {
-        kakaoDao = KakaoDatabase.getDatabase(requireContext()).getKakaoDao()
 
         //뷰모델에 선택된 아이템 전달
+        viewModel.getSelectecItem(item, requireContext())
 
-        CoroutineScope(Dispatchers.IO).launch {
-            kakaoDao.insertItem(item)
-        }
     }
 }

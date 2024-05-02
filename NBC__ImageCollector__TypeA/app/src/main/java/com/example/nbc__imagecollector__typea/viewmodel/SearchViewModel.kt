@@ -1,5 +1,6 @@
 package com.example.nbc__imagecollector__typea.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,6 +20,10 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
     fun getImageList(query: String, sort: String, page: Int, size: Int) = viewModelScope.launch {
         _getSearchResult.value = searchRepositoryImpl.search(query, sort, page, size).kakaoDocuments
         Log.d("viewModel", getSearchResult.value.toString())
+    }
+
+    fun getSelectecItem(item: KakaoDocuments, context: Context) {
+        searchRepositoryImpl.insert(item, context)
     }
 }
 
