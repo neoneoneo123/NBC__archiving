@@ -1,5 +1,6 @@
 package com.example.nbc__imagecollector__typea.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,18 +11,15 @@ import com.example.nbc__imagecollector__typea.repository.SearchRepository
 import com.example.nbc__imagecollector__typea.repository.SearchRepositoryImpl
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val searchRepository: SearchRepository) : ViewModel() {
+class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : ViewModel() {
 
     private val _getSearchResult: MutableLiveData<List<KakaoDocuments>> = MutableLiveData()
     val getSearchResult: LiveData<List<KakaoDocuments>> get() = _getSearchResult
 
-    fun getImageList(query: String,
-                     sort: String,
-                     page: Int,
-                     size: Int) = viewModelScope.launch {
-        _getSearchResult.value = searchRepository.search(query, sort, page, size).kakaoDocuments
+    fun getImageList(query: String, sort: String, page: Int, size: Int) = viewModelScope.launch {
+        _getSearchResult.value = searchRepositoryImpl.search(query, sort, page, size).kakaoDocuments
+        Log.d("viewModel", getSearchResult.value.toString())
     }
-
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {

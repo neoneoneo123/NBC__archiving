@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         initViewPager()
         communicateNetWork()
+        searchImage()
     }
 
     private fun initViewPager() {
@@ -64,12 +65,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun communicateNetWork() = lifecycleScope.launch {
-        val responseData = viewModel.getImageList  (
+        viewModel.getImageList  (
             "아이브",
             "accuracy",
             1,
             10
         )
-        Log.d("Parsing Kakao ::", responseData.toString())
+    }
+
+    private fun searchImage() {
+
+        viewModel.getSearchResult.observe(this) {
+            Log.d("Parsing Kakao ::", it.toString())
+
+        }
     }
 }
