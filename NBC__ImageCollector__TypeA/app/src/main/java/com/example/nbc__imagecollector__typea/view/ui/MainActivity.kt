@@ -23,24 +23,16 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val viewModel by viewModels<SearchViewModel> {
-        SearchViewModelFactory()
-    }
-
-    var items = mutableListOf<KakaoDocuments>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         initViewPager()
-        communicateNetWork()
-        searchImage()
     }
 
     private fun initViewPager() {
         //ViewPager2 adapter
-        var viewPagerAdapter = ViewPagerAdapter(this)
+        val viewPagerAdapter = ViewPagerAdapter(this)
         viewPagerAdapter.addFragment(ImageSearchFragment())
         viewPagerAdapter.addFragment(MyBoxFragment())
 
@@ -62,22 +54,5 @@ class MainActivity : AppCompatActivity() {
                 1 -> tab.text = (R.string.my_box).toString()
             }
         }.attach()
-    }
-
-    private fun communicateNetWork() = lifecycleScope.launch {
-        viewModel.getImageList  (
-            "아이브",
-            "accuracy",
-            1,
-            10
-        )
-    }
-
-    private fun searchImage() {
-
-        viewModel.getSearchResult.observe(this) {
-            Log.d("Parsing Kakao ::", it.toString())
-
-        }
     }
 }
