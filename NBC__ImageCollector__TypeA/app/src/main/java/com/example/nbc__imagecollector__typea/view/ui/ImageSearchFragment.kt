@@ -1,17 +1,21 @@
 package com.example.nbc__imagecollector__typea.view.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nbc__imagecollector__typea.databinding.FragmentImageSearchBinding
 import com.example.nbc__imagecollector__typea.model.KakaoDocuments
 import com.example.nbc__imagecollector__typea.view.adapter.RecylcerViewAdapter
+import com.example.nbc__imagecollector__typea.view.util.UtilityKeyboard.hideKeyboard
 import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModel
 import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModelFactory
 import kotlinx.coroutines.launch
@@ -40,21 +44,27 @@ class ImageSearchFragment : Fragment() {
     }
 
     private fun searchImage() {
-        communicateNetWork()
+
+        //검색어 받아와서 쿼리로 넘겨야함
+        binding.btnSearch.setOnClickListener {
+
+            this.hideKeyboard()
+
+            val targetText = binding.etvSearch.text.toString()
+            communicateNetWork(targetText)
+        }
 
         viewModel.getSearchResult.observe(requireActivity()) {
             Log.d("Parsing Kakao ::", it.toString())
-            var items = it
+            val items = it
 
             makeView(items)
         }
-
-
     }
 
-    private fun communicateNetWork() = lifecycleScope.launch {
+    private fun communicateNetWork(targetText: String) = lifecycleScope.launch {
         viewModel.getImageList  (
-            "아이브",
+            targetText,
             "accuracy",
             1,
             10
