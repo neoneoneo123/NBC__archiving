@@ -3,11 +3,12 @@ package com.example.nbc__imagecollector__typea.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nbc__imagecollector__typea.databinding.ImageItemBinding
 import com.example.nbc__imagecollector__typea.model.KakaoDocuments
+import com.example.nbc__imagecollector__typea.view.util.UtilityFormat.formatDate
+
 
 class RecylcerViewAdapter(private val items: List<KakaoDocuments>) : RecyclerView.Adapter<RecylcerViewAdapter.RecyclerViewHolder>() {
 
@@ -21,8 +22,8 @@ class RecylcerViewAdapter(private val items: List<KakaoDocuments>) : RecyclerVie
         fun bind(item: KakaoDocuments) {
             binding.apply {
                 Glide.with(itemView).load(item.thumbnail_url).into(binding.ivImage)
-                tvType.text = item.collection
-                tvDate.text = item.datetime
+                tvType.text = item.display_sitename
+                tvDate.text = formatDate(item.datetime)
             }
         }
     }
