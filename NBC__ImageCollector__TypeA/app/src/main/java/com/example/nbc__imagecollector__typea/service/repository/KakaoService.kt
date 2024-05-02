@@ -45,8 +45,6 @@ object NetWorkClient {
 }
 
 interface NetWorkInterface {
-    suspend fun getKakao(@QueryMap param: HashMap<String, String>) : Kakao
-
     @Headers("Authorization: KakaoAK 8677a42abc5b052fb04aea5a157212bc")
     @GET("v2/search/image")
     suspend fun getImage(
