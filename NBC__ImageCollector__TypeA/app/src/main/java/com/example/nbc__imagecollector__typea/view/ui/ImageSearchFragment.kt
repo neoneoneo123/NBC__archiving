@@ -68,7 +68,7 @@ class ImageSearchFragment : Fragment() {
             targetText,
             "accuracy",
             1,
-            80
+            10
         )
     }
 
@@ -78,7 +78,7 @@ class ImageSearchFragment : Fragment() {
         binding.rvSearch.layoutManager = GridLayoutManager(requireContext(), 2)
 
         adapter.itemClick = object : RecylcerViewAdapter.ItemClick {
-            override fun onClick(item: KakaoDocuments) {
+            override fun onClick(view: View, item: KakaoDocuments) {
                 selectImage(item)
             }
         }
@@ -86,6 +86,8 @@ class ImageSearchFragment : Fragment() {
 
     private fun selectImage(item: KakaoDocuments) {
         kakaoDao = KakaoDatabase.getDatabase(requireContext()).getKakaoDao()
+
+        //뷰모델에 선택된 아이템 전달
 
         CoroutineScope(Dispatchers.IO).launch {
             kakaoDao.insertItem(item)
