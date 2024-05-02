@@ -13,6 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nbc__imagecollector__typea.databinding.FragmentImageSearchBinding
+import com.example.nbc__imagecollector__typea.model.KakaoDAO
+import com.example.nbc__imagecollector__typea.model.KakaoDatabase
 import com.example.nbc__imagecollector__typea.model.KakaoDocuments
 import com.example.nbc__imagecollector__typea.view.adapter.RecylcerViewAdapter
 import com.example.nbc__imagecollector__typea.view.util.UtilityKeyboard.hideKeyboard
@@ -29,11 +31,16 @@ class ImageSearchFragment : Fragment() {
         SearchViewModelFactory()
     }
 
+    lateinit var kakaoDao: KakaoDAO
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentImageSearchBinding.inflate(inflater, container, false)
+
+        kakaoDao = KakaoDatabase.getDatabase(requireContext()).getKakaoDao()
+
         return binding.root
     }
 
@@ -44,8 +51,6 @@ class ImageSearchFragment : Fragment() {
     }
 
     private fun searchImage() {
-
-        //검색어 받아와서 쿼리로 넘겨야함
         binding.btnSearch.setOnClickListener {
 
             this.hideKeyboard()
