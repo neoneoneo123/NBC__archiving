@@ -46,6 +46,12 @@ class ImageSearchFragment : Fragment() {
         loadTextData()
     }
 
+    /**
+     * 검색 버튼 클릭 시 발생하는 행위들이 정의된 함수입니다.
+     * - Shared Preferences에 데이터 저장
+     * - keyboard 숨김
+     * - 검색어를 사용하여 API와 통신
+     */
     private fun searchImage() {
         binding.btnSearch.setOnClickListener {
             shareEditTextData(binding.etvSearch.text.toString())
@@ -57,6 +63,9 @@ class ImageSearchFragment : Fragment() {
         }
     }
 
+    /**
+     * 검색어가 처리되었을 때 Shared Preferences에 데이터를 저장하는 함수입니다.
+     */
     private fun shareEditTextData(text: String) {
         viewModel.setInputText(text)
 
@@ -68,6 +77,9 @@ class ImageSearchFragment : Fragment() {
         }
     }
 
+    /**
+     * API 통신을 위해 viewModel로 데이터를 전달하는 함수입니다.
+     */
     private fun communicateNetWork(targetText: String) = lifecycleScope.launch {
         viewModel.getImageList  (
             targetText,
@@ -77,6 +89,9 @@ class ImageSearchFragment : Fragment() {
         )
     }
 
+    /**
+     * RecyclerView를 그리는 함수입니다.
+     */
     private fun makeView() {
         viewModel.getSearchResult.observe(viewLifecycleOwner) {
             adapter.setRecyclerViewItems(it)
@@ -97,6 +112,9 @@ class ImageSearchFragment : Fragment() {
         }
     }
 
+    /**
+     * 이미지 선택 시 Room DB 상 데이터 추가/삭제를 위해 viewModel에 요청하는 함수입니다.
+     */
     private fun selectImage(item: KakaoDocuments) {
         val check = viewModel.getSearchItemCheck(item.thumbnail_url, requireContext())
         if (check) {
@@ -106,6 +124,9 @@ class ImageSearchFragment : Fragment() {
         }
     }
 
+    /**
+     * Shared Preferences에 저장되어 있는 마지막 검색어를 표시하는 함수입니다.
+     */
     private fun loadTextData() {
         val preferences = this.activity?.getSharedPreferences("pref", 0)
         val text = preferences?.getString("input", "")

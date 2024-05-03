@@ -39,6 +39,9 @@ class MyBoxFragment : Fragment() {
         makeView()
     }
 
+    /**
+     * RecyclerView를 그리는 함수입니다.
+     */
     private fun makeView() {
         viewModel.getMyItemList(requireContext())
         viewModel.getMyItemResult.observe(viewLifecycleOwner) {
@@ -55,6 +58,9 @@ class MyBoxFragment : Fragment() {
         }
     }
 
+    /**
+     * 이미지 선택 시 Room DB 상 데이터 추가/삭제를 위해 viewModel에 요청하는 함수입니다.
+     */
     private fun selectImage(item: KakaoDocuments) {
         val check = viewModel.getSearchItemCheck(item.thumbnail_url, requireContext())
 

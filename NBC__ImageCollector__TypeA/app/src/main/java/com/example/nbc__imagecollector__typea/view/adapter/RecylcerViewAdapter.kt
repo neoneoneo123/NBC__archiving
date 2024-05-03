@@ -22,12 +22,18 @@ class RecylcerViewAdapter(
 
     var itemClick: ItemClick? = null
 
+    /**
+     * RecyclerView에 들어갈 항목을 받아오는 함수입니다.
+     */
     fun setRecyclerViewItems(items: List<KakaoDocuments>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
     }
 
+    /**
+     * mark 표시를 하기 위해 Room DB상에 존재하는 항목들을 받아오는 함수입니다.
+     */
     fun getRoomItems(roomItems: List<KakaoDocuments>) {
         this.roomItems.clear()
         this.roomItems.addAll(roomItems)

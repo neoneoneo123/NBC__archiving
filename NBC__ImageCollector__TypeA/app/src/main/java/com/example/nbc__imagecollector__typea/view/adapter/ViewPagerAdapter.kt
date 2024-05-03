@@ -13,6 +13,9 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapte
         return fragments[position]
     }
 
+    /**
+     * ViewPager에 사용할 fragment를 추가하는 함수입니다.
+     */
     fun addFragment(fragment: Fragment) {
         fragments.add(fragment)
         notifyItemInserted(fragments.size - 1)

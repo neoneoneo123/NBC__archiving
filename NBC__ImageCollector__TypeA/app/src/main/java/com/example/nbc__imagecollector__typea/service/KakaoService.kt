@@ -12,6 +12,9 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
+/**
+ * Retrofit을 사용하여 API와 통신하는 역할을 하는 object입니다.
+ */
 object NetWorkClient {
     private const val KAKAO_BASE_URL = "https://dapi.kakao.com/"
 
@@ -41,6 +44,9 @@ object NetWorkClient {
     val kakaoNetWork: NetWorkInterface = kakaoRetrofit.create(NetWorkInterface::class.java)
 }
 
+/**
+ * 통신 시 사용하게 되는 key와 query의 형태를 정의한 interface입니다.
+ */
 interface NetWorkInterface {
     @Headers("Authorization: KakaoAK 8677a42abc5b052fb04aea5a157212bc")
     @GET("v2/search/image")

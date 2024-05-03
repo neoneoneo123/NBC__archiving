@@ -21,10 +21,17 @@ interface SearchRepository {
 }
 
 class SearchRepositoryImpl : SearchRepository {
+
+    /**
+     * API를 통해 데이터를 검색하여 받아오는 함수입니다.
+     */
     override suspend fun search(query: String, sort: String, page: Int, size: Int): KakaoResponse<KakaoDocuments> {
         return NetWorkClient.kakaoNetWork.getImage(query, sort, page, size)
     }
 
+    /**
+     * Room에 데이터를 추가하는 함수입니다.
+     */
     override fun insert(item: KakaoDocuments, context: Context) {
         val kakaoDao = KakaoDatabase.getDatabase(context).getKakaoDao()
 
@@ -33,6 +40,9 @@ class SearchRepositoryImpl : SearchRepository {
         }
     }
 
+    /**
+     * Room에서 데이터를 삭제하는 함수입니다.
+     */
     override fun delete(item: KakaoDocuments, context: Context) {
         val kakaoDao = KakaoDatabase.getDatabase(context).getKakaoDao()
 
@@ -41,6 +51,9 @@ class SearchRepositoryImpl : SearchRepository {
         }
     }
 
+    /**
+     * Room에 특정 데이터가 있는지 확인하여 true/false로 반환하는 함수입니다.
+     */
     override fun check(thumbnail_url: String, context: Context) : Boolean {
         val kakaoDao = KakaoDatabase.getDatabase(context).getKakaoDao()
 
@@ -54,6 +67,9 @@ class SearchRepositoryImpl : SearchRepository {
         }
     }
 
+    /**
+     * Room 데이터 전체를 가져와 반환하는 함수입니다.
+     */
     override fun searchRoom(context: Context): Flow<List<KakaoDocuments>> {
         val kakaoDao = KakaoDatabase.getDatabase(context).getKakaoDao()
 

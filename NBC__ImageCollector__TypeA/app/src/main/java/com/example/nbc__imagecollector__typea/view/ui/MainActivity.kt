@@ -21,13 +21,15 @@ class MainActivity : AppCompatActivity() {
         initViewPager()
     }
 
+    /**
+     * ViewPager, TabLayout을 그리는 함수입니다.
+     */
     private fun initViewPager() {
         //ViewPager2 adapter
         val viewPagerAdapter = ViewPagerAdapter(this)
         viewPagerAdapter.addFragment(ImageSearchFragment())
         viewPagerAdapter.addFragment(MyBoxFragment())
 
-        //adapter 연결
         binding.viewPager.apply {
             adapter = viewPagerAdapter
 
@@ -38,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-        //ViewPager, TabLayout 연결
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = getString(R.string.image_search)

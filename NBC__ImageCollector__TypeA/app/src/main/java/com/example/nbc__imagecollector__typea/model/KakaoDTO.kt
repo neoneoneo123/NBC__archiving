@@ -5,7 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class Kakao(val response: KakaoResponse<Any?>)
+/**
+ * API를 통해 받아오는 데이터 항목들을 정의한 data class입니다.
+ */
+
 
 data class KakaoResponse<T>(
     @SerializedName("documents")
@@ -14,6 +17,10 @@ data class KakaoResponse<T>(
     val kakaoMeta: KakaoMeta,
 )
 
+/**
+ * 받아오는 데이터 중 핵심이 되는 항목들을 정의한 data class입니다.
+ * null이 아니면서 고유값을 가지게 되는 thumbnail_url을 PrimaryKey로 사용합니다.
+ */
 @Entity(tableName = "archive_table")
 data class KakaoDocuments(
     val collection: String?,

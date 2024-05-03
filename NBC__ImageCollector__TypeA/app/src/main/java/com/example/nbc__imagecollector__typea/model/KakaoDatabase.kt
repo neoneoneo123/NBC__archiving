@@ -5,6 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+/**
+ * Room Database에 접근하기 위한 INSTANCE를 생성합니다.
+ */
 @Database(entities = [KakaoDocuments::class],
     exportSchema = false,
     version = 1
