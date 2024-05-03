@@ -12,31 +12,33 @@ import com.example.nbc__imagecollector__typea.view.util.UtilityFormat.formatDate
 import com.example.nbc__imagecollector__typea.view.util.UtilityUrlConverter.fromString
 
 
-class RecylcerViewAdapter(private val items: List<KakaoDocuments>) : RecyclerView.Adapter<RecylcerViewAdapter.RecyclerViewHolder>() {
+class RecylcerViewAdapter(
+    fragments: String,
+) : RecyclerView.Adapter<RecylcerViewAdapter.RecyclerViewHolder>() {
 
-    private val TAG = "adapter"
+    private val IMAGE_SEARCH_FRAGMENT = "ImageSearchFragment"
+    private val MY_BOX_FRAGMENT = "MyBoxFragment"
+    private val fragment = fragments
 
-    private lateinit var thisBinding: ImageItemBinding
-    private var selectedItemPosition: Int = RecyclerView.NO_POSITION
+    private var roomItems: MutableList<KakaoDocuments> = mutableListOf()
+    private var items: MutableList<KakaoDocuments> = mutableListOf()
 
     var itemClick: ItemClick? = null
 
-    interface ItemClick {
-        fun onClick(view: View, item: KakaoDocuments)
+    fun searchItems(items: List<KakaoDocuments>) {
+        this.items.clear()
+        this.items.addAll(items)
+        notifyDataSetChanged()
     }
 
-    inner class RecyclerViewHolder(private val binding: ImageItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: KakaoDocuments) {
-            thisBinding = binding
-            binding.apply {
-                val url = fromString(item.thumbnail_url)
-                Glide.with(itemView).load(url).into(binding.ivImage)
-                tvType.text = item.display_sitename
-                tvDate.text = formatDate(item.datetime!!)
+    fun getRoomItems(roomItems: List<KakaoDocuments>) {
+        Log.d("adapter", "room item에 변경이 있는 것 같아서 초기화합니다.")
+        this.roomItems.clear()
+        this.roomItems.addAll(roomItems)
+    }
 
-                //DB에 있으면 visible해야하고, DB에 없으면 invisible 해야함
-            }
-        }
+    interface ItemClick {
+        fun onClick(view: View, item: KakaoDocuments)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
@@ -54,9 +56,31 @@ class RecylcerViewAdapter(private val items: List<KakaoDocuments>) : RecyclerVie
         holder.bind(items[position])
 
         holder.itemView.setOnClickListener {
-
-            Log.d(TAG, "${position}번째 아이템이 눌림")
             itemClick?.onClick(it, items[position])
+            notifyItemChanged(position)
+        }
+    }
+
+    inner class RecyclerViewHolder(private val binding: ImageItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: KakaoDocuments) {
+            binding.apply {
+                val url = fromString(item.thumbnail_url)
+                Glide.with(itemView).load(url).into(binding.ivImage)
+                tvType.text = item.display_sitename
+                tvDate.text = formatDate(item.datetime!!)
+
+                if (fragment == IMAGE_SEARCH_FRAGMENT) {
+                    roomItems.find { it.thumbnail_url == item.thumbnail_url }?.let {
+                        Log.d("adapter", "roomItems에 있다.")
+                        ivMark.visibility = View.VISIBLE
+                    } ?: run {
+                        Log.d("adapter", "roomItems에 없네.")
+                        ivMark.visibility = View.INVISIBLE
+                    }
+                }
+            }
         }
     }
 }

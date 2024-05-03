@@ -19,6 +19,8 @@ import kotlinx.coroutines.launch
 
 class ImageSearchFragment : Fragment() {
 
+    private val TAG = "ImageSearchFragment"
+
     private var _binding: FragmentImageSearchBinding? = null
     private val binding get() = _binding!!
 
@@ -26,18 +28,28 @@ class ImageSearchFragment : Fragment() {
         SearchViewModelFactory()
     }
 
+    private val adapter = RecylcerViewAdapter(TAG)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d(TAG, "onCreateView")
         _binding = FragmentImageSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "onViewCreated")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume")
 
         searchImage()
+        makeView()
     }
 
     private fun searchImage() {
@@ -47,13 +59,6 @@ class ImageSearchFragment : Fragment() {
 
             val targetText = binding.etvSearch.text.toString()
             communicateNetWork(targetText)
-        }
-
-        viewModel.getSearchResult.observe(requireActivity()) {
-            Log.d("Parsing Kakao ::", it.toString())
-            val items = it
-
-            makeView(items)
         }
     }
 
@@ -66,8 +71,18 @@ class ImageSearchFragment : Fragment() {
         )
     }
 
-    private fun makeView(items: List<KakaoDocuments>) {
-        val adapter = RecylcerViewAdapter(items)
+    private fun makeView() {
+        viewModel.getSearchResult.observe(viewLifecycleOwner) {
+            Log.d("Parsing Kakao ::", it.toString())
+            adapter.searchItems(it)
+        }
+
+        viewModel.getMyItemList(requireContext())
+        viewModel.getMyItemResult.observe(requireActivity()) {
+            Log.d("1frag", "DB데이터에 변화가 감지되었습니당.")
+            adapter.getRoomItems(it)
+        }
+
         binding.rvSearch.adapter = adapter
         binding.rvSearch.layoutManager = GridLayoutManager(requireContext(), 2)
 
@@ -83,10 +98,11 @@ class ImageSearchFragment : Fragment() {
 
         Log.d("fragment", check.toString())
         if (check) {
-
-            viewModel.getDeletedTargetItem(item, requireContext())
+            Log.d("fragment", "보관함에서 지워주세요.")
+            viewModel.deletedItem(item, requireContext())
         } else {
-            viewModel.getSeletedItem(item, requireContext())
+            Log.d("fragment", "보관함에 추가해주세요.")
+            viewModel.insertItem(item, requireContext())
         }
     }
 }

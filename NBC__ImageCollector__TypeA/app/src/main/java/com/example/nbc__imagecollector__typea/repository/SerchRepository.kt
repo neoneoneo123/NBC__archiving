@@ -10,6 +10,8 @@ import com.example.nbc__imagecollector__typea.service.NetWorkClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -24,7 +26,7 @@ interface SearchRepository {
     fun insert(item: KakaoDocuments, context: Context)
     fun delete(item: KakaoDocuments, context: Context)
     fun check(thumbnail_url: String, context: Context) : Boolean
-    fun searchRoom(context: Context) : List<KakaoDocuments>
+    fun searchRoom(context: Context) : Flow<List<KakaoDocuments>>
 }
 
 class SearchRepositoryImpl : SearchRepository {
@@ -33,7 +35,7 @@ class SearchRepositoryImpl : SearchRepository {
     }
 
     override fun insert(item: KakaoDocuments, context: Context) {
-
+        Log.d("repo", "보관함에 추가니다.")
         val kakaoDao = KakaoDatabase.getDatabase(context).getKakaoDao()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -42,6 +44,7 @@ class SearchRepositoryImpl : SearchRepository {
     }
 
     override fun delete(item: KakaoDocuments, context: Context) {
+        Log.d("repo", "보관함에서 지웁니다.")
 
         val kakaoDao = KakaoDatabase.getDatabase(context).getKakaoDao()
 
@@ -63,15 +66,9 @@ class SearchRepositoryImpl : SearchRepository {
         }
     }
 
-    override fun searchRoom(context: Context): List<KakaoDocuments> {
+    override fun searchRoom(context: Context): Flow<List<KakaoDocuments>> {
         val kakaoDao = KakaoDatabase.getDatabase(context).getKakaoDao()
 
-        val itemList = CoroutineScope(Dispatchers.IO).async {
-            kakaoDao.getAllItems()
-        }
-
-        return runBlocking {
-            itemList.await()
-        }
+        return kakaoDao.getAllItems()
     }
 }

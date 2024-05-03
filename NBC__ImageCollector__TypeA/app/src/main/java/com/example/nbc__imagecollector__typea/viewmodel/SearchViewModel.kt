@@ -25,11 +25,11 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
         Log.d("viewModel", getSearchResult.value.toString())
     }
 
-    fun getSeletedItem(item: KakaoDocuments, context: Context) {
+    fun insertItem(item: KakaoDocuments, context: Context) {
         searchRepositoryImpl.insert(item, context)
     }
 
-    fun getDeletedTargetItem(item: KakaoDocuments, context: Context) {
+    fun deletedItem(item: KakaoDocuments, context: Context) {
         searchRepositoryImpl.delete(item, context)
     }
 
@@ -38,8 +38,13 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
     }
 
     fun getMyItemList(context: Context) {
-        _getMyItemResult.value = searchRepositoryImpl.searchRoom(context)
-        Log.d("VM", "getMyItemList")
+        Log.d("viewModel", "DB에 있는 데이터를 LiveData에 넣습니다.")
+        viewModelScope.launch {
+            searchRepositoryImpl.searchRoom(context).collect { items ->
+                _getMyItemResult.value = items
+            }
+        }
+        Log.d("viewModel", "${getMyItemResult.value}")
     }
 }
 

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nbc__imagecollector__typea.databinding.FragmentMyBoxBinding
 import com.example.nbc__imagecollector__typea.model.KakaoDocuments
@@ -18,12 +17,16 @@ import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModelFactory
 
 class MyBoxFragment : Fragment() {
 
+    private val TAG = "MyBoxFragment"
+
     private var _binding: FragmentMyBoxBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
     }
+
+    private val adapter = RecylcerViewAdapter(TAG)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,20 +39,21 @@ class MyBoxFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("my", "onViewCreated")
-
-        viewModel.getMyItemList(requireContext())
-
-        if (viewModel.getMyItemResult.value?.isNotEmpty() == true) {
-            viewModel.getMyItemResult.observe(viewLifecycleOwner) {
-                val items = it
-
-                makeView(items)
-            }
-        }
     }
 
-    private fun makeView(items: List<KakaoDocuments>) {
-        val adapter = RecylcerViewAdapter(items)
+    override fun onResume() {
+        super.onResume()
+        makeView()
+    }
+
+    private fun makeView() {
+        viewModel.getMyItemList(requireContext())
+        if (viewModel.getMyItemResult.value?.isNotEmpty() == true) {
+            viewModel.getMyItemResult.observe(requireActivity()) {
+                adapter.searchItems(it)
+            }
+        }
+
         binding.rvBox.adapter = adapter
         binding.rvBox.layoutManager = GridLayoutManager(requireContext(), 2)
 
@@ -65,9 +69,9 @@ class MyBoxFragment : Fragment() {
 
         Log.d("myBox", check.toString())
         if (check) {
-            viewModel.getDeletedTargetItem(item, requireContext())
+            viewModel.deletedItem(item, requireContext())
         } else {
-            viewModel.getSeletedItem(item, requireContext())
+            viewModel.insertItem(item, requireContext())
         }
     }
 }
