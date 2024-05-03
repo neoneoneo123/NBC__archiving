@@ -1,14 +1,12 @@
 package com.example.nbc__imagecollector__typea.view.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nbc__imagecollector__typea.databinding.FragmentImageSearchBinding
@@ -26,8 +24,8 @@ class ImageSearchFragment : Fragment() {
     private var _binding: FragmentImageSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<SearchViewModel> {
-        SearchViewModelFactory()
+    private val viewModel: SearchViewModel by viewModels({ requireActivity() }) {
+        SearchViewModelFactory.newInstance()
     }
 
     private val adapter = RecylcerViewAdapter(TAG)
@@ -40,8 +38,8 @@ class ImageSearchFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         searchImage()
         makeView()
@@ -62,8 +60,7 @@ class ImageSearchFragment : Fragment() {
     private fun shareEditTextData(text: String) {
         viewModel.setInputText(text)
 
-        viewModel.getInputText.observe(this) {
-            Log.d("shared", it.toString())
+        viewModel.getInputText.observe(viewLifecycleOwner) {
             val preferences = this.activity?.getSharedPreferences("pref", 0)
             val edit = preferences?.edit()
             edit?.putString("input", it)
@@ -82,11 +79,11 @@ class ImageSearchFragment : Fragment() {
 
     private fun makeView() {
         viewModel.getSearchResult.observe(viewLifecycleOwner) {
-            adapter.searchItems(it)
+            adapter.setRecyclerViewItems(it)
         }
 
         viewModel.getMyItemList(requireContext())
-        viewModel.getMyItemResult.observe(requireActivity()) {
+        viewModel.getMyItemResult.observe(viewLifecycleOwner) {
             adapter.getRoomItems(it)
         }
 
@@ -111,8 +108,7 @@ class ImageSearchFragment : Fragment() {
 
     private fun loadTextData() {
         val preferences = this.activity?.getSharedPreferences("pref", 0)
-        val text = preferences?.getString("input", "왜 저장 안됨")
-        Log.d("shared", "불러올 때 text 상태 : ${text}")
+        val text = preferences?.getString("input", "")
 
         binding.etvSearch.setText(text)
     }

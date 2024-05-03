@@ -22,8 +22,8 @@ class MyBoxFragment : Fragment() {
     private var _binding: FragmentMyBoxBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<SearchViewModel> {
-        SearchViewModelFactory()
+    private val viewModel: SearchViewModel by viewModels({ requireActivity() }) {
+        SearchViewModelFactory.newInstance()
     }
 
     private val adapter = RecylcerViewAdapter(TAG)
@@ -38,20 +38,14 @@ class MyBoxFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("my", "onViewCreated")
-    }
-
-    override fun onResume() {
-        super.onResume()
         makeView()
     }
 
     private fun makeView() {
         viewModel.getMyItemList(requireContext())
-        if (viewModel.getMyItemResult.value?.isNotEmpty() == true) {
-            viewModel.getMyItemResult.observe(requireActivity()) {
-                adapter.searchItems(it)
-            }
+        viewModel.getMyItemResult.observe(viewLifecycleOwner) {
+            Log.d("frag_my", "observe init")
+            adapter.setRecyclerViewItems(it)
         }
 
         binding.rvBox.adapter = adapter

@@ -25,14 +25,13 @@ class RecylcerViewAdapter(
 
     var itemClick: ItemClick? = null
 
-    fun searchItems(items: List<KakaoDocuments>) {
+    fun setRecyclerViewItems(items: List<KakaoDocuments>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
     }
 
     fun getRoomItems(roomItems: List<KakaoDocuments>) {
-        Log.d("adapter", "room item에 변경이 있는 것 같아서 초기화합니다.")
         this.roomItems.clear()
         this.roomItems.addAll(roomItems)
     }

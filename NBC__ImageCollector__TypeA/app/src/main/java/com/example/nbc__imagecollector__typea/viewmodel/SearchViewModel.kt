@@ -2,6 +2,7 @@ package com.example.nbc__imagecollector__typea.viewmodel
 
 import android.content.Context
 import android.util.Log
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,6 +44,7 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
         viewModelScope.launch {
             searchRepositoryImpl.searchRoom(context).collect { items ->
                 _getMyItemResult.value = items
+                Log.d("viewModel", items.toString())
             }
         }
     }
@@ -51,14 +53,23 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
         _getInputText.value = text
         Log.d("shared", "텍스트 설정 : ${getInputText.value}")
     }
-
 }
+
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
 
-    private val repository = SearchRepositoryImpl()
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return SearchViewModel(repository) as T
+    companion object {
+        private val repository = SearchRepositoryImpl()
+        fun newInstance(): ViewModelProvider.Factory {
+            return object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
+                        @Suppress("UNCHECKED_CASE")
+                        return SearchViewModel(repository) as T
+                    }
+                    throw IllegalArgumentException("Unknown ViewModel class")
+                }
+            }
+        }
     }
 }
