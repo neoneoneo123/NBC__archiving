@@ -1,6 +1,8 @@
 package com.example.nbc__imagecollector__typea.view.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,31 +36,38 @@ class ImageSearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d(TAG, "onCreateView")
         _binding = FragmentImageSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated")
-    }
-
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "onResume")
 
         searchImage()
         makeView()
+        loadTextData()
     }
 
     private fun searchImage() {
         binding.btnSearch.setOnClickListener {
+            shareEditTextData(binding.etvSearch.text.toString())
 
             this.hideKeyboard()
 
             val targetText = binding.etvSearch.text.toString()
             communicateNetWork(targetText)
+        }
+    }
+
+    private fun shareEditTextData(text: String) {
+        viewModel.setInputText(text)
+
+        viewModel.getInputText.observe(this) {
+            Log.d("shared", it.toString())
+            val preferences = this.activity?.getSharedPreferences("pref", 0)
+            val edit = preferences?.edit()
+            edit?.putString("input", it)
+            edit?.apply()
         }
     }
 
@@ -73,13 +82,11 @@ class ImageSearchFragment : Fragment() {
 
     private fun makeView() {
         viewModel.getSearchResult.observe(viewLifecycleOwner) {
-            Log.d("Parsing Kakao ::", it.toString())
             adapter.searchItems(it)
         }
 
         viewModel.getMyItemList(requireContext())
         viewModel.getMyItemResult.observe(requireActivity()) {
-            Log.d("1frag", "DB데이터에 변화가 감지되었습니당.")
             adapter.getRoomItems(it)
         }
 
@@ -95,14 +102,18 @@ class ImageSearchFragment : Fragment() {
 
     private fun selectImage(item: KakaoDocuments) {
         val check = viewModel.getSearchItemCheck(item.thumbnail_url, requireContext())
-
-        Log.d("fragment", check.toString())
         if (check) {
-            Log.d("fragment", "보관함에서 지워주세요.")
             viewModel.deletedItem(item, requireContext())
         } else {
-            Log.d("fragment", "보관함에 추가해주세요.")
             viewModel.insertItem(item, requireContext())
         }
+    }
+
+    private fun loadTextData() {
+        val preferences = this.activity?.getSharedPreferences("pref", 0)
+        val text = preferences?.getString("input", "왜 저장 안됨")
+        Log.d("shared", "불러올 때 text 상태 : ${text}")
+
+        binding.etvSearch.setText(text)
     }
 }

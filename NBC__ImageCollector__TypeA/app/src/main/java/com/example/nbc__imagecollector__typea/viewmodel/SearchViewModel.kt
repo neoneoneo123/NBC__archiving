@@ -19,10 +19,12 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
     private val _getMyItemResult: MutableLiveData<List<KakaoDocuments>> = MutableLiveData()
     val getMyItemResult: LiveData<List<KakaoDocuments>> get() = _getMyItemResult
 
+    private val _getInputText: MutableLiveData<String> = MutableLiveData()
+    val getInputText : LiveData<String> get() = _getInputText
+
 
     fun getImageList(query: String, sort: String, page: Int, size: Int) = viewModelScope.launch {
         _getSearchResult.value = searchRepositoryImpl.search(query, sort, page, size).kakaoDocuments
-        Log.d("viewModel", getSearchResult.value.toString())
     }
 
     fun insertItem(item: KakaoDocuments, context: Context) {
@@ -38,14 +40,18 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
     }
 
     fun getMyItemList(context: Context) {
-        Log.d("viewModel", "DB에 있는 데이터를 LiveData에 넣습니다.")
         viewModelScope.launch {
             searchRepositoryImpl.searchRoom(context).collect { items ->
                 _getMyItemResult.value = items
             }
         }
-        Log.d("viewModel", "${getMyItemResult.value}")
     }
+
+    fun setInputText(text: String) {
+        _getInputText.value = text
+        Log.d("shared", "텍스트 설정 : ${getInputText.value}")
+    }
+
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
