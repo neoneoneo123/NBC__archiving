@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
         //ViewPager, TabLayout 연결
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = (R.string.image_search).toString()
-                1 -> tab.text = (R.string.my_box).toString()
+                0 -> tab.text = getString(R.string.image_search)
+                1 -> tab.text = getString(R.string.my_box)
             }
         }.attach()
     }
