@@ -1,14 +1,10 @@
 package com.example.nbc__imagecollector__typea.view.ui
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.nbc__imagecollector__typea.R
 import com.example.nbc__imagecollector__typea.databinding.ActivityMainBinding
 import com.example.nbc__imagecollector__typea.view.adapter.ViewPagerAdapter
-import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModel
-import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
@@ -48,29 +44,5 @@ class MainActivity : AppCompatActivity() {
                 1 -> tab.text = (R.string.my_box).toString()
             }
         }.attach()
-    }
-
-
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("shared", "onResume")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("shared", "onRestart")
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("shared", "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("shared", "onStop")
-
     }
 }

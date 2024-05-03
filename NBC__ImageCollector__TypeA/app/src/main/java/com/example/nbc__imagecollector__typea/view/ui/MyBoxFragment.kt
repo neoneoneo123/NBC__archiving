@@ -1,7 +1,6 @@
 package com.example.nbc__imagecollector__typea.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +43,6 @@ class MyBoxFragment : Fragment() {
     private fun makeView() {
         viewModel.getMyItemList(requireContext())
         viewModel.getMyItemResult.observe(viewLifecycleOwner) {
-            Log.d("frag_my", "observe init")
             adapter.setRecyclerViewItems(it)
         }
 
@@ -61,7 +59,6 @@ class MyBoxFragment : Fragment() {
     private fun selectImage(item: KakaoDocuments) {
         val check = viewModel.getSearchItemCheck(item.thumbnail_url, requireContext())
 
-        Log.d("myBox", check.toString())
         if (check) {
             viewModel.deletedItem(item, requireContext())
         } else {

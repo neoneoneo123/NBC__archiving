@@ -1,8 +1,6 @@
 package com.example.nbc__imagecollector__typea.repository
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.nbc__imagecollector__typea.model.KakaoDatabase
 import com.example.nbc__imagecollector__typea.model.KakaoDocuments
 import com.example.nbc__imagecollector__typea.model.KakaoResponse
@@ -11,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -35,7 +32,6 @@ class SearchRepositoryImpl : SearchRepository {
     }
 
     override fun insert(item: KakaoDocuments, context: Context) {
-        Log.d("repo", "보관함에 추가니다.")
         val kakaoDao = KakaoDatabase.getDatabase(context).getKakaoDao()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -44,8 +40,6 @@ class SearchRepositoryImpl : SearchRepository {
     }
 
     override fun delete(item: KakaoDocuments, context: Context) {
-        Log.d("repo", "보관함에서 지웁니다.")
-
         val kakaoDao = KakaoDatabase.getDatabase(context).getKakaoDao()
 
         CoroutineScope(Dispatchers.IO).launch {

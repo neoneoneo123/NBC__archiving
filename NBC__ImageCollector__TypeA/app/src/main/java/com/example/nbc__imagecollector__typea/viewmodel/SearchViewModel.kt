@@ -1,8 +1,6 @@
 package com.example.nbc__imagecollector__typea.viewmodel
 
 import android.content.Context
-import android.util.Log
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -44,14 +42,12 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
         viewModelScope.launch {
             searchRepositoryImpl.searchRoom(context).collect { items ->
                 _getMyItemResult.value = items
-                Log.d("viewModel", items.toString())
             }
         }
     }
 
     fun setInputText(text: String) {
         _getInputText.value = text
-        Log.d("shared", "텍스트 설정 : ${getInputText.value}")
     }
 }
 

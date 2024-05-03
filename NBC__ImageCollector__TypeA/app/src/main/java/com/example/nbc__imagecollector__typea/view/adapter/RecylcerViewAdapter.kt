@@ -1,6 +1,5 @@
 package com.example.nbc__imagecollector__typea.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,10 +71,8 @@ class RecylcerViewAdapter(
 
                 if (fragment == IMAGE_SEARCH_FRAGMENT) {
                     roomItems.find { it.thumbnail_url == item.thumbnail_url }?.let {
-                        Log.d("adapter", "roomItems에 있다.")
                         ivMark.visibility = View.VISIBLE
                     } ?: run {
-                        Log.d("adapter", "roomItems에 없네.")
                         ivMark.visibility = View.INVISIBLE
                     }
                 }
