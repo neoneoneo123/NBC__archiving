@@ -51,7 +51,6 @@ class SearchViewModel(private val searchRepositoryImpl: SearchRepositoryImpl) : 
     }
 }
 
-
 class SearchViewModelFactory : ViewModelProvider.Factory {
 
     companion object {

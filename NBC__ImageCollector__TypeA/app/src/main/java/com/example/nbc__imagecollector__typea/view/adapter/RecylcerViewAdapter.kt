@@ -10,13 +10,11 @@ import com.example.nbc__imagecollector__typea.model.KakaoDocuments
 import com.example.nbc__imagecollector__typea.view.util.UtilityFormat.formatDate
 import com.example.nbc__imagecollector__typea.view.util.UtilityUrlConverter.fromString
 
-
 class RecylcerViewAdapter(
     fragments: String,
 ) : RecyclerView.Adapter<RecylcerViewAdapter.RecyclerViewHolder>() {
 
     private val IMAGE_SEARCH_FRAGMENT = "ImageSearchFragment"
-    private val MY_BOX_FRAGMENT = "MyBoxFragment"
     private val fragment = fragments
 
     private var roomItems: MutableList<KakaoDocuments> = mutableListOf()

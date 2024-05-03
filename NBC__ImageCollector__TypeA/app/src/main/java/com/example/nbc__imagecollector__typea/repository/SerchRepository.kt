@@ -12,12 +12,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-/**
- * 쿼리에 들어갈 데이터를 view로부터 받아와야함
- * API에 뭐리를 날려서 데이터를 받아와야함
- *
- */
-
 interface SearchRepository {
     suspend fun search(query: String, sort: String, page: Int, size: Int) : KakaoResponse<KakaoDocuments>
     fun insert(item: KakaoDocuments, context: Context)

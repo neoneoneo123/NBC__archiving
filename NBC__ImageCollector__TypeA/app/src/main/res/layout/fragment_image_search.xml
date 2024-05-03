@@ -21,6 +21,8 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="@string/search"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/etv_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etv_search"

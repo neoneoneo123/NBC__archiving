@@ -13,7 +13,6 @@ import com.example.nbc__imagecollector__typea.view.adapter.RecylcerViewAdapter
 import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModel
 import com.example.nbc__imagecollector__typea.viewmodel.SearchViewModelFactory
 
-
 class MyBoxFragment : Fragment() {
 
     private val TAG = "MyBoxFragment"
