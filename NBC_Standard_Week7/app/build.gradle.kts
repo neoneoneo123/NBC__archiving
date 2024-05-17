@@ -8,21 +8,17 @@ plugins {
 }
 
 android {
-    namespace = "com.standard.multiviewtyperecyclerview"
+    namespace = "com.example.nbc_standard_week7"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.standard.multiviewtyperecyclerview"
-        minSdk = 24
+        applicationId = "com.example.nbc_standard_week7"
+        minSdk = 33
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
     }
 
     buildTypes {
@@ -41,8 +37,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
+        dataBinding = true
+        buildConfig = true
     }
 }
 

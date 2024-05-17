@@ -9,21 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nbc_standard_week7.R
 import com.example.nbc_standard_week7.databinding.ItemBinding
-import com.example.nbc_standard_week7.presentation.mapper.FoodItemModel
+import com.example.nbc_standard_week7.presentation.model.FoodItem
 import com.example.nbc_standard_week7.presentation.ui.FoodItemDiffCallback
 import com.example.nbc_standard_week7.presentation.util.UtilityUrlConverter.fromString
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class FoodItemAdapter() : RecyclerView.Adapter<FoodItemAdapter.FoodItemViewHolder>() {
 
-    private var items: MutableList<FoodItemModel> = mutableListOf()
+    private var items: MutableList<FoodItem> = mutableListOf()
     private var switchChangeListener: OnSwitchChangeListener? = null
     private val diffCallback = FoodItemDiffCallback()
 
-    fun setViewItems(newItems: List<FoodItemModel>) {
+    fun setViewItems(newItems: List<FoodItem>) {
         val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
             override fun getOldListSize(): Int = items.size
             override fun getNewListSize(): Int = newItems.size
@@ -70,7 +66,7 @@ class FoodItemAdapter() : RecyclerView.Adapter<FoodItemAdapter.FoodItemViewHolde
             }
         }
 
-        fun bind(item: FoodItemModel) {
+        fun bind(item: FoodItem) {
             binding.apply {
                 tvName.text = item.name
 
@@ -87,6 +83,6 @@ class FoodItemAdapter() : RecyclerView.Adapter<FoodItemAdapter.FoodItemViewHolde
     }
 
     interface OnSwitchChangeListener {
-        fun onSwitchChanged(item: FoodItemModel, isChecked: Boolean)
+        fun onSwitchChanged(item: FoodItem, isChecked: Boolean)
     }
 }

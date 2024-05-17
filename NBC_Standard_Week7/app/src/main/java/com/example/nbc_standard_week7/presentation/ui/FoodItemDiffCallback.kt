@@ -1,14 +1,14 @@
 package com.example.nbc_standard_week7.presentation.ui
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.nbc_standard_week7.presentation.mapper.FoodItemModel
+import com.example.nbc_standard_week7.presentation.model.FoodItem
 
-class FoodItemDiffCallback : DiffUtil.ItemCallback<FoodItemModel>() {
-    override fun areItemsTheSame(oldItem: FoodItemModel, newItem: FoodItemModel): Boolean {
+class FoodItemDiffCallback : DiffUtil.ItemCallback<FoodItem>() {
+    override fun areItemsTheSame(oldItem: FoodItem, newItem: FoodItem): Boolean {
         return oldItem.image == newItem.image
     }
 
-    override fun areContentsTheSame(oldItem: FoodItemModel, newItem: FoodItemModel): Boolean {
+    override fun areContentsTheSame(oldItem: FoodItem, newItem: FoodItem): Boolean {
         return oldItem == newItem
     }
 

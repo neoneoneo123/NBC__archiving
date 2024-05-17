@@ -8,19 +8,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nbc_standard_week7.R
-import com.example.nbc_standard_week7.databinding.ItemBinding
 import com.example.nbc_standard_week7.databinding.ItemFavBinding
-import com.example.nbc_standard_week7.presentation.mapper.FoodItemModel
+import com.example.nbc_standard_week7.presentation.model.FoodItem
 import com.example.nbc_standard_week7.presentation.ui.FoodItemDiffCallback
 import com.example.nbc_standard_week7.presentation.util.UtilityUrlConverter.fromString
 
 class FavItemAdapter() : RecyclerView.Adapter<FavItemAdapter.FoodItemViewHolder>() {
 
-    private var items: MutableList<FoodItemModel> = mutableListOf()
+    private var items: MutableList<FoodItem> = mutableListOf()
     private var switchChangeListener: OnSwitchChangeListener? = null
     private val diffCallback = FoodItemDiffCallback()
 
-    fun setViewItems(newItems: List<FoodItemModel>) {
+    fun setViewItems(newItems: List<FoodItem>) {
         val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
             override fun getOldListSize(): Int = items.size
             override fun getNewListSize(): Int = newItems.size
@@ -67,7 +66,7 @@ class FavItemAdapter() : RecyclerView.Adapter<FavItemAdapter.FoodItemViewHolder>
             }
         }
 
-        fun bind(item: FoodItemModel) {
+        fun bind(item: FoodItem) {
             binding.apply {
                 tvName.text = item.name
 
@@ -84,6 +83,6 @@ class FavItemAdapter() : RecyclerView.Adapter<FavItemAdapter.FoodItemViewHolder>
     }
 
     interface OnSwitchChangeListener {
-        fun onSwitchChanged(position: FoodItemModel, isChecked: Boolean)
+        fun onSwitchChanged(position: FoodItem, isChecked: Boolean)
     }
 }

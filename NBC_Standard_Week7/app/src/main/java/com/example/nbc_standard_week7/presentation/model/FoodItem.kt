@@ -1,10 +1,10 @@
-package com.example.nbc_standard_week7.presentation.mapper
+package com.example.nbc_standard_week7.presentation.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class FoodItemModel(
+data class FoodItem(
     val name: String?,
     val image: String?,
     val nutrient: String?,

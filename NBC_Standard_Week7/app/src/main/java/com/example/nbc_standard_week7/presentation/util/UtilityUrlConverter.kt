@@ -1,6 +1,5 @@
 package com.example.nbc_standard_week7.presentation.util
 
-import androidx.room.TypeConverter
 import java.net.URL
 
 object UtilityUrlConverter {
