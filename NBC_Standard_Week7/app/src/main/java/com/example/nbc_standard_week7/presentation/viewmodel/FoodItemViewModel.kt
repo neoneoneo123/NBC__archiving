@@ -1,44 +1,36 @@
 package com.example.nbc_standard_week7.presentation.viewmodel
 
-import com.example.nbc_standard_week7.data.DTO.B553748Items
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.nbc_standard_week7.data.repository.FoodItemRepositoryImpl
-import com.example.nbc_standard_week7.presentation.model.FoodItemModel
+import com.example.nbc_standard_week7.presentation.model.FoodItem
+import com.example.nbc_standard_week7.presentation.repository.FoodItemRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class FoodItemViewModel(private val foodItemRepositoryImpl: FoodItemRepositoryImpl) : ViewModel() {
-    /**
-     * B553748 한국식품안전관리인증원_HACCP 제품이미지 및 포장지표기정보
-     */
-    private val _getB553748SearchResult: MutableLiveData<List<FoodItemModel>> = MutableLiveData()
-    val getB553748SearchResult: LiveData<List<FoodItemModel>> get() = _getB553748SearchResult
+@HiltViewModel
+class FoodItemViewModel @Inject constructor (
+    private val foodItemRepository: FoodItemRepository
+) : ViewModel() {
 
-    fun getB553748List(pageNo: Int, numOfRows:Int, prdlstNm: String) = viewModelScope.launch {
-        _getB553748SearchResult.value = foodItemRepositoryImpl.b553748Search(pageNo, numOfRows, prdlstNm)
-        Log.d("test api B553748", getB553748SearchResult.value.toString())
-    }
-}
+    private val _getFoodItemSearchResult: MutableLiveData<List<FoodItem>> = MutableLiveData()
+    val getFoodItemSearchResult: LiveData<List<FoodItem>> get() = _getFoodItemSearchResult
 
-class FoodItemViewModelFactory : ViewModelProvider.Factory {
-    companion object {
-        private val repository = FoodItemRepositoryImpl()
-
-        @Suppress("UNCHECKED_CAST")
-        fun newInstance(): ViewModelProvider.Factory {
-            return object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    if (modelClass.isAssignableFrom(FoodItemViewModel::class.java)) {
-                        return FoodItemViewModel(repository) as T
-                    }
-                    throw IllegalArgumentException("Unknown viewmodel class")
-                }
-            }
+    fun getFoodItemList(pageNo: Int, numOfRows:Int, prdlstNm: String) = viewModelScope.launch {
+        val result = withContext(Dispatchers.IO) {
+            foodItemRepository.foodSearch(pageNo, numOfRows, prdlstNm)
         }
+
+        withContext(Dispatchers.Main) {
+            _getFoodItemSearchResult.value = result
+        }
+    }
+
+    fun setFoodItemList(newList: List<FoodItem>) {
+        _getFoodItemSearchResult.value = newList
     }
 }

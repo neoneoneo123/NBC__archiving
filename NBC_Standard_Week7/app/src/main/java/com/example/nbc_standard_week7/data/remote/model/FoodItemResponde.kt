@@ -1,4 +1,4 @@
-package com.example.nbc_standard_week7.data.DTO
+package com.example.nbc_standard_week7.data.remote.model
 
 data class B553748(
     val body: B553748Body,

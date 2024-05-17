@@ -4,8 +4,9 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class FoodItemModel(
+data class FoodItem(
     val name: String?,
     val image: String?,
-    val nutrient: String?
+    val nutrient: String?,
+    var like: Boolean = false,
 ) : Parcelable
